@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PaniMusic.Core.Models
@@ -22,12 +23,14 @@ namespace PaniMusic.Core.Models
 
         public int? MusicVideoId { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public Track Track { get; set; }
 
         public Album Album { get; set; }
 
         public MusicVideo MusicVideo { get; set; }
+
+        public User User { get; set; }
     }
 }

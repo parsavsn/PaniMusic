@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PaniMusic.Core.DatabaseContext
 {
-    public class PaniMusicDbContext : IdentityDbContext
+    public class PaniMusicDbContext : IdentityDbContext<User>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

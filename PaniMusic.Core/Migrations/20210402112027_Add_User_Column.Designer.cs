@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaniMusic.Core.DatabaseContext;
 
 namespace PaniMusic.Core.Migrations
 {
     [DbContext(typeof(PaniMusicDbContext))]
-    partial class PaniMusicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210402112027_Add_User_Column")]
+    partial class Add_User_Column
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,7 +265,10 @@ namespace PaniMusic.Core.Migrations
                     b.Property<int?>("TrackId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -274,7 +279,7 @@ namespace PaniMusic.Core.Migrations
 
                     b.HasIndex("TrackId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Feedbacks");
                 });
@@ -634,7 +639,7 @@ namespace PaniMusic.Core.Migrations
 
                     b.HasOne("PaniMusic.Core.Models.User", "User")
                         .WithMany("Feedbacks")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Album");
 
