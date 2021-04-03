@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using PaniMusic.Ui.Extention;
 
 namespace PaniMusic.Ui
 {
@@ -31,6 +32,8 @@ namespace PaniMusic.Ui
             { dbContext.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); });
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
+
+            services.AddDependency();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<PaniMusicDbContext>()

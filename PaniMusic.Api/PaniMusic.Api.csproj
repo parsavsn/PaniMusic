@@ -19,5 +19,9 @@
     <ProjectReference Include="..\PaniMusic.Services\PaniMusic.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>

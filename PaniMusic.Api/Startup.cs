@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using PaniMusic.Api.Extention;
 
 namespace PaniMusic.Api
 {
@@ -32,6 +33,10 @@ namespace PaniMusic.Api
             { dbContext.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); });
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
+
+            // I put the dependency services in the DependencyExtensions.cs file from Extention folder
+
+            services.AddDependency();
 
             services.AddControllers();
         }
