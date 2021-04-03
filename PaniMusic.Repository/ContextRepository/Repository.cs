@@ -18,9 +18,9 @@ namespace PaniMusic.Repository.ContextRepository
             this.paniMusicDbContext = paniMusicDbContext;
         }
 
-        public Task<TModelRepository> Get(int id)
+        public async Task<TModelRepository> Get(int id)
         {
-            var getItem = this.paniMusicDbContext
+            var getItem = await this.paniMusicDbContext
                 .Set<TModelRepository>()
                 .FirstOrDefaultAsync(get => get.Id == id);
 
@@ -30,9 +30,9 @@ namespace PaniMusic.Repository.ContextRepository
             return getItem;
         }
 
-        public Task<List<TModelRepository>> GetAll()
+        public async Task<List<TModelRepository>> GetAll()
         {
-            var getAllItems = this.paniMusicDbContext
+            var getAllItems = await this.paniMusicDbContext
                 .Set<TModelRepository>()
                 .ToListAsync();
 
