@@ -7,9 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaniMusic.Core.DatabaseContext;
+using PaniMusic.Services.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PaniMusic.Ui
@@ -27,6 +29,8 @@ namespace PaniMusic.Ui
         {
             services.AddDbContext<PaniMusicDbContext>(dbContext =>
             { dbContext.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); });
+
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<PaniMusicDbContext>()

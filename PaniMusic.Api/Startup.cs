@@ -8,9 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PaniMusic.Core.DatabaseContext;
+using PaniMusic.Services.Map;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PaniMusic.Api
@@ -28,6 +30,8 @@ namespace PaniMusic.Api
         {
             services.AddDbContext<PaniMusicDbContext>(dbContext =>
             { dbContext.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); });
+
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
 
             services.AddControllers();
         }

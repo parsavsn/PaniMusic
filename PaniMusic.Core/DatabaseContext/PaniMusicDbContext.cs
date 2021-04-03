@@ -9,6 +9,11 @@ namespace PaniMusic.Core.DatabaseContext
 {
     public class PaniMusicDbContext : IdentityDbContext<User>
     {
+        public PaniMusicDbContext(DbContextOptions<PaniMusicDbContext> options) : base(options)
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(local);Database=PaniMusicDB;Trusted_Connection=True");

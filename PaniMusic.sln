@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaniMusic.Core", "PaniMusic.Core\PaniMusic.Core.csproj", "{4AEFABA2-46F4-497E-823C-79239DC02DD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaniMusic.Core", "PaniMusic.Core\PaniMusic.Core.csproj", "{4AEFABA2-46F4-497E-823C-79239DC02DD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaniMusic.Repository", "PaniMusic.Repository\PaniMusic.Repository.csproj", "{01268DD0-C040-472E-90FE-13172DD2D2EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaniMusic.Repository", "PaniMusic.Repository\PaniMusic.Repository.csproj", "{01268DD0-C040-472E-90FE-13172DD2D2EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaniMusic.Services", "PaniMusic.Services\PaniMusic.Services.csproj", "{E2041643-48FD-49DC-8D76-193D82759E8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaniMusic.Services", "PaniMusic.Services\PaniMusic.Services.csproj", "{E2041643-48FD-49DC-8D76-193D82759E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaniMusic.Api", "PaniMusic.Api\PaniMusic.Api.csproj", "{DC593E1A-4ADA-48AD-B502-E64B3B9DB426}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaniMusic.Api", "PaniMusic.Api\PaniMusic.Api.csproj", "{DC593E1A-4ADA-48AD-B502-E64B3B9DB426}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaniMusic.Ui", "PaniMusic.Ui\PaniMusic.Ui.csproj", "{BC197065-1BA5-4380-B31C-5FD917E0A316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaniMusic.Ui", "PaniMusic.Ui\PaniMusic.Ui.csproj", "{BC197065-1BA5-4380-B31C-5FD917E0A316}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

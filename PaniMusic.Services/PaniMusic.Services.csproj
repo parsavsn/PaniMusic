@@ -8,4 +8,20 @@
     <ProjectReference Include="..\PaniMusic.Repository\PaniMusic.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ApplicationServices\Crud\" />
+    <Folder Include="ApplicationServices\Feedback\" />
+    <Folder Include="ApplicationServices\Search\" />
+    <Folder Include="ApplicationServices\Recommended\" />
+    <Folder Include="Map\CrudDtos\" />
+    <Folder Include="Map\FeedbackDtos\" />
+    <Folder Include="Map\SearchDtos\" />
+    <Folder Include="Map\RecommendedDtos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
 </Project>
