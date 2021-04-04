@@ -51,7 +51,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
 
         public async Task UpdateStyle(UpdateStyleInput updateStyleInput)
         {
-            var getStyle = await GetStyle(updateStyleInput.Link);
+            var getStyle = await styleRepository.Get(updateStyleInput.Id);
 
             var changeStyle = ChangeForUpdate(getStyle, updateStyleInput);
 
@@ -60,11 +60,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
             await styleRepository.Save();
         }
 
-        public async Task DeleteStyle(string link)
+        public async Task DeleteStyle(int id)
         {
-            var getStyle = await GetStyle(link);
-
-            styleRepository.Delete(getStyle.Id);
+            styleRepository.Delete(id);
 
             await styleRepository.Save();
         }

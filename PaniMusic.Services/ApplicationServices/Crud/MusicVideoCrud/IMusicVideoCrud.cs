@@ -18,6 +18,6 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
         Task UpdateMusicVideo(UpdateMusicVideoInput updateMusicVideoInput);
 
-        Task DeleteMusicVideo(string link);
+        Task DeleteMusicVideo(int id);
     }
 }

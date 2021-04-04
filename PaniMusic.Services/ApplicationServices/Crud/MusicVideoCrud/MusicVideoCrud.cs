@@ -101,7 +101,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
             await UploadFile(updateMusicVideoInput.MyQuality1080, updateNewGuid);
 
-            var getMusicVideo = await GetMusicVideo(updateMusicVideoInput.Link);
+            var getMusicVideo = await musicVideoRepository.Get(updateMusicVideoInput.Id);
 
             var changeMusicVideo = ChangeForUpdate(getMusicVideo, updateMusicVideoInput);
 
@@ -110,9 +110,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             await musicVideoRepository.Save();
         }
 
-        public async Task DeleteMusicVideo(string link)
+        public async Task DeleteMusicVideo(int id)
         {
-            var getMusicVideo = await GetMusicVideo(link);
+            var getMusicVideo = await musicVideoRepository.Get(id);
 
             DeleteFile(getMusicVideo.CoverImage);
 
@@ -122,7 +122,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
             DeleteFile(getMusicVideo.Quality1080);
 
-            musicVideoRepository.Delete(getMusicVideo.Id);
+            musicVideoRepository.Delete(id);
 
             await musicVideoRepository.Save();
         }

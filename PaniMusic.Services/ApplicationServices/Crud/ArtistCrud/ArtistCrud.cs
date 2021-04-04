@@ -63,7 +63,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
             await UploadFile(updateArtistInput.MyImage, updateNewGuid);
 
-            var getArtist = await GetArtist(updateArtistInput.Link);
+            var getArtist = await artistRepository.Get(updateArtistInput.Id);
 
             var changeArtist = ChangeForUpdate(getArtist, updateArtistInput);
 
@@ -72,13 +72,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             await artistRepository.Save();
         }
 
-        public async Task DeleteArtist(string link)
+        public async Task DeleteArtist(int id)
         {
-            var getArtist = await GetArtist(link);
+            var getArtist = await artistRepository.Get(id);
 
             DeleteFile(getArtist.Image);
 
-            artistRepository.Delete(getArtist.Id);
+            artistRepository.Delete(id);
 
             await artistRepository.Save();
         }

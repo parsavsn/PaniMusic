@@ -18,6 +18,6 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
 
         Task UpdateStyle(UpdateStyleInput updateStyleInput);
 
-        Task DeleteStyle(string link);
+        Task DeleteStyle(int id);
     }
 }

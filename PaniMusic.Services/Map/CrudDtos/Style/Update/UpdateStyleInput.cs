@@ -7,6 +7,10 @@ namespace PaniMusic.Services.Map.CrudDtos.Style.Update
 {
     public class UpdateStyleInput
     {
+        [Display(Name = "شناسه")]
+        [Required(ErrorMessage = "وارد کردن شناسه الزامی است.")]
+        public int Id { get; set; }
+
         [Display(Name = "نام")]
         public string Name { get; set; }
 

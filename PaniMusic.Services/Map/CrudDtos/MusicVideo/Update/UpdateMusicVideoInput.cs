@@ -8,6 +8,10 @@ namespace PaniMusic.Services.Map.CrudDtos.MusicVideo.Update
 {
     public class UpdateMusicVideoInput
     {
+        [Display(Name = "شناسه")]
+        [Required(ErrorMessage = "وارد کردن شناسه الزامی است.")]
+        public int Id { get; set; }
+
         [Display(Name = "نام")]
         public string Name { get; set; }
 

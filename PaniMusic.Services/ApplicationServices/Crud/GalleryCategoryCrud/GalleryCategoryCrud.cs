@@ -63,7 +63,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
             await UploadFile(updateGalleryCategoryInput.MyImage, updateNewGuid);
 
-            var getGalleryCategory = await GetGalleryCategory(updateGalleryCategoryInput.Link);
+            var getGalleryCategory = await galleryCategoryRepostiory.Get(updateGalleryCategoryInput.Id);
 
             var changeGalleryCategory = ChangeForUpdate(getGalleryCategory, updateGalleryCategoryInput);
 
@@ -72,13 +72,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             await galleryCategoryRepostiory.Save();
         }
 
-        public async Task DeleteGalleryCategory(string link)
+        public async Task DeleteGalleryCategory(int id)
         {
-            var getGalleryCategory = await GetGalleryCategory(link);
+            var getGalleryCategory = await galleryCategoryRepostiory.Get(id);
 
             DeleteFile(getGalleryCategory.Image);
 
-            galleryCategoryRepostiory.Delete(getGalleryCategory.Id);
+            galleryCategoryRepostiory.Delete(id);
 
             await galleryCategoryRepostiory.Save();
         }

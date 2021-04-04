@@ -93,7 +93,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             await UploadFile(updateAlbumInput.MyQuality320, updateNewGuid);
 
-            var getAlbum = await GetAlbum(updateAlbumInput.Link);
+            var getAlbum = await albumRepository.Get(updateAlbumInput.Id);
 
             var changeAlbum = ChangeForUpdate(getAlbum, updateAlbumInput);
 
@@ -102,9 +102,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             await albumRepository.Save();
         }
 
-        public async Task DeleteTrack(string link)
+        public async Task DeleteTrack(int id)
         {
-            var getAlbum = await GetAlbum(link);
+            var getAlbum = await albumRepository.Get(id);
 
             DeleteFile(getAlbum.CoverImage);
 
@@ -112,7 +112,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             DeleteFile(getAlbum.Qulity320);
 
-            albumRepository.Delete(getAlbum.Id);
+            albumRepository.Delete(id);
 
             await albumRepository.Save();
         }

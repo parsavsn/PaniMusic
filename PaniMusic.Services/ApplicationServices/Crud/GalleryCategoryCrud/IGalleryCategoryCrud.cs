@@ -18,6 +18,6 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
         Task UpdateGalleryCategory(UpdateGalleryCategoryInput updateGalleryCategoryInput);
 
-        Task DeleteGalleryCategory(string link);
+        Task DeleteGalleryCategory(int id);
     }
 }

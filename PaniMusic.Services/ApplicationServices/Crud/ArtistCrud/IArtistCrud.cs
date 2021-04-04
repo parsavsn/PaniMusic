@@ -18,6 +18,6 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
         Task UpdateArtist(UpdateArtistInput updateArtistInput);
 
-        Task DeleteArtist(string link);
+        Task DeleteArtist(int id);
     }
 }
