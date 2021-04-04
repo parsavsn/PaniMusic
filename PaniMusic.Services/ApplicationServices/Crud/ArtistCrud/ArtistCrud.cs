@@ -61,8 +61,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
-            if (updateArtistInput.MyImage.Length > 0)
-                await UploadFile(updateArtistInput.MyImage, updateNewGuid);
+            await UploadFile(updateArtistInput.MyImage, updateNewGuid);
 
             var getArtist = await GetArtist(updateArtistInput.Link);
 
@@ -77,11 +76,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
         {
             var getArtist = await GetArtist(link);
 
-            var pathImage = Path.Combine(
-                Directory.GetCurrentDirectory(), "wwwroot/uploads/artist",
-                getArtist.Image);
-
-            File.Delete(pathImage);
+            DeleteFile(getArtist.Image);
 
             artistRepository.Delete(getArtist.Id);
 
@@ -90,17 +85,21 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(),
+            if (myFile.Length > 0)
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",
                 "uploads",
                 "artist",
                 myGuid + myFile.FileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await myFile.CopyToAsync(stream);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await myFile.CopyToAsync(stream);
+                }
             }
         }
+
         private Artist ChangeForUpdate(Artist artist, UpdateArtistInput input)
         {
             artist.Name = input.Name;
@@ -119,6 +118,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             artist.MetaTag = input.MetaTag;
 
             return artist;
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            if (fileName != null)
+            {
+                var filePath = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/artist",
+                  fileName);
+
+                File.Delete(filePath);
+            }
         }
     }
 }

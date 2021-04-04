@@ -39,9 +39,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             newAlbum.CoverImage = addNewGuid + addAlbumInput.MyCoverImage.FileName;
 
-            newAlbum.Quality128 = addNewGuid + addAlbumInput.MyQuality128.FileName;
+            if (addAlbumInput.MyQuality128.Length > 0)
+                newAlbum.Quality128 = addNewGuid + addAlbumInput.MyQuality128.FileName;
 
-            newAlbum.Qulity320 = addNewGuid + addAlbumInput.MyQuality320.FileName;
+            if (addAlbumInput.MyQuality320.Length > 0)
+                newAlbum.Qulity320 = addNewGuid + addAlbumInput.MyQuality320.FileName;
 
             newAlbum.Visit = 0;
 
@@ -62,6 +64,12 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             if (getAlbum == null)
                 return null;
 
+            getAlbum.Visit++;
+
+            albumRepository.Update(getAlbum);
+
+            await albumRepository.Save();
+
             return getAlbum;
         }
 
@@ -79,14 +87,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
-            if (updateAlbumInput.MyCoverImage.Length > 0)
-                await UploadFile(updateAlbumInput.MyCoverImage, updateNewGuid);
+            await UploadFile(updateAlbumInput.MyCoverImage, updateNewGuid);
 
-            if (updateAlbumInput.MyQuality128.Length > 0)
-                await UploadFile(updateAlbumInput.MyQuality128, updateNewGuid);
+            await UploadFile(updateAlbumInput.MyQuality128, updateNewGuid);
 
-            if (updateAlbumInput.MyQuality320.Length > 0)
-                await UploadFile(updateAlbumInput.MyQuality320, updateNewGuid);
+            await UploadFile(updateAlbumInput.MyQuality320, updateNewGuid);
 
             var getAlbum = await GetAlbum(updateAlbumInput.Link);
 
@@ -101,29 +106,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
         {
             var getAlbum = await GetAlbum(link);
 
-            var pathCoverImage = Path.Combine(
-                Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
-                getAlbum.CoverImage);
+            DeleteFile(getAlbum.CoverImage);
 
-            File.Delete(pathCoverImage);
+            DeleteFile(getAlbum.Quality128);
 
-            if (getAlbum.Quality128 != null)
-            {
-                var pathQuality128 = Path.Combine(
-                  Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
-                  getAlbum.Quality128);
-
-                File.Delete(pathQuality128);
-            }
-
-            if (getAlbum.Qulity320 != null)
-            {
-                var pathQuality320 = Path.Combine(
-                  Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
-                  getAlbum.Qulity320);
-
-                File.Delete(pathQuality320);
-            }
+            DeleteFile(getAlbum.Qulity320);
 
             albumRepository.Delete(getAlbum.Id);
 
@@ -132,15 +119,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(),
+            if (myFile.Length > 0)
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",
                 "uploads",
                 "album",
                 myGuid + myFile.FileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await myFile.CopyToAsync(stream);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await myFile.CopyToAsync(stream);
+                }
             }
         }
 
@@ -148,13 +138,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
         {
             album.Name = input.Name;
 
-            if(input.MyCoverImage.Length > 0)
+            if (input.MyCoverImage.Length > 0)
                 album.CoverImage = input.MyCoverImage.FileName;
 
-            if(input.MyQuality128.Length > 0)
+            if (input.MyQuality128.Length > 0)
                 album.Quality128 = input.MyQuality128.FileName;
 
-            if(input.MyQuality320.Length > 0)
+            if (input.MyQuality320.Length > 0)
                 album.Qulity320 = input.MyQuality320.FileName;
 
             album.Link = input.Link;
@@ -170,6 +160,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             album.ArtistId = input.ArtistId;
 
             return album;
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            if (fileName != null)
+            {
+                var filePath = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
+                  fileName);
+
+                File.Delete(filePath);
+            }
         }
     }
 }

@@ -61,8 +61,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
-            if (updateGalleryCategoryInput.MyImage.Length > 0)
-                await UploadFile(updateGalleryCategoryInput.MyImage, updateNewGuid);
+            await UploadFile(updateGalleryCategoryInput.MyImage, updateNewGuid);
 
             var getGalleryCategory = await GetGalleryCategory(updateGalleryCategoryInput.Link);
 
@@ -77,11 +76,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
         {
             var getGalleryCategory = await GetGalleryCategory(link);
 
-            var pathImage = Path.Combine(
-                Directory.GetCurrentDirectory(), "wwwroot/uploads/gallerycategory",
-                getGalleryCategory.Image);
-
-            File.Delete(pathImage);
+            DeleteFile(getGalleryCategory.Image);
 
             galleryCategoryRepostiory.Delete(getGalleryCategory.Id);
 
@@ -90,15 +85,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(),
+            if (myFile.Length > 0)
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",
                 "uploads",
                 "gallerycategory",
                 myGuid + myFile.FileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await myFile.CopyToAsync(stream);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await myFile.CopyToAsync(stream);
+                }
             }
         }
 
@@ -118,6 +116,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             category.MetaTag = input.MetaTag;
 
             return category;
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            if (fileName != null)
+            {
+                var filePath = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/gallerycategory",
+                  fileName);
+
+                File.Delete(filePath);
+            }
         }
     }
 }

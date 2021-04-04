@@ -53,6 +53,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
                 .FirstOrDefaultAsync(galleryCategory => galleryCategory.Link == link);
 
             var getGalleryImages = await galleryImageRepository.GetQuery()
+                .Include(galleryImage => galleryImage.GalleryCategory)
                 .Where(galleryImage => galleryImage.GalleryCategoryId == getGalleryCategory.Id)
                 .ToListAsync();
 
@@ -63,11 +64,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
         {
             var getGalleryImage = await galleryCategoryRepository.Get(id);
 
-            var pathImage = Path.Combine(
-                Directory.GetCurrentDirectory(), "wwwroot/uploads/galleryimage",
-                getGalleryImage.Image);
-
-            File.Delete(pathImage);
+            DeleteFile(getGalleryImage.Image);
 
             galleryCategoryRepository.Delete(id);
 
@@ -76,15 +73,30 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(),
+            if (myFile.Length > 0)
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",
                 "uploads",
                 "galleryimage",
                 myGuid + myFile.FileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await myFile.CopyToAsync(stream);
+                }
+            }
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            if (fileName != null)
             {
-                await myFile.CopyToAsync(stream);
+                var filePath = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/galleryimage",
+                  fileName);
+
+                File.Delete(filePath);
             }
         }
     }

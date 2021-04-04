@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaniMusic.Core.DatabaseContext;
 
 namespace PaniMusic.Core.Migrations
 {
     [DbContext(typeof(PaniMusicDbContext))]
-    partial class PaniMusicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210404124902_Add_NewsLetter_Column")]
+    partial class Add_NewsLetter_Column
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

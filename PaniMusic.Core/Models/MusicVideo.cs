@@ -13,7 +13,7 @@ namespace PaniMusic.Core.Models
 
         public string CoverImage { get; set; }
 
-        public string Qulity480 { get; set; }
+        public string Quality480 { get; set; }
 
         public string Quality720 { get; set; }
 
