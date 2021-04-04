@@ -15,7 +15,7 @@ namespace PaniMusic.Core.Models
 
         public string Quality128 { get; set; }
 
-        public string Qulity320 { get; set; }
+        public string Quality320 { get; set; }
 
         public int Visit { get; set; }
 

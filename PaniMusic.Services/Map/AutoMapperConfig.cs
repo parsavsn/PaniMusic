@@ -6,6 +6,7 @@ using PaniMusic.Services.Map.CrudDtos.GalleryCategory.Add;
 using PaniMusic.Services.Map.CrudDtos.GalleryImage.Add;
 using PaniMusic.Services.Map.CrudDtos.MusicVideo.Add;
 using PaniMusic.Services.Map.CrudDtos.Style.Add;
+using PaniMusic.Services.Map.CrudDtos.Track.Add;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,6 +28,8 @@ namespace PaniMusic.Services.Map
             CreateMap<AddMusicVideoInput, MusicVideo>();
 
             CreateMap<AddStyleInput, Style>();
+
+            CreateMap<AddTrackInput, Track>();
         }
     }
 }

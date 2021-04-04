@@ -43,7 +43,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
                 newAlbum.Quality128 = addNewGuid + addAlbumInput.MyQuality128.FileName;
 
             if (addAlbumInput.MyQuality320.Length > 0)
-                newAlbum.Qulity320 = addNewGuid + addAlbumInput.MyQuality320.FileName;
+                newAlbum.Quality320 = addNewGuid + addAlbumInput.MyQuality320.FileName;
 
             newAlbum.Visit = 0;
 
@@ -110,7 +110,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             DeleteFile(getAlbum.Quality128);
 
-            DeleteFile(getAlbum.Qulity320);
+            DeleteFile(getAlbum.Quality320);
 
             albumRepository.Delete(id);
 
@@ -145,7 +145,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
                 album.Quality128 = input.MyQuality128.FileName;
 
             if (input.MyQuality320.Length > 0)
-                album.Qulity320 = input.MyQuality320.FileName;
+                album.Quality320 = input.MyQuality320.FileName;
 
             album.Link = input.Link;
 
