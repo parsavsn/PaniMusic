@@ -10,9 +10,11 @@
 
   <ItemGroup>
     <Folder Include="ApplicationServices\Feedback\" />
+    <Folder Include="ApplicationServices\NewsLetter\" />
     <Folder Include="ApplicationServices\Search\" />
     <Folder Include="ApplicationServices\Recommended\" />
     <Folder Include="Map\FeedbackDtos\" />
+    <Folder Include="Map\NewsLetterDtos\" />
     <Folder Include="Map\SearchDtos\" />
     <Folder Include="Map\RecommendedDtos\" />
   </ItemGroup>
