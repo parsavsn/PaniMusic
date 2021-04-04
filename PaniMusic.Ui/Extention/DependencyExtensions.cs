@@ -4,6 +4,7 @@ using PaniMusic.Repository.ContextRepository;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
 using PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud;
+using PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IRepository<Artist>, Repository<Artist>>();
 
             services.AddTransient<IRepository<GalleryCategory>, Repository<GalleryCategory>>();
+
+            services.AddTransient<IRepository<GalleryImage>, Repository<GalleryImage>>();
         }
         private static void AddServices(IServiceCollection services)
         {
@@ -35,6 +38,8 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IArtistCrud, ArtistCrud>();
 
             services.AddTransient<IGalleryCategoryCrud, GalleryCategoryCrud>();
+
+            services.AddTransient<IGalleryImageCrud, GalleryImageCrud>();
         }
     }
 }
