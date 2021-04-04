@@ -4,24 +4,20 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace PaniMusic.Services.Map.CrudDtos.Artist.Add
+namespace PaniMusic.Services.Map.CrudDtos.GalleryCategory.Add
 {
-    public class AddArtistInput
+    public class AddGalleryCategoryInput
     {
         [Display(Name = "نام")]
-        [Required(ErrorMessage = "پر کردن نام هنرمند الزامی است.")]
+        [Required(ErrorMessage = "پر کردن نام دسته بندی الزامی است.")]
         public string Name { get; set; }
 
         [Display(Name = "تصویر")]
-        [Required(ErrorMessage = "انتخاب تصویر برای هنرمند الزامی است.")]
+        [Required(ErrorMessage = "انتخاب تصویر برای دسته بندی الزامی است.")]
         public IFormFile MyImage { get; set; }
 
-        [Display(Name = "بیوگرافی")]
-        [Required(ErrorMessage = "نوشتن بیوگرافی برای هنرمند الزامی است.")]
-        public string BioGraphy { get; set; }
-
         [Display(Name = "لینک")]
-        [Required(ErrorMessage = "صفحه هنرمند باید دارای لینک باشد.")]
+        [Required(ErrorMessage = "دسته بندی باید حاوی لینک باشد.")]
         public string Link { get; set; }
 
         [Display(Name = "تگ title")]

@@ -66,7 +66,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
             var getArtist = await GetArtist(updateArtistInput.Link);
 
-            var changeArtist = ChangeArtistForUpdate(getArtist, updateArtistInput);
+            var changeArtist = ChangeForUpdate(getArtist, updateArtistInput);
 
             artistRepository.Update(changeArtist);
 
@@ -76,6 +76,12 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
         public async Task DeleteArtist(string link)
         {
             var getArtist = await GetArtist(link);
+
+            var pathImage = Path.Combine(
+                Directory.GetCurrentDirectory(), "wwwroot/uploads/artist",
+                getArtist.Image);
+
+            File.Delete(pathImage);
 
             artistRepository.Delete(getArtist.Id);
 
@@ -95,22 +101,22 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
                 await myFile.CopyToAsync(stream);
             }
         }
-        private Artist ChangeArtistForUpdate(Artist artist, UpdateArtistInput updateArtistInput)
+        private Artist ChangeForUpdate(Artist artist, UpdateArtistInput input)
         {
-            artist.Name = updateArtistInput.Name;
+            artist.Name = input.Name;
 
-            if (updateArtistInput.MyImage.Length > 0)
-                artist.Image = updateArtistInput.MyImage.FileName;
+            if (input.MyImage.Length > 0)
+                artist.Image = input.MyImage.FileName;
 
-            artist.Biography = updateArtistInput.BioGraphy;
+            artist.Biography = input.BioGraphy;
 
-            artist.Link = updateArtistInput.Link;
+            artist.Link = input.Link;
 
-            artist.TitleTag = updateArtistInput.TitleTag;
+            artist.TitleTag = input.TitleTag;
 
-            artist.MetaDescription = updateArtistInput.MetaDescription;
+            artist.MetaDescription = input.MetaDescription;
 
-            artist.MetaTag = updateArtistInput.MetaTag;
+            artist.MetaTag = input.MetaTag;
 
             return artist;
         }

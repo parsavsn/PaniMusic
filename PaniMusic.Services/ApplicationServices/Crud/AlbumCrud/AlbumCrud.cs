@@ -90,7 +90,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             var getAlbum = await GetAlbum(updateAlbumInput.Link);
 
-            var changeAlbum = ChangeAlbumForUpdate(getAlbum, updateAlbumInput);
+            var changeAlbum = ChangeForUpdate(getAlbum, updateAlbumInput);
 
             albumRepository.Update(changeAlbum);
 
@@ -100,6 +100,30 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
         public async Task DeleteTrack(string link)
         {
             var getAlbum = await GetAlbum(link);
+
+            var pathCoverImage = Path.Combine(
+                Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
+                getAlbum.CoverImage);
+
+            File.Delete(pathCoverImage);
+
+            if (getAlbum.Quality128 != null)
+            {
+                var pathQuality128 = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
+                  getAlbum.Quality128);
+
+                File.Delete(pathQuality128);
+            }
+
+            if (getAlbum.Qulity320 != null)
+            {
+                var pathQuality320 = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
+                  getAlbum.Qulity320);
+
+                File.Delete(pathQuality320);
+            }
 
             albumRepository.Delete(getAlbum.Id);
 
@@ -120,30 +144,30 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             }
         }
 
-        private Album ChangeAlbumForUpdate(Album album, UpdateAlbumInput updateAlbumInput)
+        private Album ChangeForUpdate(Album album, UpdateAlbumInput input)
         {
-            album.Name = updateAlbumInput.Name;
+            album.Name = input.Name;
 
-            if(updateAlbumInput.MyCoverImage.Length > 0)
-                album.CoverImage = updateAlbumInput.MyCoverImage.FileName;
+            if(input.MyCoverImage.Length > 0)
+                album.CoverImage = input.MyCoverImage.FileName;
 
-            if(updateAlbumInput.MyQuality128.Length > 0)
-                album.Quality128 = updateAlbumInput.MyQuality128.FileName;
+            if(input.MyQuality128.Length > 0)
+                album.Quality128 = input.MyQuality128.FileName;
 
-            if(updateAlbumInput.MyQuality320.Length > 0)
-                album.Qulity320 = updateAlbumInput.MyQuality320.FileName;
+            if(input.MyQuality320.Length > 0)
+                album.Qulity320 = input.MyQuality320.FileName;
 
-            album.Link = updateAlbumInput.Link;
+            album.Link = input.Link;
 
-            album.TitleTag = updateAlbumInput.TitleTag;
+            album.TitleTag = input.TitleTag;
 
-            album.MetaDescription = updateAlbumInput.MetaDescription;
+            album.MetaDescription = input.MetaDescription;
 
-            album.MetaTag = updateAlbumInput.MetaTag;
+            album.MetaTag = input.MetaTag;
 
-            album.StyleId = updateAlbumInput.StyleId;
+            album.StyleId = input.StyleId;
 
-            album.ArtistId = updateAlbumInput.ArtistId;
+            album.ArtistId = input.ArtistId;
 
             return album;
         }
