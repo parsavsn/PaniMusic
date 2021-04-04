@@ -8,6 +8,7 @@ using PaniMusic.Services.Map.CrudDtos.Track.Update;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -82,7 +83,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 .Include(tracks => tracks.Artist)
                 .Include(tracks => tracks.Album)
                 .ToListAsync();
-
+            
             return getallTracks;
         }
 
@@ -118,6 +119,42 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             trackRepository.Delete(id);
 
             await trackRepository.Save();
+        }
+
+        public async Task<List<Track>> GetTracksForAlbum(int albumId)
+        {
+            var getTracks = await trackRepository.GetQuery()
+                .Include(tracks => tracks.Style)
+                .Include(tracks => tracks.Artist)
+                .Include(tracks => tracks.Album)
+                .Where(tracks => tracks.AlbumId == albumId)
+                .ToListAsync();
+
+            return getTracks;
+        }
+
+        public async Task<List<Track>> GetTracksForArtist(int artistId)
+        {
+            var getTracks = await trackRepository.GetQuery()
+                .Include(tracks => tracks.Style)
+                .Include(tracks => tracks.Artist)
+                .Include(tracks => tracks.Album)
+                .Where(tracks => tracks.ArtistId == artistId)
+                .ToListAsync();
+
+            return getTracks;
+        }
+
+        public async Task<List<Track>> GetTracksForStyle(int styleId)
+        {
+            var getTracks = await trackRepository.GetQuery()
+                .Include(tracks => tracks.Style)
+                .Include(tracks => tracks.Artist)
+                .Include(tracks => tracks.Album)
+                .Where(tracks => tracks.StyleId == styleId)
+                .ToListAsync();
+
+            return getTracks;
         }
 
         private async Task UploadFile(IFormFile myFile, string myGuid)

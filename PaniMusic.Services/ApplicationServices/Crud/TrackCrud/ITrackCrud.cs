@@ -10,7 +10,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 {
     public interface ITrackCrud
     {
-        Task AddTrack(AddTrackInput addTrackInput);
+        Task AddTrack(AddTrackInput addTrackInput);        
 
         Task<Track> GetTrack(string link);
 
@@ -19,5 +19,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
         Task UpdateTrack(UpdateTrackInput updateTrackInput);
 
         Task DeleteTrack(int id);
+
+        // The bottom three methods are for display on ui pages .
+
+        Task<List<Track>> GetTracksForAlbum(int albumId);
+
+        Task<List<Track>> GetTracksForArtist(int artistId);
+
+        Task<List<Track>> GetTracksForStyle(int styleId);
     }
 }
