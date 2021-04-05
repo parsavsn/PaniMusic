@@ -32,6 +32,7 @@ namespace PaniMusic.Services.ApplicationServices.Recommended.TopVisited.TrackTop
 
             var topVisitedTracks = allTracks
                 .OrderByDescending(x => x.Visit)
+                .Take(numberOfItems)
                 .ToList();
 
             return mapper.Map<List<RecommendedOutput>>(topVisitedTracks);
