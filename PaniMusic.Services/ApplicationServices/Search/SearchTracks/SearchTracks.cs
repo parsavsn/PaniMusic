@@ -26,6 +26,9 @@ namespace PaniMusic.Services.ApplicationServices.Search.SearchTracks
                 .Where(x => x.Name.Contains(trackName) && x.AlbumId == null)
                 .ToListAsync();
 
+            if (searchTracks == null)
+                return null;
+
             return searchTracks;
         }
     }

@@ -26,6 +26,9 @@ namespace PaniMusic.Services.ApplicationServices.Search.SearchAlbums
                 .Where(x => x.Name.Contains(albumName))
                 .ToListAsync();
 
+            if (searchAlbum == null)
+                return null;
+
             return searchAlbum;
         }
     }

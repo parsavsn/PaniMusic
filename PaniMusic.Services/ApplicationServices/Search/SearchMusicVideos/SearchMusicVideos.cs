@@ -26,6 +26,9 @@ namespace PaniMusic.Services.ApplicationServices.Search.SearchMusicVideos
                 .Where(x => x.Name.Contains(musicVideoName))
                 .ToListAsync();
 
+            if (searchMusicVideos == null)
+                return null;
+
             return searchMusicVideos;
         }
     }

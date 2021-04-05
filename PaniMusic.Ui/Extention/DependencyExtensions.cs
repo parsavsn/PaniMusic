@@ -3,6 +3,7 @@ using PaniMusic.Core.Models;
 using PaniMusic.Repository.ContextRepository;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
+using PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud;
 using PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud;
 using PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud;
 using PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud;
@@ -40,6 +41,8 @@ namespace PaniMusic.Ui.Extention
 
             services.AddTransient<IRepository<Artist>, Repository<Artist>>();
 
+            services.AddTransient<IRepository<Feedback>, Repository<Feedback>>();
+
             services.AddTransient<IRepository<GalleryCategory>, Repository<GalleryCategory>>();
 
             services.AddTransient<IRepository<GalleryImage>, Repository<GalleryImage>>();
@@ -57,6 +60,8 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IAlbumCrud, AlbumCrud>();
 
             services.AddTransient<IArtistCrud, ArtistCrud>();
+
+            services.AddTransient<IFeedbackCrud, FeedbackCrud>();
 
             services.AddTransient<IGalleryCategoryCrud, GalleryCategoryCrud>();
 

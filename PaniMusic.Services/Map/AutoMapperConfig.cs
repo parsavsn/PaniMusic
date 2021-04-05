@@ -2,6 +2,7 @@
 using PaniMusic.Core.Models;
 using PaniMusic.Services.Map.CrudDtos.Album.Add;
 using PaniMusic.Services.Map.CrudDtos.Artist.Add;
+using PaniMusic.Services.Map.CrudDtos.Feedback.Add;
 using PaniMusic.Services.Map.CrudDtos.GalleryCategory.Add;
 using PaniMusic.Services.Map.CrudDtos.GalleryImage.Add;
 using PaniMusic.Services.Map.CrudDtos.MusicVideo.Add;
@@ -22,6 +23,8 @@ namespace PaniMusic.Services.Map
             CreateMap<AddAlbumInput, Album>();
 
             CreateMap<AddArtistInput, Artist>();
+
+            CreateMap<AddFeedbackInput, Feedback>();
 
             CreateMap<AddGalleryCategoryInput, GalleryCategory>();
 
