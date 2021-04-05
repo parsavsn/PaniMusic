@@ -8,6 +8,13 @@ using PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud;
 using PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
 using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
+using PaniMusic.Services.ApplicationServices.NewsletterService;
+using PaniMusic.Services.ApplicationServices.Recommended.TopRated.AlbumTopRated;
+using PaniMusic.Services.ApplicationServices.Recommended.TopRated.MusicVideoTopRated;
+using PaniMusic.Services.ApplicationServices.Recommended.TopRated.TrackTopRated;
+using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.AlbumTopVisited;
+using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.MusicVideoTopVisited;
+using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.TrackTopVisited;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +46,8 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IRepository<Style>, Repository<Style>>();
 
             services.AddTransient<IRepository<Track>, Repository<Track>>();
+
+            services.AddTransient<IRepository<Newsletter>, Repository<Newsletter>>();
         }
         private static void AddServices(IServiceCollection services)
         {
@@ -55,6 +64,20 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IStyleCrud, StyleCrud>();
 
             services.AddTransient<ITrackCrud, TrackCrud>();
+
+            services.AddTransient<INewsletterService, NewsLetterService>();
+
+            services.AddTransient<IAlbumTopRated, AlbumTopRated>();
+
+            services.AddTransient<IMusicVideoTopRated, MusicVideoTopRated>();
+
+            services.AddTransient<ITrackTopRated, TrackTopRated>();
+
+            services.AddTransient<IAlbumTopVisited, AlbumTopVisited>();
+
+            services.AddTransient<IMusicVideoTopVisited, MusicVideoTopVisited>();
+
+            services.AddTransient<ITrackTopVisited, TrackTopVisited>();
         }
     }
 }

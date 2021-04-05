@@ -33,6 +33,8 @@ namespace PaniMusic.Ui
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
 
+            // I put the dependency services in the DependencyExtensions.cs file from Extention folder
+
             services.AddDependency();
 
             services.AddIdentity<IdentityUser, IdentityRole>()

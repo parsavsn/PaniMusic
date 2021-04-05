@@ -7,6 +7,8 @@ using PaniMusic.Services.Map.CrudDtos.GalleryImage.Add;
 using PaniMusic.Services.Map.CrudDtos.MusicVideo.Add;
 using PaniMusic.Services.Map.CrudDtos.Style.Add;
 using PaniMusic.Services.Map.CrudDtos.Track.Add;
+using PaniMusic.Services.Map.NewsletterDtos.Add;
+using PaniMusic.Services.Map.RecommendedDtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +32,17 @@ namespace PaniMusic.Services.Map
             CreateMap<AddStyleInput, Style>();
 
             CreateMap<AddTrackInput, Track>();
+
+            CreateMap<AddNewsletterInput, Newsletter>();
+
+            CreateMap<Track, RecommendedOutput>()
+                .ForMember(x => x.Artist, y => y.MapFrom(z => z.Artist.Name));
+
+            CreateMap<Album, RecommendedOutput>()
+                .ForMember(x => x.Artist, y => y.MapFrom(z => z.Artist.Name));
+
+            CreateMap<MusicVideo, RecommendedOutput>()
+                .ForMember(x => x.Artist, y => y.MapFrom(z => z.Artist.Name));
         }
     }
 }
