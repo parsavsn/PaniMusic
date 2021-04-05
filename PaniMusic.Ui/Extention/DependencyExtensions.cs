@@ -15,6 +15,9 @@ using PaniMusic.Services.ApplicationServices.Recommended.TopRated.TrackTopRated;
 using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.AlbumTopVisited;
 using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.MusicVideoTopVisited;
 using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.TrackTopVisited;
+using PaniMusic.Services.ApplicationServices.Search.SearchAlbums;
+using PaniMusic.Services.ApplicationServices.Search.SearchMusicVideos;
+using PaniMusic.Services.ApplicationServices.Search.SearchTracks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +81,12 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IMusicVideoTopVisited, MusicVideoTopVisited>();
 
             services.AddTransient<ITrackTopVisited, TrackTopVisited>();
+
+            services.AddTransient<ISearchAlbums, SearchAlbums>();
+
+            services.AddTransient<ISearchMusicVideos, SearchMusicVideos>();
+
+            services.AddTransient<ISearchTracks, SearchTracks>();
         }
     }
 }

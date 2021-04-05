@@ -44,6 +44,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
         public async Task<Artist> GetArtist(string link)
         {
             var getArtist = await artistRepository.GetQuery()
+                .Include(track => track.Tracks)
                 .FirstOrDefaultAsync(artist => artist.Link == link);
 
             if (getArtist == null)

@@ -59,6 +59,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             var getAlbum = await albumRepository.GetQuery()
                 .Include(album => album.Style)
                 .Include(album => album.Artist)
+                .Include(album => album.Tracks)
                 .FirstOrDefaultAsync(album => album.Link == link);
 
             if (getAlbum == null)

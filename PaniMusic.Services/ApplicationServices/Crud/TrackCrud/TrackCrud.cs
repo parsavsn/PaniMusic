@@ -82,6 +82,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 .Include(tracks => tracks.Style)
                 .Include(tracks => tracks.Artist)
                 .Include(tracks => tracks.Album)
+                .Where(x => x.AlbumId == null)
                 .ToListAsync();
             
             return getallTracks;
@@ -139,7 +140,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 .Include(tracks => tracks.Style)
                 .Include(tracks => tracks.Artist)
                 .Include(tracks => tracks.Album)
-                .Where(tracks => tracks.ArtistId == artistId)
+                .Where(tracks => tracks.ArtistId == artistId && tracks.AlbumId == null)
                 .ToListAsync();
 
             return getTracks;
@@ -151,7 +152,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 .Include(tracks => tracks.Style)
                 .Include(tracks => tracks.Artist)
                 .Include(tracks => tracks.Album)
-                .Where(tracks => tracks.StyleId == styleId)
+                .Where(tracks => tracks.StyleId == styleId  && tracks.AlbumId == null)
                 .ToListAsync();
 
             return getTracks;
