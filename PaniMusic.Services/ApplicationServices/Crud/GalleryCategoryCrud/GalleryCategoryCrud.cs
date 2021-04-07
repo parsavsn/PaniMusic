@@ -26,7 +26,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             this.mapper = mapper;
         }
 
-        public async Task AddGalleryCategory(AddGalleryCategoryInput addGalleryCategoryInput)
+        public async Task<bool> AddGalleryCategory(AddGalleryCategoryInput addGalleryCategoryInput)
         {
             var addNewGuid = Guid.NewGuid().ToString();
 
@@ -39,12 +39,24 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             galleryCategoryRepostiory.Insert(newGalleryCategory);
 
             await galleryCategoryRepostiory.Save();
+
+            return true;
         }
 
-        public async Task<GalleryCategory> GetGalleryCategory(string link)
+        public async Task<GalleryCategory> GetGalleryCategoryByLink(string link)
         {
             var getGalleryCategory = await galleryCategoryRepostiory.GetQuery()
                 .FirstOrDefaultAsync(galleryCategory => galleryCategory.Link == link);
+
+            if (getGalleryCategory == null)
+                return null;
+
+            return getGalleryCategory;
+        }
+
+        public async Task<GalleryCategory> GetGalleryCategoryById(int id)
+        {
+            var getGalleryCategory = await galleryCategoryRepostiory.Get(id);
 
             if (getGalleryCategory == null)
                 return null;
@@ -57,7 +69,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             return await galleryCategoryRepostiory.GetAll();
         }
 
-        public async Task UpdateGalleryCategory(UpdateGalleryCategoryInput updateGalleryCategoryInput)
+        public async Task<bool> UpdateGalleryCategory(UpdateGalleryCategoryInput updateGalleryCategoryInput)
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
@@ -70,9 +82,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             galleryCategoryRepostiory.Update(changeGalleryCategory);
 
             await galleryCategoryRepostiory.Save();
+
+            return true;
         }
 
-        public async Task DeleteGalleryCategory(int id)
+        public async Task<bool> DeleteGalleryCategory(int id)
         {
             var getGalleryCategory = await galleryCategoryRepostiory.Get(id);
 
@@ -81,6 +95,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             galleryCategoryRepostiory.Delete(id);
 
             await galleryCategoryRepostiory.Save();
+
+            return true;
         }
 
         private async Task UploadFile(IFormFile myFile, string myGuid)

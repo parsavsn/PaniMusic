@@ -10,14 +10,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 {
     public interface IGalleryCategoryCrud
     {
-        Task AddGalleryCategory(AddGalleryCategoryInput addGalleryCategoryInput);
+        Task<bool> AddGalleryCategory(AddGalleryCategoryInput addGalleryCategoryInput);
 
-        Task<GalleryCategory> GetGalleryCategory(string link);
+        Task<GalleryCategory> GetGalleryCategoryByLink(string link);
+
+        Task<GalleryCategory> GetGalleryCategoryById(int id);
 
         Task<List<GalleryCategory>> GetAllGalleryCategories();
 
-        Task UpdateGalleryCategory(UpdateGalleryCategoryInput updateGalleryCategoryInput);
+        Task<bool> UpdateGalleryCategory(UpdateGalleryCategoryInput updateGalleryCategoryInput);
 
-        Task DeleteGalleryCategory(int id);
+        Task<bool> DeleteGalleryCategory(int id);
     }
 }

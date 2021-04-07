@@ -1,13 +1,14 @@
 ﻿@page
-@model PaniMusic.Ui.Pages.PaniAdmin.AllArtistsModel
+@model PaniMusic.Ui.Pages.PaniAdmin.AllCategoriesModel
 @{
-    ViewData["Title"] = "همه هنرمندان";
+    ViewData["Title"] = "همه دسته بندی ها";
 }
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">همه هنرمندان</h1>
+                <h1 class="m-0 text-dark">همه دسته بندی ها</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->
@@ -23,40 +24,40 @@
 
             <div class="col-12">
 
-                @if ((bool?)TempData["AddArtist"] == true && (bool?)TempData["AddArtist"] != null)
+                @if ((bool?)TempData["AddCategory"] == true && (bool?)TempData["AddCategory"] != null)
                 {
                     <div class="alert alert-info alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fa fa-check"></i> اضافه شد </h5>
-                        هنرمند جدید با موفقیت به لیست هنرمندان اضافه شد
+                        دسته بندی جدید با موفقیت به لیست هنرمندان اضافه شد
                     </div>
                 }
 
-                @if ((bool?)TempData["DeleteArtist"] == true && (bool?)TempData["DeleteArtist"] != null)
+                @if ((bool?)TempData["DeleteCategory"] == true && (bool?)TempData["DeleteCategory"] != null)
                 {
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fa fa-ban"></i> حذف شد </h5>
-                        هنرمند مورد نظر با موفقیت حذف شد
+                        دسته بندی مورد نظر با موفقیت حذف شد
                     </div>
                 }
 
-                @if ((bool?)TempData["EditArtist"] == true && (bool?)TempData["EditArtist"] != null)
+                @if ((bool?)TempData["EditCategory"] == true && (bool?)TempData["EditCategory"] != null)
                 {
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fa fa-check"></i> ویرایش شد </h5>
-                        هنرمند مورد نظر با موفقیت ویرایش شد
+                        دسته بندی مورد نظر با موفقیت ویرایش شد
                     </div>
                 }
 
                 @{
-                    if (Model.AllArtists.Count == 0)
+                    if (Model.AllGalleryCategories.Count == 0)
                     {
                         <div class="alert alert-warning alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <h5> متاسفیم !</h5>
-                            هیچ آیتمی یافت نشد ! هنرمند جدیدی اضافه کنید ...
+                            هیچ آیتمی یافت نشد ! دسته بندی جدیدی اضافه کنید ...
                         </div>
                     }
                     else
@@ -68,18 +69,20 @@
                                     <tr>
                                         <th>شناسه</th>
                                         <th>نام</th>
+                                        <th>تصویر</th>
                                         <th>عملیات</th>
                                     </tr>
-                                    @foreach (var item in Model.AllArtists)
+                                    @foreach (var item in Model.AllGalleryCategories)
                                     {
                                         <tr>
                                             <td>@item.Id</td>
                                             <td>@item.Name</td>
+                                            <th><img src="~/uploads/gallerycategory/@item.Image" class="all-pics-images"></th>
                                             <td>
-                                                <a href="/paniadmin/editartist?id=@item.Id" class="btn btn-success">
+                                                <a href="/paniadmin/editcategory?id=@item.Id" class="btn btn-success">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش
                                                 </a>
-                                                <a href="/paniadmin/deleteartist?id=@item.Id" class="btn btn-danger">
+                                                <a href="/paniadmin/deletecategory?id=@item.Id" class="btn btn-danger">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> حذف
                                                 </a>
                                             </td>
@@ -97,7 +100,7 @@
                                         <li class="page-item @(((Model.PageId - 1) == 0) ? "disabled" : "")"><a class="page-link" href="?page=@(Model.PageId - 1)">قبلی</a></li>
                                         @for (int pageNumber = 1; pageNumber < Model.PageCount; pageNumber++)
                                         {
-                                            <li class="page-item @((Model.PageId == pageNumber)?"active":"")"><a class="page-link" href="?page=@pageNumber">@pageNumber</a></li>
+                                            <li class="page-item @((Model.PageId == pageNumber) ? "active" : "")"><a class="page-link" href="?page=@pageNumber">@pageNumber</a></li>
                                         }
                                         <li class="page-item @((Model.PageId == Model.PageCount) ? "disabled" : "")"><a class="page-link" href="?page=@(Model.PageId + 1)">بعدی</a></li>
                                     </ul>
@@ -107,19 +110,23 @@
                     }
                 }
 
+
+
             </div>
+
 
         </div>
         <!-- /.row -->
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
 </section>
+
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#artists-list').addClass('menu-open');
-            $('#artists-link').addClass('active');
-            $('#allartists-link').addClass('active');
+            $('#pics-list').addClass('menu-open');
+            $('#pics-link').addClass('active');
+            $('#allcategories-link').addClass('active');
         });
     </script>
 }
