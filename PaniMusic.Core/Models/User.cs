@@ -9,8 +9,6 @@ namespace PaniMusic.Core.Models
     {
         public string Name { get; set; }
 
-        public string FavoriteStyle { get; set; }
-
         public List<Feedback> Feedbacks { get; set; }
     }
 }

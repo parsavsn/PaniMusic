@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] | پنل مدیریت</title>
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
+    <!-- bootstrap fileinput -->
+    <link rel="stylesheet" href="~/lib/bootstrap-fileinput/bootstrap-fileinput.css">
+    <!--  select 2  -->
+    <link rel="stylesheet" href="~/lib/select2/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/css/admin/adminlte.css">
+    <!-- bootstrap rtl -->
+    <link rel="stylesheet" href="~/css/admin/bootstrap-rtl.min.css">
+    <!-- template rtl version -->
+    <link rel="stylesheet" href="~/css/admin/custom-style.css">
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="~/.." class="nav-link">بازگشت به صفحه اصلی</a>
+                </li>
+            </ul>
+            <a href="#" class="mr-auto"><img src="~/img/logo.png"></a>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="index3.html" class="brand-link">
+                <span class="brand-text font-weight-light">پنل مدیریت</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar" style="direction: ltr">
+                <div style="direction: rtl">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/img/parsa.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">پارسا ویسانی</a>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+                                 with font-awesome or any other icon font library -->
+                            <li class="nav-item">
+                                <a href="pages/widgets.html" class="nav-link" id="dashboard-link">
+                                    <i class="nav-icon fa fa-dashboard"></i>
+                                    <p>
+                                        داشبورد
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview" id="musics-list">
+                                <a href="#" class="nav-link" id="musics-link">
+                                    <i class="nav-icon fa fa-music"></i>
+                                    <p>
+                                        آهنگ ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link" id="allmusics-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>همه آهنگ ها</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="newmusic-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن آهنگ جدید</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview" id="albums-list">
+                                <a href="#" class="nav-link" id="albums-link">
+                                    <i class="nav-icon fa fa-folder"></i>
+                                    <p>
+                                        آلبوم ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link" id="allalbums-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>همه آلبوم ها</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="newalbum-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن آلبوم جدید</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview" id="musicvideos-list">
+                                <a href="#" class="nav-link" id="musicvideos-link">
+                                    <i class="nav-icon fa fa-youtube-play"></i>
+                                    <p>
+                                        موزیک ویدیو ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link" id="allmusicvideos-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>همه موزیک ویدیو ها</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="newmusicvideo-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن موزیک ویدیو جدید</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview" id="artists-list">
+                                <a href="#" class="nav-link" id="artists-link">
+                                    <i class="nav-icon fa fa-microphone"></i>
+                                    <p>
+                                        هنرمندان
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link" id="allartists-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>همه هنرمندان</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="newartist-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن هنرمند جدید</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview" id="pics-list">
+                                <a href="#" class="nav-link" id="pics-link">
+                                    <i class="nav-icon fa fa-picture-o"></i>
+                                    <p>
+                                        تصاویر
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link" id="allpics-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>همه تصاویر</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="newpic-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن تصویر جدید</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="allcategories-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>همه دسته بندی ها</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="newcategory-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن دسته بندی جدید</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="pages/widgets.html" class="nav-link" id="comments-link">
+                                    <i class="nav-icon fa fa-comment"></i>
+                                    <p>
+                                        نظرات
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item has-treeview" id="users-list">
+                                <a href="#" class="nav-link" id="users-link">
+                                    <i class="nav-icon fa fa-user"></i>
+                                    <p>
+                                        کاربران
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link" id="allusers-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>همه کاربران</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link" id="newuser-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>افزودن کاربر جدید</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="pages/widgets.html" class="nav-link">
+                                    <i class="nav-icon fa fa-sign-out"></i>
+                                    <p>
+                                        خروج
+                                    </p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            @RenderBody()
+            <!-- /.content -->
+        </div>
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/lib/jQueryUI/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap file input -->
+    <script src="~/lib/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+    <!-- Select2 -->
+    <script src="~/lib/select2/select2.full.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/js/adminlte.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html >

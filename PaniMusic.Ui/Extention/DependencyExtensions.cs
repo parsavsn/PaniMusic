@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PaniMusic.Core.Models;
 using PaniMusic.Repository.ContextRepository;
+using PaniMusic.Services.ApplicationServices.CountStatistics;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
 using PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud;
@@ -9,6 +10,7 @@ using PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud;
 using PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
 using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
+using PaniMusic.Services.ApplicationServices.Crud.UserCrud;
 using PaniMusic.Services.ApplicationServices.NewsletterService;
 using PaniMusic.Services.ApplicationServices.Recommended.TopRated.AlbumTopRated;
 using PaniMusic.Services.ApplicationServices.Recommended.TopRated.MusicVideoTopRated;
@@ -19,6 +21,7 @@ using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.TrackTopVisi
 using PaniMusic.Services.ApplicationServices.Search.SearchAlbums;
 using PaniMusic.Services.ApplicationServices.Search.SearchMusicVideos;
 using PaniMusic.Services.ApplicationServices.Search.SearchTracks;
+using PaniMusic.Services.ApplicationServices.VisitStatistics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +76,8 @@ namespace PaniMusic.Ui.Extention
 
             services.AddTransient<ITrackCrud, TrackCrud>();
 
+            services.AddTransient<IUserCrud, UserCrud>();
+
             services.AddTransient<INewsletterService, NewsLetterService>();
 
             services.AddTransient<IAlbumTopRated, AlbumTopRated>();
@@ -92,6 +97,10 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<ISearchMusicVideos, SearchMusicVideos>();
 
             services.AddTransient<ISearchTracks, SearchTracks>();
+
+            services.AddTransient<IVisitStatistics, VisitStatistics>();
+
+            services.AddTransient<ICountStatistics, CounStatistics>();
         }
     }
 }

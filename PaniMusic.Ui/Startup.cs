@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using PaniMusic.Ui.Extention;
+using PaniMusic.Core.Models;
 
 namespace PaniMusic.Ui
 {
@@ -37,7 +38,7 @@ namespace PaniMusic.Ui
 
             services.AddDependency();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<PaniMusicDbContext>()
                 .AddDefaultTokenProviders();
 

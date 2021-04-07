@@ -19,4 +19,13 @@
     <ProjectReference Include="..\PaniMusic.Services\PaniMusic.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\album\" />
+    <Folder Include="wwwroot\uploads\artist\" />
+    <Folder Include="wwwroot\uploads\gallerycategory\" />
+    <Folder Include="wwwroot\uploads\galleryimage\" />
+    <Folder Include="wwwroot\uploads\musicvideo\" />
+    <Folder Include="wwwroot\uploads\track\" />
+  </ItemGroup>
+
 </Project>
