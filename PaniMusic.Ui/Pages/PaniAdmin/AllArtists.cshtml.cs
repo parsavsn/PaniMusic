@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PaniMusic.Core.Models;
-using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
+using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
 
 namespace PaniMusic.Ui.Pages.PaniAdmin
 {
-    public class AllTracksModel : PageModel
+    public class AllArtistsModel : PageModel
     {
-        private readonly ITrackCrud trackCrud;
+        private readonly IArtistCrud artistCrud;
 
-        public AllTracksModel(ITrackCrud trackCrud)
+        public AllArtistsModel(IArtistCrud artistCrud)
         {
-            this.trackCrud = trackCrud;
+            this.artistCrud = artistCrud;
         }
 
-        public List<Track> AllTracks { get; set; }
+        public List<Artist> AllArtists { get; set; }
 
         public int PageId { get; set; }
 
@@ -28,19 +28,19 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         {
             // paging
 
-            var getAllTracks = await trackCrud.GetAllTracks();
+            var getAllArtists = await artistCrud.GetAllArtists();
 
             int skip = (page - 1) * 10;
 
-            int countOfTracks = getAllTracks.Count;
+            int countOfArtists = getAllArtists.Count;
 
             PageId = page;
 
-            double countOfPages = (double)countOfTracks / 10;
+            double countOfPages = (double)countOfArtists / 10;
 
             PageCount = Math.Ceiling(countOfPages);
 
-            AllTracks = getAllTracks.OrderByDescending(x => x.Id)
+            AllArtists = getAllArtists.OrderByDescending(x => x.Id)
                 .Skip(skip)
                 .Take(10)
                 .ToList();

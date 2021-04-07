@@ -73,7 +73,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            if (myFile.Length > 0)
+            if (myFile?.Length > 0)
             {
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",

@@ -129,7 +129,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            if (myFile.Length > 0)
+            if (myFile?.Length > 0)
             {
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",
@@ -148,16 +148,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
         {
             musicVideo.Name = input.Name;
 
-            if (input.MyCoverImage.Length > 0)
+            if (input.MyCoverImage?.Length > 0)
                 musicVideo.CoverImage = input.MyCoverImage.FileName;
 
-            if (input.MyQuality480.Length > 0)
+            if (input.MyQuality480?.Length > 0)
                 musicVideo.Quality480 = input.MyQuality480.FileName;
 
-            if (input.MyQuality720.Length > 0)
+            if (input.MyQuality720?.Length > 0)
                 musicVideo.Quality720 = input.MyQuality720.FileName;
 
-            if (input.MyQuality1080.Length > 0)
+            if (input.MyQuality1080?.Length > 0)
                 musicVideo.Quality1080 = input.MyQuality1080.FileName;
 
             musicVideo.Lyric = input.Lyric;

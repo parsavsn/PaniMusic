@@ -26,7 +26,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             this.mapper = mapper;
         }
 
-        public async Task AddArtist(AddArtistInput addArtistInput)
+        public async Task<bool> AddArtist(AddArtistInput addArtistInput)
         {
             var addNewGuid = Guid.NewGuid().ToString();
 
@@ -39,13 +39,27 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             artistRepository.Insert(newArtist);
 
             await artistRepository.Save();
+
+            return true;
         }
 
-        public async Task<Artist> GetArtist(string link)
+        public async Task<Artist> GetArtistByLink(string link)
         {
             var getArtist = await artistRepository.GetQuery()
                 .Include(track => track.Tracks)
                 .FirstOrDefaultAsync(artist => artist.Link == link);
+
+            if (getArtist == null)
+                return null;
+
+            return getArtist;
+        }
+
+        public async Task<Artist> GetArtistById(int id)
+        {
+            var getArtist = await artistRepository.GetQuery()
+                .Include(track => track.Tracks)
+                .FirstOrDefaultAsync(artist => artist.Id == id);
 
             if (getArtist == null)
                 return null;
@@ -58,7 +72,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             return await artistRepository.GetAll();
         }
 
-        public async Task UpdateArtist(UpdateArtistInput updateArtistInput)
+        public async Task<bool> UpdateArtist(UpdateArtistInput updateArtistInput)
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
@@ -71,9 +85,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             artistRepository.Update(changeArtist);
 
             await artistRepository.Save();
+
+            return true;
         }
 
-        public async Task DeleteArtist(int id)
+        public async Task<bool> DeleteArtist(int id)
         {
             var getArtist = await artistRepository.Get(id);
 
@@ -82,11 +98,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             artistRepository.Delete(id);
 
             await artistRepository.Save();
+
+            return true;
         }
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            if (myFile.Length > 0)
+            if (myFile?.Length > 0)
             {
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",
@@ -105,7 +123,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
         {
             artist.Name = input.Name;
 
-            if (input.MyImage.Length > 0)
+            if (input.MyImage?.Length > 0)
                 artist.Image = input.MyImage.FileName;
 
             artist.Biography = input.BioGraphy;

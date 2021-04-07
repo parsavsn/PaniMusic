@@ -85,7 +85,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
-            if (myFile.Length > 0)
+            if (myFile?.Length > 0)
             {
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot",
@@ -104,7 +104,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
         {
             category.Name = input.Name;
 
-            if (input.MyImage.Length > 0)
+            if (input.MyImage?.Length > 0)
                 category.Image = input.MyImage.FileName;
 
             category.Link = input.Link;

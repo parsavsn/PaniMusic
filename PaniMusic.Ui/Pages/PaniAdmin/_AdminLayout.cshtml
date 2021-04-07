@@ -65,7 +65,7 @@
                             <!-- Add icons to the links using the .nav-icon class
                                  with font-awesome or any other icon font library -->
                             <li class="nav-item">
-                                <a href="pages/widgets.html" class="nav-link" id="dashboard-link">
+                                <a href="/paniadmin" class="nav-link" id="dashboard-link">
                                     <i class="nav-icon fa fa-dashboard"></i>
                                     <p>
                                         داشبورد
@@ -73,7 +73,7 @@
                                 </a>
                             </li>
                             <li class="nav-item has-treeview" id="musics-list">
-                                <a href="#" class="nav-link" id="musics-link">
+                                <a href="/paniadmin/alltracks" class="nav-link" id="musics-link">
                                     <i class="nav-icon fa fa-music"></i>
                                     <p>
                                         آهنگ ها
@@ -82,13 +82,13 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="./index.html" class="nav-link" id="allmusics-link">
+                                        <a href="/paniadmin/alltracks" class="nav-link" id="allmusics-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>همه آهنگ ها</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./index2.html" class="nav-link" id="newmusic-link">
+                                        <a href="/paniadmin/newtrack" class="nav-link" id="newmusic-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>افزودن آهنگ جدید</p>
                                         </a>
@@ -97,7 +97,7 @@
                             </li>
 
                             <li class="nav-item has-treeview" id="albums-list">
-                                <a href="#" class="nav-link" id="albums-link">
+                                <a href="/paniadmin/allalbums" class="nav-link" id="albums-link">
                                     <i class="nav-icon fa fa-folder"></i>
                                     <p>
                                         آلبوم ها
@@ -106,13 +106,13 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="./index.html" class="nav-link" id="allalbums-link">
+                                        <a href="/paniadmin/allalbums" class="nav-link" id="allalbums-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>همه آلبوم ها</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./index2.html" class="nav-link" id="newalbum-link">
+                                        <a href="/paniadmin/newalbum" class="nav-link" id="newalbum-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>افزودن آلبوم جدید</p>
                                         </a>
@@ -121,7 +121,7 @@
                             </li>
 
                             <li class="nav-item has-treeview" id="musicvideos-list">
-                                <a href="#" class="nav-link" id="musicvideos-link">
+                                <a href="/paniadmin/allmusicvideos" class="nav-link" id="musicvideos-link">
                                     <i class="nav-icon fa fa-youtube-play"></i>
                                     <p>
                                         موزیک ویدیو ها
@@ -130,13 +130,13 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="./index.html" class="nav-link" id="allmusicvideos-link">
+                                        <a href="/paniadmin/allmusicvideos" class="nav-link" id="allmusicvideos-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>همه موزیک ویدیو ها</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./index2.html" class="nav-link" id="newmusicvideo-link">
+                                        <a href="/paniadmin/newmusicvideo" class="nav-link" id="newmusicvideo-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>افزودن موزیک ویدیو جدید</p>
                                         </a>
@@ -145,7 +145,7 @@
                             </li>
 
                             <li class="nav-item has-treeview" id="artists-list">
-                                <a href="#" class="nav-link" id="artists-link">
+                                <a href="/paniadmin/allartists" class="nav-link" id="artists-link">
                                     <i class="nav-icon fa fa-microphone"></i>
                                     <p>
                                         هنرمندان
@@ -154,13 +154,13 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="./index.html" class="nav-link" id="allartists-link">
+                                        <a href="/paniadmin/allartists" class="nav-link" id="allartists-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>همه هنرمندان</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./index2.html" class="nav-link" id="newartist-link">
+                                        <a href="/paniadmin/newartist" class="nav-link" id="newartist-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>افزودن هنرمند جدید</p>
                                         </a>
@@ -274,6 +274,9 @@
     <script src="~/lib/select2/select2.full.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/js/adminlte.js"></script>
+    <!-- jquery validate -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 
     @RenderSection("Scripts", required: false)
 

@@ -10,14 +10,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 {
     public interface IArtistCrud
     {
-        Task AddArtist(AddArtistInput addArtistInput);
+        Task<bool> AddArtist(AddArtistInput addArtistInput);
 
-        Task<Artist> GetArtist(string link);
+        Task<Artist> GetArtistByLink(string link);
+
+        Task<Artist> GetArtistById(int id);
 
         Task<List<Artist>> GetAllArtists();
 
-        Task UpdateArtist(UpdateArtistInput updateArtistInput);
+        Task<bool> UpdateArtist(UpdateArtistInput updateArtistInput);
 
-        Task DeleteArtist(int id);
+        Task<bool> DeleteArtist(int id);
     }
 }
