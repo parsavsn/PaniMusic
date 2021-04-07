@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label asp-for="Input.BioGraphy"></label>
-                                <textarea class="form-control" rows="5" id="comment" name="Input.BioGraphy">@Model.Artist.Biography</textarea>
+                                <textarea class="form-control" id="mytextarea" name="Input.BioGraphy">@Model.Artist.Biography</textarea>
                                 <span asp-validation-for="Input.BioGraphy" class="text-danger"></span>
                             </div>
 
@@ -117,6 +117,15 @@
             $('#artists-list').addClass('menu-open');
             $('#artists-link').addClass('active');
             $('#allartists-link').addClass('active');
+        });
+        //tinymce
+        tinymce.init({
+            selector: '#mytextarea',
+            height: 950,
+            plugins: 'print preview fullscreen image link media template codesample table charmap hr help',
+            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat |fullscreen',
+            language: 'fa_IR',
+            directionality: 'rtl'
         });
     </script>
 }

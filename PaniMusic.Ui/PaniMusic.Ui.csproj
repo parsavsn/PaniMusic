@@ -25,6 +25,7 @@
     <Folder Include="wwwroot\uploads\gallerycategory\" />
     <Folder Include="wwwroot\uploads\galleryimage\" />
     <Folder Include="wwwroot\uploads\musicvideo\" />
+    <Folder Include="wwwroot\uploads\files\" />
     <Folder Include="wwwroot\uploads\track\" />
   </ItemGroup>
 
