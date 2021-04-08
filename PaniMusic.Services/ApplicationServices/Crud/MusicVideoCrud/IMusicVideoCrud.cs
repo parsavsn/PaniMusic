@@ -10,14 +10,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 {
     public interface IMusicVideoCrud
     {
-        Task AddMusicVideo(AddMusicVideoInput addMusicVideoInput);
+        Task<bool> AddMusicVideo(AddMusicVideoInput addMusicVideoInput);
 
-        Task<MusicVideo> GetMusicVideo(string link);
+        Task<MusicVideo> GetMusicVideoByLink(string link);
+
+        Task<MusicVideo> GetMusicVideoById(int id);
 
         Task<List<MusicVideo>> GetAllMusicVideos();
 
-        Task UpdateMusicVideo(UpdateMusicVideoInput updateMusicVideoInput);
+        Task<bool> UpdateMusicVideo(UpdateMusicVideoInput updateMusicVideoInput);
 
-        Task DeleteMusicVideo(int id);
+        Task<bool> DeleteMusicVideo(int id);
     }
 }

@@ -26,7 +26,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             this.mapper = mapper;
         }
 
-        public async Task AddMusicVideo(AddMusicVideoInput addMusicVideoInput)
+        public async Task<bool> AddMusicVideo(AddMusicVideoInput addMusicVideoInput)
         {
             var addNewGuid = Guid.NewGuid().ToString();
 
@@ -58,9 +58,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             musicVideoRepository.Insert(newMusicVideo);
 
             await musicVideoRepository.Save();
+
+            return true;
         }
 
-        public async Task<MusicVideo> GetMusicVideo(string link)
+        public async Task<MusicVideo> GetMusicVideoByLink(string link)
         {
             var getMusicVideo = await musicVideoRepository.GetQuery()
                 .Include(musicVideo => musicVideo.Style)
@@ -79,6 +81,19 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             return getMusicVideo;
         }
 
+        public async Task<MusicVideo> GetMusicVideoById(int id)
+        {
+            var getMusicVideo = await musicVideoRepository.GetQuery()
+                .Include(musicVideo => musicVideo.Style)
+                .Include(musicVideo => musicVideo.Artist)
+                .FirstOrDefaultAsync(musicVideo => musicVideo.Id == id);
+
+            if (getMusicVideo == null)
+                return null;
+
+            return getMusicVideo;
+        }
+
         public async Task<List<MusicVideo>> GetAllMusicVideos()
         {
             var getAllMusicVideos = await musicVideoRepository.GetQuery()
@@ -89,7 +104,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             return getAllMusicVideos;
         }
 
-        public async Task UpdateMusicVideo(UpdateMusicVideoInput updateMusicVideoInput)
+        public async Task<bool> UpdateMusicVideo(UpdateMusicVideoInput updateMusicVideoInput)
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
@@ -108,9 +123,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             musicVideoRepository.Update(changeMusicVideo);
 
             await musicVideoRepository.Save();
+
+            return true;
         }
 
-        public async Task DeleteMusicVideo(int id)
+        public async Task<bool> DeleteMusicVideo(int id)
         {
             var getMusicVideo = await musicVideoRepository.Get(id);
 
@@ -125,6 +142,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             musicVideoRepository.Delete(id);
 
             await musicVideoRepository.Save();
+
+            return true;
         }
 
         private async Task UploadFile(IFormFile myFile, string myGuid)

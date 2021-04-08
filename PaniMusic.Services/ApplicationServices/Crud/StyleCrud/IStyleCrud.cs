@@ -10,14 +10,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
 {
     public interface IStyleCrud
     {
-        Task AddStyle(AddStyleInput addStyleInput);
+        Task<bool> AddStyle(AddStyleInput addStyleInput);
 
-        Task<Style> GetStyle(string link);
+        Task<Style> GetStyleByLink(string link);
+
+        Task<Style> GetStyleById(int id);
 
         Task<List<Style>> GetAllStyles();
 
-        Task UpdateStyle(UpdateStyleInput updateStyleInput);
+        Task<bool> UpdateStyle(UpdateStyleInput updateStyleInput);
 
-        Task DeleteStyle(int id);
+        Task<bool> DeleteStyle(int id);
     }
 }

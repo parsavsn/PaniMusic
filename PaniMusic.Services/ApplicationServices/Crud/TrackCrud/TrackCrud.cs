@@ -27,7 +27,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             this.mapper = mapper;
         }
 
-        public async Task AddTrack(AddTrackInput addTrackInput)
+        public async Task<bool> AddTrack(AddTrackInput addTrackInput)
         {
             var addNewGuid = Guid.NewGuid().ToString();
 
@@ -54,9 +54,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             trackRepository.Insert(newTrack);
 
             await trackRepository.Save();
+
+            return true;
         }
 
-        public async Task<Track> GetTrack(string link)
+        public async Task<Track> GetTrackByLink(string link)
         {
             var getTrack = await trackRepository.GetQuery()
                 .Include(track => track.Style)
@@ -77,6 +79,21 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             return getTrack;
         }
 
+        public async Task<Track> GetTrackById(int id)
+        {
+            var getTrack = await trackRepository.GetQuery()
+                .Include(track => track.Style)
+                .Include(track => track.Artist)
+                .Include(track => track.Album)
+                .Where(x => x.AlbumId == null)
+                .FirstOrDefaultAsync(track => track.Id == id);
+
+            if (getTrack == null)
+                return null;
+
+            return getTrack;
+        }
+
         public async Task<List<Track>> GetAllTracks()
         {
             var getallTracks = await trackRepository.GetQuery()
@@ -89,7 +106,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             return getallTracks;
         }
 
-        public async Task UpdateTrack(UpdateTrackInput updateTrackInput)
+        public async Task<bool> UpdateTrack(UpdateTrackInput updateTrackInput)
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
@@ -106,9 +123,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             trackRepository.Update(changeTrack);
 
             await trackRepository.Save();
+
+            return true;
         }
 
-        public async Task DeleteTrack(int id)
+        public async Task<bool> DeleteTrack(int id)
         {
             var getTrack = await trackRepository.Get(id);
 
@@ -121,6 +140,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             trackRepository.Delete(id);
 
             await trackRepository.Save();
+
+            return true;
         }
 
         public async Task<List<Track>> GetTracksForAlbum(int albumId)

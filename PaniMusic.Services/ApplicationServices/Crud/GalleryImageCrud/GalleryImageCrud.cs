@@ -32,7 +32,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
             this.mapper = mapper;
         }
 
-        public async Task AddGalleryImage(AddGalleryImageInput addGalleryImageInput)
+        public async Task<bool> AddGalleryImage(AddGalleryImageInput addGalleryImageInput)
         {
             var addNewGuid = Guid.NewGuid().ToString();
 
@@ -40,17 +40,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
 
             var newGalleryImage = mapper.Map<GalleryImage>(addGalleryImageInput);
 
-            newGalleryImage.Image = addGalleryImageInput.MyImage.FileName;
+            newGalleryImage.Image = addNewGuid + addGalleryImageInput.MyImage.FileName;
 
             galleryImageRepository.Insert(newGalleryImage);
 
             await galleryImageRepository.Save();
+
+            return true;
         }
 
-        public async Task<List<GalleryImage>> GetGalleryImages(string link)
+        public async Task<List<GalleryImage>> GetGalleryImages(int categoryId)
         {
-            var getGalleryCategory = await galleryCategoryRepository.GetQuery()
-                .FirstOrDefaultAsync(galleryCategory => galleryCategory.Link == link);
+            var getGalleryCategory = await galleryCategoryRepository.Get(categoryId);
 
             var getGalleryImages = await galleryImageRepository.GetQuery()
                 .Include(galleryImage => galleryImage.GalleryCategory)
@@ -60,15 +61,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
             return getGalleryImages;
         }
 
-        public async Task DeleteGalleryImage(int id)
+        public async Task<bool> DeleteGalleryImage(int id)
         {
-            var getGalleryImage = await galleryCategoryRepository.Get(id);
+            var getGalleryImage = await galleryImageRepository.Get(id);
 
             DeleteFile(getGalleryImage.Image);
 
-            galleryCategoryRepository.Delete(id);
+            galleryImageRepository.Delete(id);
 
-            await galleryCategoryRepository.Save();
+            await galleryImageRepository.Save();
+
+            return true;
         }
 
         private async Task UploadFile(IFormFile myFile, string myGuid)

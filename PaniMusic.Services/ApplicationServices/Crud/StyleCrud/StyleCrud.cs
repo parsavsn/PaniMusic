@@ -24,20 +24,32 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
             this.mapper = mapper;
         }
 
-        public async Task AddStyle(AddStyleInput addStyleInput)
+        public async Task<bool> AddStyle(AddStyleInput addStyleInput)
         {
             var newStyle = mapper.Map<Style>(addStyleInput);
 
             styleRepository.Insert(newStyle);
 
             await styleRepository.Save();
+
+            return true;
         }
 
-        public async Task<Style> GetStyle(string link)
+        public async Task<Style> GetStyleByLink(string link)
         {
             var getStyle = await styleRepository.GetQuery()
                 .Include(style => style.Tracks)
                 .FirstOrDefaultAsync(style => style.Link == link);
+
+            if (getStyle == null)
+                return null;
+
+            return getStyle;
+        }
+
+        public async Task<Style> GetStyleById(int id)
+        {
+            var getStyle = await styleRepository.Get(id);
 
             if (getStyle == null)
                 return null;
@@ -50,7 +62,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
             return await styleRepository.GetAll();
         }
 
-        public async Task UpdateStyle(UpdateStyleInput updateStyleInput)
+        public async Task<bool> UpdateStyle(UpdateStyleInput updateStyleInput)
         {
             var getStyle = await styleRepository.Get(updateStyleInput.Id);
 
@@ -59,13 +71,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
             styleRepository.Update(changeStyle);
 
             await styleRepository.Save();
+
+            return true;
         }
 
-        public async Task DeleteStyle(int id)
+        public async Task<bool> DeleteStyle(int id)
         {
             styleRepository.Delete(id);
 
             await styleRepository.Save();
+
+            return true;
         }
 
         private Style ChangeForUpdate(Style style, UpdateStyleInput input)

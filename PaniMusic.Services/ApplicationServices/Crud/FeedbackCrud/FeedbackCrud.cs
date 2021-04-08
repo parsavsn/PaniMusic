@@ -22,13 +22,15 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
             this.mapper = mapper;
         }
 
-        public async Task AddFeedback(AddFeedbackInput addFeedbackInput)
+        public async Task<bool> AddFeedback(AddFeedbackInput addFeedbackInput)
         {
             var newFeedback = mapper.Map<Feedback>(addFeedbackInput);
 
             feedbackRepository.Insert(newFeedback);
 
             await feedbackRepository.Save();
+
+            return true;
         }
 
         public async Task<List<Feedback>> GetAllFeedbacks()
@@ -36,11 +38,26 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
             return await feedbackRepository.GetAll();
         }
 
-        public async Task DeleteFeedback(int feedbackId)
+        public async Task<bool> UpdateAcceptFeedback(int id)
         {
-            feedbackRepository.Delete(feedbackId);
+            var getFeedback = await feedbackRepository.Get(id);
+
+            getFeedback.IsAccept = true;
+
+            feedbackRepository.Update(getFeedback);
 
             await feedbackRepository.Save();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteFeedback(int id)
+        {
+            feedbackRepository.Delete(id);
+
+            await feedbackRepository.Save();
+
+            return true;
         }
     }
 }

@@ -10,14 +10,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 {
     public interface IAlbumCrud
     {
-        Task AddAlbum(AddAlbumInput addAlbumInput);
+        Task<bool> AddAlbum(AddAlbumInput addAlbumInput);
 
-        Task<Album> GetAlbum(string link);
+        Task<Album> GetAlbumByLink(string link);
+
+        Task<Album> GetAlbumById(int id);
 
         Task<List<Album>> GetAllAlbums();
 
-        Task UpdateAlbum(UpdateAlbumInput updateAlbumInput);
+        Task<bool> UpdateAlbum(UpdateAlbumInput updateAlbumInput);
 
-        Task DeleteTrack(int id);
+        Task<bool> DeleteTrack(int id);
     }
 }

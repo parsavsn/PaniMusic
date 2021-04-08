@@ -11,10 +11,10 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
     {
         //we don't need getall and update service for this model.
 
-        Task AddGalleryImage(AddGalleryImageInput addGalleryImageInput);
+        Task<bool> AddGalleryImage(AddGalleryImageInput addGalleryImageInput);
 
-        Task<List<GalleryImage>> GetGalleryImages(string link);
+        Task<List<GalleryImage>> GetGalleryImages(int categoryId);
 
-        Task DeleteGalleryImage(int id);
+        Task<bool> DeleteGalleryImage(int id);
     }
 }

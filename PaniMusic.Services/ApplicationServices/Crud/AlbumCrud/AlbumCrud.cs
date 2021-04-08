@@ -25,7 +25,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             this.mapper = mapper;
         }
-        public async Task AddAlbum(AddAlbumInput addAlbumInput)
+        public async Task<bool> AddAlbum(AddAlbumInput addAlbumInput)
         {
             var addNewGuid = Guid.NewGuid().ToString();
 
@@ -52,9 +52,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             albumRepository.Insert(newAlbum);
 
             await albumRepository.Save();
+
+            return true;
         }
 
-        public async Task<Album> GetAlbum(string link)
+        public async Task<Album> GetAlbumByLink(string link)
         {
             var getAlbum = await albumRepository.GetQuery()
                 .Include(album => album.Style)
@@ -74,6 +76,19 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             return getAlbum;
         }
 
+        public async Task<Album> GetAlbumById(int id)
+        {
+            var getAlbum = await albumRepository.GetQuery()
+                .Include(album => album.Style)
+                .Include(album => album.Artist)
+                .FirstOrDefaultAsync(album => album.Id == id);
+
+            if (getAlbum == null)
+                return null;
+
+            return getAlbum;
+        }
+
         public async Task<List<Album>> GetAllAlbums()
         {
             var getAllAlbums = await albumRepository.GetQuery()
@@ -84,7 +99,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             return getAllAlbums;
         }
 
-        public async Task UpdateAlbum(UpdateAlbumInput updateAlbumInput)
+        public async Task<bool> UpdateAlbum(UpdateAlbumInput updateAlbumInput)
         {
             var updateNewGuid = Guid.NewGuid().ToString();
 
@@ -101,9 +116,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             albumRepository.Update(changeAlbum);
 
             await albumRepository.Save();
+
+            return true;
         }
 
-        public async Task DeleteTrack(int id)
+        public async Task<bool> DeleteTrack(int id)
         {
             var getAlbum = await albumRepository.Get(id);
 
@@ -116,6 +133,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             albumRepository.Delete(id);
 
             await albumRepository.Save();
+
+            return true;
         }
 
         private async Task UploadFile(IFormFile myFile, string myGuid)

@@ -13,12 +13,12 @@ namespace PaniMusic.Services.ApplicationServices.Crud.UserCrud
     {
         Task<IdentityResult> AddUser(AddUserInput addUserInput);
 
-        Task<User> GetUser(string id);
+        Task<User> GetUserById(string id);
 
         Task<List<User>> GetAllUsers();
 
-        Task UpdateUser(UpdateUserInput updateUserInput);
+        Task<IdentityResult> UpdateUser(UpdateUserInput updateUserInput);
 
-        Task DeleteUser(string id);
+        Task<IdentityResult> DeleteUser(string id);
     }
 }

@@ -41,7 +41,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.UserCrud
             return newUser;
         }
 
-        public async Task<User> GetUser(string id)
+        public async Task<User> GetUserById(string id)
         {
             var getUser = await this.paniMusicDbContext
                 .Set<User>()
@@ -65,9 +65,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.UserCrud
             return getAllUsers;
         }  
 
-        public async Task UpdateUser(UpdateUserInput updateUserInput)
+        public async Task<IdentityResult> UpdateUser(UpdateUserInput updateUserInput)
         {
-            var getUser = await GetUser(updateUserInput.Id);
+            var getUser = await GetUserById(updateUserInput.Id);
 
             getUser.Name = updateUserInput.Name;
 
@@ -77,14 +77,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.UserCrud
 
             getUser.EmailConfirmed = updateUserInput.EmailConfirmed;
 
-            await userManager.UpdateAsync(getUser);
+            var updatedUser = await userManager.UpdateAsync(getUser);
+
+            return updatedUser;
         }
 
-        public async Task DeleteUser(string id)
+        public async Task<IdentityResult> DeleteUser(string id)
         {
-            var getUser = await GetUser(id);
+            var getUser = await GetUserById(id);
 
-            await userManager.DeleteAsync(getUser);
+            var deletedUser = await userManager.DeleteAsync(getUser);
+
+            return deletedUser;
         }
     }
 }

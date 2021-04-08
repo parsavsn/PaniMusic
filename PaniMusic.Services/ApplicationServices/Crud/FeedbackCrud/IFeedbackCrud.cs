@@ -11,10 +11,12 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
     {
         // we don't need update & get methods for feedback
 
-        Task AddFeedback(AddFeedbackInput addFeedbackInput);
+        Task<bool> AddFeedback(AddFeedbackInput addFeedbackInput);
 
         Task<List<Feedback>> GetAllFeedbacks();
 
-        Task DeleteFeedback(int feedbackId);
+        Task<bool> UpdateAcceptFeedback(int id);
+
+        Task<bool> DeleteFeedback(int id);
     }
 }
