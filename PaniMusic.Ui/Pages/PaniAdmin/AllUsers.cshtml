@@ -1,7 +1,7 @@
 ﻿@page
-@model PaniMusic.Ui.Pages.PaniAdmin.AllCommentsModel
+@model PaniMusic.Ui.Pages.PaniAdmin.AllUsersModel
 @{
-    ViewData["Title"] = "همه نظرات";
+    ViewData["Title"] = "همه کاربران";
 }
 
 
@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">همه نظرات</h1>
+                <h1 class="m-0 text-dark">همه کاربران</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->
@@ -25,32 +25,40 @@
 
             <div class="col-12">
 
-                @if ((bool?)TempData["DeleteComment"] == true && (bool?)TempData["DeleteComment"] != null)
+                @if ((bool?)TempData["AddUser"] == true && (bool?)TempData["AddUser"] != null)
+                {
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-check"></i> اضافه شد </h5>
+                        کاربر جدید با موفقیت به لیست کاربران اضافه شد
+                    </div>
+                }
+
+                @if ((bool?)TempData["DeleteUser"] == true && (bool?)TempData["DeleteUser"] != null)
                 {
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fa fa-ban"></i> حذف شد </h5>
-                        کامنت مورد نظر با موفقیت حذف شد
+                        کاربر مورد نظر با موفقیت حذف شد
                     </div>
                 }
 
-                @if ((bool?)TempData["AcceptComment"] == true && (bool?)TempData["AcceptComment"] != null)
+                @if ((bool?)TempData["EditUser"] == true && (bool?)TempData["EditUser"] != null)
                 {
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fa fa-check"></i> تایید شد </h5>
-                        کامنت مورد نظر با موفقیت تایید شد
+                        <h5><i class="icon fa fa-check"></i> ویرایش شد </h5>
+                        کاربر مورد نظر با موفقیت ویرایش شد
                     </div>
                 }
 
-
                 @{
-                    if (Model.AllFeedbacks.Count == 0)
+                    if (Model.AllUsers.Count == 0)
                     {
                         <div class="alert alert-warning alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <h5> متاسفیم !</h5>
-                            هیچ آیتمی یافت نشد !
+                            هیچ آیتمی یافت نشد ! هنرمند جدیدی اضافه کنید ...
                         </div>
                     }
                     else
@@ -60,35 +68,20 @@
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th>شناسه</th>
-                                        <th>نام نمایشی</th>
+                                        <th>نام و نام خانوادگی</th>
                                         <th>ایمیل</th>
-                                        <th>امتیاز</th>
-                                        <th>نظر</th>
-                                        <th>شناسه آهنگ</th>
-                                        <th>شناسه آلبوم</th>
-                                        <th>شناسه موزیک ویدیو</th>
                                         <th>عملیات</th>
                                     </tr>
-                                    @foreach (var item in Model.AllFeedbacks)
+                                    @foreach (var item in Model.AllUsers)
                                     {
                                         <tr>
-                                            <td>@item.Id</td>
                                             <td>@item.Name</td>
-                                            <td>@item.User.Email</td>
-                                            <td>@item.Rate</td>
-                                            <td>@item.Comment</td>
-                                            <td>@item.TrackId</td>
-                                            <td>@item.AlbumId</td>
-                                            <td>@item.MusicVideoId</td>
+                                            <td>@item.Email</td>
                                             <td>
-                                                @if (item.IsAccept == false)
-                                                {
-                                                    <a href="/paniadmin/acceptcomment?id=@item.Id" class="btn btn-success">
-                                                        <i class="fa fa-check" aria-hidden="true"></i> تایید
-                                                    </a>
-                                                }
-                                                <a href="/paniadmin/deletecomment?id=@item.Id" class="btn btn-danger">
+                                                <a href="/paniadmin/edituser?id=@item.Id" class="btn btn-success">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش
+                                                </a>
+                                                <a href="/paniadmin/deleteuser?id=@item.Id" class="btn btn-danger">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> حذف
                                                 </a>
                                             </td>
@@ -128,7 +121,9 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#comments-link').addClass('active');
+            $('#users-list').addClass('menu-open');
+            $('#users-link').addClass('active');
+            $('#allusers-link').addClass('active');
         });
     </script>
 }

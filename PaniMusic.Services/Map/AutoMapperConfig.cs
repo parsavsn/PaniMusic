@@ -37,7 +37,8 @@ namespace PaniMusic.Services.Map
 
             CreateMap<AddTrackInput, Track>();
 
-            CreateMap<AddUserInput, User>();
+            CreateMap<AddUserInput, User>()
+                .ForMember(x => x.UserName, y => y.MapFrom(z => z.Email));
 
             CreateMap<AddNewsletterInput, Newsletter>();
 

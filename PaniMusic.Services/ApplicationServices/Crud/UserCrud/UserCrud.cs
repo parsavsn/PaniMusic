@@ -36,7 +36,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.UserCrud
         {
             var mapUser = mapper.Map<User>(addUserInput);
 
-            var newUser = await userManager.CreateAsync(mapUser,addUserInput.Password);
+            var newUser = await userManager.CreateAsync(mapUser, addUserInput.Password);
 
             return newUser;
         }
@@ -63,7 +63,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.UserCrud
                 return null;
 
             return getAllUsers;
-        }  
+        }
 
         public async Task<IdentityResult> UpdateUser(UpdateUserInput updateUserInput)
         {
@@ -71,9 +71,20 @@ namespace PaniMusic.Services.ApplicationServices.Crud.UserCrud
 
             getUser.Name = updateUserInput.Name;
 
+            getUser.UserName = updateUserInput.Email;
+
+            await userManager.UpdateNormalizedUserNameAsync(getUser);
+
             getUser.Email = updateUserInput.Email;
 
-            getUser.PasswordHash = updateUserInput.Password;
+            await userManager.UpdateNormalizedEmailAsync(getUser);
+
+            if (!string.IsNullOrEmpty(updateUserInput.Password))
+            {
+                await userManager.RemovePasswordAsync(getUser);
+
+                await userManager.AddPasswordAsync(getUser, updateUserInput.Password);
+            }
 
             getUser.EmailConfirmed = updateUserInput.EmailConfirmed;
 
