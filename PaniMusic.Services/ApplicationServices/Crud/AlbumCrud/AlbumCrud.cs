@@ -37,13 +37,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             var newAlbum = mapper.Map<Album>(addAlbumInput);
 
-            newAlbum.CoverImage = addNewGuid + addAlbumInput.MyCoverImage.FileName;
+            newAlbum.CoverImage = addNewGuid + "-" + addAlbumInput.MyCoverImage.FileName;
 
             if (addAlbumInput.MyQuality128.Length > 0)
-                newAlbum.Quality128 = addNewGuid + addAlbumInput.MyQuality128.FileName;
+                newAlbum.Quality128 = addNewGuid + "-" + addAlbumInput.MyQuality128.FileName;
 
             if (addAlbumInput.MyQuality320.Length > 0)
-                newAlbum.Quality320 = addNewGuid + addAlbumInput.MyQuality320.FileName;
+                newAlbum.Quality320 = addNewGuid + "-" + addAlbumInput.MyQuality320.FileName;
 
             newAlbum.Visit = 0;
 
@@ -111,7 +111,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             var getAlbum = await albumRepository.Get(updateAlbumInput.Id);
 
-            var changeAlbum = ChangeForUpdate(getAlbum, updateAlbumInput);
+            var changeAlbum = ChangeForUpdate(getAlbum, updateAlbumInput, updateNewGuid);
 
             albumRepository.Update(changeAlbum);
 
@@ -145,7 +145,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
                 "wwwroot",
                 "uploads",
                 "album",
-                myGuid + myFile.FileName);
+                myGuid + "-" + myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -154,18 +154,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             }
         }
 
-        private Album ChangeForUpdate(Album album, UpdateAlbumInput input)
+        private Album ChangeForUpdate(Album album, UpdateAlbumInput input, string myGuid)
         {
             album.Name = input.Name;
 
             if (input.MyCoverImage?.Length > 0)
-                album.CoverImage = input.MyCoverImage.FileName;
+                album.CoverImage = myGuid + "-" + input.MyCoverImage.FileName;
 
             if (input.MyQuality128?.Length > 0)
-                album.Quality128 = input.MyQuality128.FileName;
+                album.Quality128 = myGuid + "-" + input.MyQuality128.FileName;
 
             if (input.MyQuality320?.Length > 0)
-                album.Quality320 = input.MyQuality320.FileName;
+                album.Quality320 = myGuid + "-" + input.MyQuality320.FileName;
 
             album.Link = input.Link;
 

@@ -40,7 +40,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
 
             var newGalleryImage = mapper.Map<GalleryImage>(addGalleryImageInput);
 
-            newGalleryImage.Image = addNewGuid + addGalleryImageInput.MyImage.FileName;
+            newGalleryImage.Image = addNewGuid + "-" + addGalleryImageInput.MyImage.FileName;
 
             galleryImageRepository.Insert(newGalleryImage);
 
@@ -82,7 +82,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
                 "wwwroot",
                 "uploads",
                 "galleryimage",
-                myGuid + myFile.FileName);
+                myGuid + "-" + myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {

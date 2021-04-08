@@ -34,7 +34,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
             var newArtist = mapper.Map<Artist>(addArtistInput);
 
-            newArtist.Image = addNewGuid + addArtistInput.MyImage.FileName;
+            newArtist.Image = addNewGuid + "-" + addArtistInput.MyImage.FileName;
 
             artistRepository.Insert(newArtist);
 
@@ -78,7 +78,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
             var getArtist = await artistRepository.Get(updateArtistInput.Id);
 
-            var changeArtist = ChangeForUpdate(getArtist, updateArtistInput);
+            var changeArtist = ChangeForUpdate(getArtist, updateArtistInput, updateNewGuid);
 
             artistRepository.Update(changeArtist);
 
@@ -108,7 +108,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
                 "wwwroot",
                 "uploads",
                 "artist",
-                myGuid + myFile.FileName);
+                myGuid + "-" + myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -117,12 +117,12 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             }
         }
 
-        private Artist ChangeForUpdate(Artist artist, UpdateArtistInput input)
+        private Artist ChangeForUpdate(Artist artist, UpdateArtistInput input, string myGuid)
         {
             artist.Name = input.Name;
 
             if (input.MyImage?.Length > 0)
-                artist.Image = input.MyImage.FileName;
+                artist.Image = myGuid + "-" + input.MyImage.FileName;
 
             artist.Biography = input.BioGraphy;
 

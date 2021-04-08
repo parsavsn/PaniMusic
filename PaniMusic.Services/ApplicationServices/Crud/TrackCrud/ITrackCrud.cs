@@ -21,13 +21,5 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
         Task<bool> UpdateTrack(UpdateTrackInput updateTrackInput);
 
         Task<bool> DeleteTrack(int id);
-
-        // The bottom three methods are for display on ui pages .
-
-        Task<List<Track>> GetTracksForAlbum(int albumId);
-
-        Task<List<Track>> GetTracksForArtist(int artistId);
-
-        Task<List<Track>> GetTracksForStyle(int styleId);
     }
 }

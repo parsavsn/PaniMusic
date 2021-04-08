@@ -39,13 +39,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
             var newTrack = mapper.Map<Track>(addTrackInput);
 
-            newTrack.CoverImage = addNewGuid + addTrackInput.MyCoverImage.FileName;
+            newTrack.CoverImage = addNewGuid + "-" + addTrackInput.MyCoverImage.FileName;
 
             if (addTrackInput.MyQuality128.Length > 0)
-                newTrack.Quality128 = addNewGuid + addTrackInput.MyQuality128.FileName;
+                newTrack.Quality128 = addNewGuid + "-" + addTrackInput.MyQuality128.FileName;
 
             if (addTrackInput.MyQuality320.Length > 0)
-                newTrack.Quality320 = addNewGuid + addTrackInput.MyQuality320.FileName;
+                newTrack.Quality320 = addNewGuid + "-" + addTrackInput.MyQuality320.FileName;
 
             newTrack.Visit = 0;
 
@@ -118,7 +118,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
             var getTrack = await trackRepository.Get(updateTrackInput.Id);
 
-            var changeTrack = ChangeForUpdate(getTrack, updateTrackInput);
+            var changeTrack = ChangeForUpdate(getTrack, updateTrackInput, updateNewGuid);
 
             trackRepository.Update(changeTrack);
 
@@ -144,42 +144,6 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             return true;
         }
 
-        public async Task<List<Track>> GetTracksForAlbum(int albumId)
-        {
-            var getTracks = await trackRepository.GetQuery()
-                .Include(tracks => tracks.Style)
-                .Include(tracks => tracks.Artist)
-                .Include(tracks => tracks.Album)
-                .Where(tracks => tracks.AlbumId == albumId)
-                .ToListAsync();
-
-            return getTracks;
-        }
-
-        public async Task<List<Track>> GetTracksForArtist(int artistId)
-        {
-            var getTracks = await trackRepository.GetQuery()
-                .Include(tracks => tracks.Style)
-                .Include(tracks => tracks.Artist)
-                .Include(tracks => tracks.Album)
-                .Where(tracks => tracks.ArtistId == artistId && tracks.AlbumId == null)
-                .ToListAsync();
-
-            return getTracks;
-        }
-
-        public async Task<List<Track>> GetTracksForStyle(int styleId)
-        {
-            var getTracks = await trackRepository.GetQuery()
-                .Include(tracks => tracks.Style)
-                .Include(tracks => tracks.Artist)
-                .Include(tracks => tracks.Album)
-                .Where(tracks => tracks.StyleId == styleId  && tracks.AlbumId == null)
-                .ToListAsync();
-
-            return getTracks;
-        }
-
         private async Task UploadFile(IFormFile myFile, string myGuid)
         {
             if (myFile?.Length > 0)
@@ -188,7 +152,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 "wwwroot",
                 "uploads",
                 "track",
-                myGuid + myFile.FileName);
+                myGuid + "-" + myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -197,18 +161,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             }
         }
 
-        private Track ChangeForUpdate(Track track, UpdateTrackInput input)
+        private Track ChangeForUpdate(Track track, UpdateTrackInput input, string myGuid)
         {
             track.Name = input.Name;
 
             if (input.MyCoverImage?.Length > 0)
-                track.CoverImage = input.MyCoverImage.FileName;
+                track.CoverImage = myGuid + "-" + input.MyCoverImage.FileName;
 
             if (input.MyQuality128?.Length > 0)
-                track.Quality128 = input.MyQuality128.FileName;
+                track.Quality128 = myGuid + "-" + input.MyQuality128.FileName;
 
             if (input.MyQuality320?.Length > 0)
-                track.Quality320 = input.MyQuality320.FileName;
+                track.Quality320 = myGuid + "-" + input.MyQuality320.FileName;
 
             track.Lyric = input.Lyric;
 

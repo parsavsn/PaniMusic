@@ -23,8 +23,44 @@
 
             <div class="col-12">
 
+                @if ((bool?)TempData["AddTrack"] == true && (bool?)TempData["AddTrack"] != null)
+                {
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-check"></i> اضافه شد </h5>
+                        آهنگ جدید با موفقیت به لیست آهنگ ها اضافه شد
+                    </div>
+                }
+
+                @if ((bool?)TempData["DeleteTrack"] == true && (bool?)TempData["DeleteTrack"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-ban"></i> حذف شد </h5>
+                        آهنگ مورد نظر با موفقیت حذف شد
+                    </div>
+                }
+
+                @if ((bool?)TempData["EditTrack"] == true && (bool?)TempData["EditTrack"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-check"></i> ویرایش شد </h5>
+                        آهنگ مورد نظر با موفقیت ویرایش شد
+                    </div>
+                }
+
+
                 @{
-                    if (Model.AllTracks.Count != 0)
+                    if (Model.AllTracks.Count == 0)
+                    {
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5> متاسفیم !</h5>
+                            هیچ آیتمی یافت نشد ! آهنگ جدیدی اضافه کنید ...
+                        </div>
+                    }
+                    else
                     {
                         <div class="card">
                             <!-- /.card-header -->
@@ -47,10 +83,12 @@
                                             <td>@item.Style.Name</td>
                                             <td>@item.Artist.Name</td>
                                             <td>
-                                                <button type="button" asp-action="edittrack" value="@item.Id" class="btn btn-success">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش</button>
-                                                <button type="button" asp-action="deletetrack" value="@item.Id" class="btn btn-danger">
-                                                <i class="fa fa-trash" aria-hidden="true"></i> حذف</button>
+                                                <a href="/paniadmin/edittrack?id=@item.Id" class="btn btn-success">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش
+                                                </a>
+                                                <a href="/paniadmin/deletetrack?id=@item.Id" class="btn btn-danger">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> حذف
+                                                </a>
                                             </td>
                                         </tr>
                                     }
@@ -74,14 +112,6 @@
                                     </ul>
                                 </nav>
                             </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="alert alert-info alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5> متاسفیم !</h5>
-                            هیچ آیتمی یافت نشد ! آهنگ جدیدی اضافه کنید ...
                         </div>
                     }
                 }

@@ -46,6 +46,9 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         {
             Album = await albumCrud.GetAlbumById(id);
 
+            if (Album == null)
+                return RedirectToPage("AllAlbums");
+
             var allStyles = await styleCrud.GetAllStyles();
 
             ListOfStyles = new SelectList(allStyles, "Id", "Name", Album.Style.Id);
@@ -53,9 +56,6 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             var allArtists = await artistCrud.GetAllArtists();
 
             ListOfArtists = new SelectList(allArtists, "Id", "Name", Album.Artist.Id);
-
-            if (Album == null)
-                return RedirectToPage("AllAlbums");
 
             return Page();
         }

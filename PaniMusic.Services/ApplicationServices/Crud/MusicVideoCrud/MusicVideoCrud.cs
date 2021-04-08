@@ -40,16 +40,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
             var newMusicVideo = mapper.Map<MusicVideo>(addMusicVideoInput);
 
-            newMusicVideo.CoverImage = addMusicVideoInput.MyCoverImage.FileName;
+            newMusicVideo.CoverImage = addNewGuid + "-" + addMusicVideoInput.MyCoverImage.FileName;
 
             if (addMusicVideoInput.MyQuality480.Length > 0)
-                newMusicVideo.Quality480 = addMusicVideoInput.MyQuality480.FileName;
+                newMusicVideo.Quality480 = addNewGuid + "-" + addMusicVideoInput.MyQuality480.FileName;
 
             if (addMusicVideoInput.MyQuality720.Length > 0)
-                newMusicVideo.Quality720 = addMusicVideoInput.MyQuality720.FileName;
+                newMusicVideo.Quality720 = addNewGuid + "-" + addMusicVideoInput.MyQuality720.FileName;
 
             if (addMusicVideoInput.MyQuality1080.Length > 0)
-                newMusicVideo.Quality1080 = addMusicVideoInput.MyQuality1080.FileName;
+                newMusicVideo.Quality1080 = addNewGuid + "-" + addMusicVideoInput.MyQuality1080.FileName;
 
             newMusicVideo.Visit = 0;
 
@@ -118,7 +118,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
             var getMusicVideo = await musicVideoRepository.Get(updateMusicVideoInput.Id);
 
-            var changeMusicVideo = ChangeForUpdate(getMusicVideo, updateMusicVideoInput);
+            var changeMusicVideo = ChangeForUpdate(getMusicVideo, updateMusicVideoInput, updateNewGuid);
 
             musicVideoRepository.Update(changeMusicVideo);
 
@@ -154,7 +154,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
                 "wwwroot",
                 "uploads",
                 "musicvideo",
-                myGuid + myFile.FileName);
+                myGuid + "-" + myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -163,21 +163,21 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             }
         }
 
-        private MusicVideo ChangeForUpdate(MusicVideo musicVideo, UpdateMusicVideoInput input)
+        private MusicVideo ChangeForUpdate(MusicVideo musicVideo, UpdateMusicVideoInput input, string myGuid)
         {
             musicVideo.Name = input.Name;
 
             if (input.MyCoverImage?.Length > 0)
-                musicVideo.CoverImage = input.MyCoverImage.FileName;
+                musicVideo.CoverImage = myGuid + "-" + input.MyCoverImage.FileName;
 
             if (input.MyQuality480?.Length > 0)
-                musicVideo.Quality480 = input.MyQuality480.FileName;
+                musicVideo.Quality480 = myGuid + "-" + input.MyQuality480.FileName;
 
             if (input.MyQuality720?.Length > 0)
-                musicVideo.Quality720 = input.MyQuality720.FileName;
+                musicVideo.Quality720 = myGuid + "-" + input.MyQuality720.FileName;
 
             if (input.MyQuality1080?.Length > 0)
-                musicVideo.Quality1080 = input.MyQuality1080.FileName;
+                musicVideo.Quality1080 = myGuid + "-" + input.MyQuality1080.FileName;
 
             musicVideo.Lyric = input.Lyric;
 

@@ -34,7 +34,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
             var newGalleryCategory = mapper.Map<GalleryCategory>(addGalleryCategoryInput);
 
-            newGalleryCategory.Image = addNewGuid + addGalleryCategoryInput.MyImage.FileName;
+            newGalleryCategory.Image = addNewGuid + "-" + addGalleryCategoryInput.MyImage.FileName;
 
             galleryCategoryRepostiory.Insert(newGalleryCategory);
 
@@ -77,7 +77,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
             var getGalleryCategory = await galleryCategoryRepostiory.Get(updateGalleryCategoryInput.Id);
 
-            var changeGalleryCategory = ChangeForUpdate(getGalleryCategory, updateGalleryCategoryInput);
+            var changeGalleryCategory = ChangeForUpdate(getGalleryCategory, updateGalleryCategoryInput, updateNewGuid);
 
             galleryCategoryRepostiory.Update(changeGalleryCategory);
 
@@ -107,7 +107,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
                 "wwwroot",
                 "uploads",
                 "gallerycategory",
-                myGuid + myFile.FileName);
+                myGuid + "-" + myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -116,12 +116,14 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             }
         }
 
-        private GalleryCategory ChangeForUpdate(GalleryCategory category, UpdateGalleryCategoryInput input)
+        private GalleryCategory ChangeForUpdate(GalleryCategory category
+            , UpdateGalleryCategoryInput input
+            , string myGuid)
         {
             category.Name = input.Name;
 
             if (input.MyImage?.Length > 0)
-                category.Image = input.MyImage.FileName;
+                category.Image = myGuid + "-" + input.MyImage.FileName;
 
             category.Link = input.Link;
 
