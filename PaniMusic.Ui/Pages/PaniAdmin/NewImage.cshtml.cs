@@ -44,12 +44,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(AddGalleryImageInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            AddImage = await galleryImageCrud.AddGalleryImage(input);
+            AddImage = await galleryImageCrud.AddGalleryImage(Input);
 
             return Redirect($"categoryimages?id={TempData["CategoryId"]}");
         }

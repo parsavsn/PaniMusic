@@ -24,12 +24,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         [TempData]
         public bool AddArtist { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(AddArtistInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            AddArtist =  await artistCrud.AddArtist(input);
+            AddArtist =  await artistCrud.AddArtist(Input);
 
             return RedirectToPage("AllArtists");
         }

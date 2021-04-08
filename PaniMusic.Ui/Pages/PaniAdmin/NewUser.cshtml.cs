@@ -27,12 +27,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         [TempData]
         public bool AddUser { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(AddUserInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            Result = await userCrud.AddUser(input);
+            Result = await userCrud.AddUser(Input);
 
             foreach (var error in Result.Errors)
             {

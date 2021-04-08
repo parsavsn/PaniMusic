@@ -120,7 +120,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             return true;
         }
 
-        public async Task<bool> DeleteTrack(int id)
+        public async Task<bool> DeleteAlbum(int id)
         {
             var getAlbum = await albumRepository.Get(id);
 

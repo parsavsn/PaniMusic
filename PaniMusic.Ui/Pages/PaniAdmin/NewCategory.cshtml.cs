@@ -24,12 +24,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         [TempData]
         public bool AddCategory { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(AddGalleryCategoryInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            AddCategory = await galleryCategoryCrud.AddGalleryCategory(input);
+            AddCategory = await galleryCategoryCrud.AddGalleryCategory(Input);
 
             return RedirectToPage("AllCategories");
         }

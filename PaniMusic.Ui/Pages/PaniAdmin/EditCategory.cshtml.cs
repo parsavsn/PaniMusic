@@ -37,12 +37,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(UpdateGalleryCategoryInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            EditCategory = await galleryCategoryCrud.UpdateGalleryCategory(input);
+            EditCategory = await galleryCategoryCrud.UpdateGalleryCategory(Input);
 
             return RedirectToPage("AllCategories");
         }

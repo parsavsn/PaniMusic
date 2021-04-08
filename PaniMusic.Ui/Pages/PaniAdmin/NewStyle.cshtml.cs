@@ -24,12 +24,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         [TempData]
         public bool AddStyle { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(AddStyleInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            AddStyle = await styleCrud.AddStyle(input);
+            AddStyle = await styleCrud.AddStyle(Input);
 
             return RedirectToPage("AllStyles");
         }

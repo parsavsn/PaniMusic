@@ -37,12 +37,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(UpdateArtistInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            EditArtist = await artistCrud.UpdateArtist(input);
+            EditArtist = await artistCrud.UpdateArtist(Input);
 
             return RedirectToPage("AllArtists");
         }

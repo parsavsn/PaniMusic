@@ -37,12 +37,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(UpdateStyleInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            EditStyle = await styleCrud.UpdateStyle(input);
+            EditStyle = await styleCrud.UpdateStyle(Input);
 
             return RedirectToPage("AllStyles");
         }

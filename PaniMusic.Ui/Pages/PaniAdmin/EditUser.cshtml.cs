@@ -40,12 +40,12 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(UpdateUserInput input)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            Result = await userCrud.UpdateUser(input);
+            Result = await userCrud.UpdateUser(Input);
 
             foreach (var error in Result.Errors)
             {
