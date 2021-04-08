@@ -1,13 +1,15 @@
 ﻿@page
-@model PaniMusic.Ui.Pages.PaniAdmin.EditArtistModel
+@model PaniMusic.Ui.Pages.PaniAdmin.EditStyleModel
 @{
-    ViewData["Title"] = "ویرایش هنرمند";
+    ViewData["Title"] = "ویرایش سبک";
 }
+
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">ویرایش هنرمند</h1>
+                <h1 class="m-0 text-dark">ویرایش سبک</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->
@@ -35,71 +37,51 @@
 
                             <div class="form-group">
                                 <label asp-for="Input.Id"></label>
-                                <input asp-for="Input.Id" class="form-control" value="@Model.Artist.Id" readonly>
+                                <input asp-for="Input.Id" class="form-control" value="@Model.Style.Id" readonly>
                                 <span asp-validation-for="Input.Id" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.Name"></label>
-                                <input asp-for="Input.Name" class="form-control" value="@Model.Artist.Name">
+                                <input asp-for="Input.Name" class="form-control" value="@Model.Style.Name">
                                 <span asp-validation-for="Input.Name" class="text-danger"></span>
                             </div>
 
-                            <label asp-for="Input.MyImage"></label>
-                            <div class="col-md-12 form-group margin-bottom-40">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="height: 150px;">
-                                        <img src="~/uploads/artist/@Model.Artist.Image" />
-                                    </div>
-                                    <div class="fileinput-preview fileinput-exists thumbnail" style="height:200px"> </div>
-                                    <div>
-                                        <span class="btn default btn-file">
-                                            <span class="fileinput-new btn btn-success"> انتخاب کنید </span>
-                                            <span class="fileinput-exists btn btn-default"> تغییر عکس </span>
-                                            <input type="file" name="file" accept=".jpg, .png, .jpeg, .gif, .tif, .tiff, .JPG" />
-                                        </span>
-                                        <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> حذف </a>
-                                    </div>
-                                    <span asp-validation-for="Input.MyImage" class="text-danger"></span>
-                                </div>
-                            </div>
-
                             <div class="form-group">
-                                <label asp-for="Input.BioGraphy"></label>
-                                <textarea class="form-control" id="mytextarea" name="Input.BioGraphy">@Model.Artist.Biography</textarea>
-                                <span asp-validation-for="Input.BioGraphy" class="text-danger"></span>
+                                <label asp-for="Input.Description"></label>
+                                <textarea class="form-control" id="mytextarea" name="Input.Description">@Model.Style.Description</textarea>
+                                <span asp-validation-for="Input.Description" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.Link"></label>
-                                <input asp-for="Input.Link" class="form-control" value="@Model.Artist.Link">
+                                <input asp-for="Input.Link" class="form-control" value="@Model.Style.Link">
                                 <span asp-validation-for="Input.Link" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.TitleTag"></label>
-                                <input asp-for="Input.TitleTag" class="form-control" value="@Model.Artist.TitleTag">
+                                <input asp-for="Input.TitleTag" class="form-control" value="@Model.Style.TitleTag">
                                 <span asp-validation-for="Input.TitleTag" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.MetaDescription"></label>
-                                <input asp-for="Input.MetaDescription" class="form-control" value="@Model.Artist.MetaDescription">
+                                <input asp-for="Input.MetaDescription" class="form-control" value="@Model.Style.MetaDescription">
                                 <span asp-validation-for="Input.MetaDescription" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.MetaTag"></label>
-                                <input asp-for="Input.MetaTag" class="form-control" value="@Model.Artist.MetaTag">
+                                <input asp-for="Input.MetaTag" class="form-control" value="@Model.Style.MetaTag">
                                 <span asp-validation-for="Input.MetaTag" class="text-danger"></span>
                             </div>
 
+                        </div>
+                        <!-- /.card-body -->
 
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-success">ثبت</button>
-                            </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -111,12 +93,13 @@
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
 </section>
+
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#artists-list').addClass('menu-open');
-            $('#artists-link').addClass('active');
-            $('#allartists-link').addClass('active');
+            $('#styles-list').addClass('menu-open');
+            $('#styles-link').addClass('active');
+            $('#allstyles-link').addClass('active');
         });
         tinymce.init({
             selector: '#mytextarea',

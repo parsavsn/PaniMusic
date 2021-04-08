@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PaniMusic.Core.Models;
 using PaniMusic.Repository.ContextRepository;
 using PaniMusic.Services.Map.CrudDtos.Feedback.Add;
@@ -35,7 +36,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
 
         public async Task<List<Feedback>> GetAllFeedbacks()
         {
-            return await feedbackRepository.GetAll();
+            var getAllFeedbacks = await feedbackRepository.GetQuery()
+                .Include(x => x.User)
+                .ToListAsync();
+
+            return getAllFeedbacks;
         }
 
         public async Task<bool> UpdateAcceptFeedback(int id)

@@ -1,13 +1,14 @@
 ﻿@page
-@model PaniMusic.Ui.Pages.PaniAdmin.NewArtistModel
+@model PaniMusic.Ui.Pages.PaniAdmin.NewStyleModel
 @{
-    ViewData["Title"] = "هنرمند جدید";
+    ViewData["Title"] = "سبک جدید";
 }
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">افزودن هنرمند جدید</h1>
+                <h1 class="m-0 text-dark">افزودن سبک جدید</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->
@@ -39,60 +40,41 @@
                                 <span asp-validation-for="Input.Name" class="text-danger"></span>
                             </div>
 
-                            <label asp-for="Input.MyImage"></label>
-                            <div class="col-md-12 form-group margin-bottom-40">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="height: 150px;">
-                                        <img src="~/img/NoImage.jpg" />
-                                    </div>
-                                    <div class="fileinput-preview fileinput-exists thumbnail" style="height:200px"> </div>
-                                    <div>
-                                        <span class="btn default btn-file">
-                                            <span class="fileinput-new btn btn-info"> انتخاب کنید </span>
-                                            <span class="fileinput-exists btn btn-default"> تغییر عکس </span>
-                                            <input type="file" asp-for="Input.MyImage" accept=".jpg, .png, .jpeg, .gif, .tif, .tiff, .JPG" />
-                                        </span>
-                                        <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> حذف </a>
-                                    </div>
-                                    <span asp-validation-for="Input.MyImage" class="text-danger"></span>
-                                </div>
-                            </div>
-
                             <div class="form-group">
-                                <label asp-for="Input.BioGraphy"></label>
-                                <textarea id="mytextarea" asp-for="Input.BioGraphy"></textarea>
-                                <span asp-validation-for="Input.BioGraphy" class="text-danger"></span>
+                                <label asp-for="Input.Description"></label>
+                                <textarea id="mytextarea" asp-for="Input.Description"></textarea>
+                                <span asp-validation-for="Input.Description" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.Link"></label>
-                                <input type="text" asp-for="Input.Link" class="form-control">
+                                <input asp-for="Input.Link" class="form-control">
                                 <span asp-validation-for="Input.Link" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.TitleTag"></label>
-                                <input type="text" asp-for="Input.TitleTag" class="form-control">
+                                <input asp-for="Input.TitleTag" class="form-control">
                                 <span asp-validation-for="Input.TitleTag" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.MetaDescription"></label>
-                                <input type="text" asp-for="Input.MetaDescription" class="form-control">
+                                <label asp-for="Input.MetaDescription">تگ meta description</label>
+                                <input asp-for="Input.MetaDescription" class="form-control">
                                 <span asp-validation-for="Input.MetaDescription" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="Input.MetaTag"></label>
-                                <input type="text" asp-for="Input.MetaTag" class="form-control">
+                                <label asp-for="Input.MetaTag">تگ meta keywoard</label>
+                                <input asp-for="Input.MetaTag" class="form-control">
                                 <span asp-validation-for="Input.MetaTag" class="text-danger"></span>
                             </div>
 
-                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card-body -->
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-info">ثبت</button>
-                            </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -104,12 +86,13 @@
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
 </section>
+
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#artists-list').addClass('menu-open');
-            $('#artists-link').addClass('active');
-            $('#newartist-link').addClass('active');
+            $('#styles-list').addClass('menu-open');
+            $('#styles-link').addClass('active');
+            $('#newstyle-link').addClass('active');
         });
         tinymce.init({
             selector: '#mytextarea',
@@ -120,5 +103,4 @@
             directionality: 'rtl'
         });
     </script>
-
 }
