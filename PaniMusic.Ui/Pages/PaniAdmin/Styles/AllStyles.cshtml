@@ -1,0 +1,115 @@
+﻿@page
+@model PaniMusic.Ui.Pages.PaniAdmin.Styles.AllStylesModel
+@{
+    ViewData["Title"] = "همه سبک ها";
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">همه سبک ها</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6 text-left">
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-12">
+
+                @if ((bool?)TempData["AddStyle"] == true && (bool?)TempData["AddStyle"] != null)
+                {
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-check"></i> اضافه شد </h5>
+                        سبک جدید با موفقیت به لیست سبک ها اضافه شد
+                    </div>
+                }
+
+                @if ((bool?)TempData["DeleteStyle"] == true && (bool?)TempData["DeleteStyle"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-ban"></i> حذف شد </h5>
+                        سبک مورد نظر با موفقیت حذف شد
+                    </div>
+                }
+
+                @if ((bool?)TempData["EditStyle"] == true && (bool?)TempData["EditStyle"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-check"></i> ویرایش شد </h5>
+                        سبک مورد نظر با موفقیت ویرایش شد
+                    </div>
+                }
+
+
+
+                @{
+                    if (Model.AllStyles.Count == 0)
+                    {
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5> متاسفیم !</h5>
+                            هیچ آیتمی یافت نشد ! سبک جدیدی اضافه کنید ...
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>شناسه</th>
+                                        <th>نام</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                    @foreach (var item in Model.AllStyles)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Name</td>
+                                            <td>
+                                                <a href="/paniadmin/styles/editstyle?id=@item.Id" class="btn btn-success">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> ویرایش
+                                                </a>
+                                                <a href="/paniadmin/styles/deletestyle?id=@item.Id" class="btn btn-danger">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> حذف
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                    }
+                }
+
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#styles-list').addClass('menu-open');
+            $('#styles-link').addClass('active');
+            $('#allstyles-link').addClass('active');
+        });
+    </script>
+} 

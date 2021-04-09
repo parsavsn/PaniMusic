@@ -1,0 +1,111 @@
+﻿@page
+@model PaniMusic.Ui.Pages.PaniAdmin.Images.NewCategoryModel
+@{
+    ViewData["Title"] = "دسته بندی جدید";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">افزودن دسته بندی جدید</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6 text-left">
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-8">
+
+
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">افزودن</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label asp-for="Input.Name"></label>
+                                <input asp-for="Input.Name" class="form-control">
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
+
+                            <label asp-for="Input.MyImage"></label>
+                            <div class="col-md-12 form-group margin-bottom-40">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail" style="height: 150px;">
+                                        <img src="~/img/NoImage.jpg" />
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="height:200px"> </div>
+                                    <div>
+                                        <span class="btn default btn-file">
+                                            <span class="fileinput-new btn btn-info"> انتخاب کنید </span>
+                                            <span class="fileinput-exists btn btn-default"> تغییر عکس </span>
+                                            <input type="file" asp-for="Input.MyImage" accept=".jpg, .png, .jpeg, .gif, .tif, .tiff, .JPG" />
+                                        </span>
+                                        <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                                    </div>
+                                    <span asp-validation-for="Input.MyImage" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Link"></label>
+                                <input asp-for="Input.Link" class="form-control">
+                                <span asp-validation-for="Input.Link" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.TitleTag"></label>
+                                <input asp-for="Input.TitleTag" class="form-control">
+                                <span asp-validation-for="Input.TitleTag" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MetaDescription"></label>
+                                <input asp-for="Input.MetaDescription" class="form-control">
+                                <span asp-validation-for="Input.MetaDescription" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MetaTag"></label>
+                                <input asp-for="Input.MetaTag" class="form-control">
+                                <span asp-validation-for="Input.MetaTag" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#pics-list').addClass('menu-open');
+            $('#pics-link').addClass('active');
+            $('#newcategory-link').addClass('active');
+        });
+    </script>
+}

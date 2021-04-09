@@ -8,6 +8,7 @@ using PaniMusic.Services.Map.CrudDtos.GalleryCategory.Update;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,11 +18,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
     {
         private readonly IRepository<GalleryCategory> galleryCategoryRepostiory;
 
+        private readonly IRepository<GalleryImage> galleryImageRepository;
+
         private readonly IMapper mapper;
 
-        public GalleryCategoryCrud(IRepository<GalleryCategory> galleryCategoryRepostiory, IMapper mapper)
+        public GalleryCategoryCrud(IRepository<GalleryCategory> galleryCategoryRepostiory
+            , IRepository<GalleryImage> galleryImageRepository
+            , IMapper mapper)
         {
             this.galleryCategoryRepostiory = galleryCategoryRepostiory;
+
+            this.galleryImageRepository = galleryImageRepository;
 
             this.mapper = mapper;
         }
@@ -93,6 +100,15 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             if (getGalleryCategory == null)
                 return false;
 
+            var getImagesOfCategory = await galleryImageRepository.GetQuery()
+                .Where(images => images.GalleryCategoryId == id)
+                .ToListAsync();
+
+            foreach (var item in getImagesOfCategory)
+            {
+                DeleteImage(item.Image);
+            }
+
             DeleteFile(getGalleryCategory.Image);
 
             galleryCategoryRepostiory.Delete(id);
@@ -145,6 +161,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             {
                 var filePath = Path.Combine(
                   Directory.GetCurrentDirectory(), "wwwroot/uploads/gallerycategory",
+                  fileName);
+
+                File.Delete(filePath);
+            }
+        }
+
+        private void DeleteImage(string fileName)
+        {
+            if (fileName != null)
+            {
+                var filePath = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/galleryimage",
                   fileName);
 
                 File.Delete(filePath);

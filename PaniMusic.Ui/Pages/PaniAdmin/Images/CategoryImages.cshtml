@@ -1,0 +1,103 @@
+﻿@page
+@model PaniMusic.Ui.Pages.PaniAdmin.Images.CategoryImagesModel
+@{
+    ViewData["Title"] = $"تصاویر {Model.GalleryCategory.Name}";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">تصاویر @Model.GalleryCategory.Name</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6 text-left">
+                <a href="/paniadmin/images/newimage?id=@Model.GalleryCategory.Id" class="btn btn-info">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i> افزودن تصویر
+                </a>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+
+            <div class="col-12">
+
+                @if ((int?)TempData["CategoryId"] != null)
+                {
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-check"></i> اضافه شد </h5>
+                        تصویر جدید با موفقیت به لیست تصاویر اضافه شد
+                    </div>
+                }
+
+                @if ((bool?)TempData["DeleteImage"] == true && (bool?)TempData["DeleteImage"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h5><i class="icon fa fa-ban"></i> حذف شد </h5>
+                        تصویر مورد نظر با موفقیت حذف شد
+                    </div>
+                }
+
+                @{
+                    if (Model.GalleryImages.Count == 0)
+                    {
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5> متاسفیم !</h5>
+                            هیچ آیتمی یافت نشد ! تصویر جدیدی اضافه کنید ...
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>شناسه</th>
+                                        <th>تصویر</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                    @foreach (var item in Model.GalleryImages)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td><img src="~/uploads/galleryimage/@item.Image" class="all-pics-images"></td>
+                                            <td>
+                                                <a href="/paniadmin/images/deleteimage?id=@item.Id&categoryId=@Model.GalleryCategory.Id" class="btn btn-danger">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> حذف
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    }
+                }
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#pics-list').addClass('menu-open');
+            $('#pics-link').addClass('active');
+            $('#allcategories-link').addClass('active');
+        });
+    </script>
+}

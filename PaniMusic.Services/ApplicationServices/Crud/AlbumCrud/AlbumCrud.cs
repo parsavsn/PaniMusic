@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PaniMusic.Services.Map.CrudDtos.Album.Update;
+using System.Linq;
 
 namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 {
@@ -17,11 +18,15 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
     {
         private readonly IRepository<Album> albumRepository;
 
+        private readonly IRepository<Track> trackRepository;
+
         private readonly IMapper mapper;
 
-        public AlbumCrud(IRepository<Album> albumRepository, IMapper mapper)
+        public AlbumCrud(IRepository<Album> albumRepository, IRepository<Track> trackRepository, IMapper mapper)
         {
             this.albumRepository = albumRepository;
+
+            this.trackRepository = trackRepository;
 
             this.mapper = mapper;
         }
@@ -101,6 +106,21 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
         public async Task<bool> UpdateAlbum(UpdateAlbumInput updateAlbumInput)
         {
+            var tracksOfAlbum = await trackRepository.GetQuery()
+                .Where(tracks => tracks.AlbumId == updateAlbumInput.Id)
+                .ToListAsync();
+
+            foreach (var item in tracksOfAlbum)
+            {
+                item.StyleId = updateAlbumInput.StyleId;
+
+                item.ArtistId = updateAlbumInput.ArtistId;
+
+                trackRepository.Update(item);
+            }
+
+            await trackRepository.Save();
+
             var updateNewGuid = Guid.NewGuid().ToString();
 
             await UploadFile(updateAlbumInput.MyCoverImage, updateNewGuid);
@@ -126,6 +146,21 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             if (getAlbum == null)
                 return false;
+
+            var tracksOfAlbum = await trackRepository.GetQuery()
+                .Where(tracks => tracks.AlbumId == id)
+                .ToListAsync();
+
+            foreach (var item in tracksOfAlbum)
+            {
+                DeleteTrack(item.Quality128);
+
+                DeleteTrack(item.Quality320);
+
+                trackRepository.Delete(item.Id);
+            }
+
+            await trackRepository.Save();
 
             DeleteFile(getAlbum.CoverImage);
 
@@ -191,6 +226,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             {
                 var filePath = Path.Combine(
                   Directory.GetCurrentDirectory(), "wwwroot/uploads/album",
+                  fileName);
+
+                File.Delete(filePath);
+            }
+        }
+
+        private void DeleteTrack(string fileName)
+        {
+            if (fileName != null)
+            {
+                var filePath = Path.Combine(
+                  Directory.GetCurrentDirectory(), "wwwroot/uploads/track",
                   fileName);
 
                 File.Delete(filePath);

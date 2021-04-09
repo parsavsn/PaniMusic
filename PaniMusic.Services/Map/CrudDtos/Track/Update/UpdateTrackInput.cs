@@ -40,7 +40,7 @@ namespace PaniMusic.Services.Map.CrudDtos.Track.Update
         [Display(Name = "تگ metadescription")]
         public string MetaDescription { get; set; }
 
-        [Display(Name = "تگ metatag")]
+        [Display(Name = "تگ metakeywoard")]
         public string MetaTag { get; set; }
 
         [Display(Name = "سبک")]

@@ -34,8 +34,8 @@ namespace PaniMusic.Services.Map.CrudDtos.Artist.Add
         [Required(ErrorMessage = "پر کردن تگ metadescription الزامی است.")]
         public string MetaDescription { get; set; }
 
-        [Display(Name = "تگ metatag")]
-        [Required(ErrorMessage = "پر کردن تگ metatag الزامی است.")]
+        [Display(Name = "تگ metakeywoard")]
+        [Required(ErrorMessage = "پر کردن تگ metakeywoard الزامی است.")]
         public string MetaTag { get; set; }
     }
 }

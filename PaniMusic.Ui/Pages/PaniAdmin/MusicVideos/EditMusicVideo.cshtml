@@ -1,0 +1,177 @@
+﻿@page
+@model PaniMusic.Ui.Pages.PaniAdmin.MusicVideos.EditMusicVideoModel
+@{
+    ViewData["Title"] = $"ویرایش موزیک ویدیو {Model.MusicVideo.Name}";
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">ویرایش موزیک ویدیو @Model.MusicVideo.Name</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6 text-left">
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-8">
+
+
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">ویرایش</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label asp-for="Input.Id"></label>
+                                <input asp-for="Input.Id" class="form-control" value="@Model.MusicVideo.Id" readonly>
+                                <span asp-validation-for="Input.Id" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Name"></label>
+                                <input asp-for="Input.Name" class="form-control" value="@Model.MusicVideo.Name">
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
+
+                            <label asp-for="Input.MyCoverImage"></label>
+                            <div class="col-md-12 form-group margin-bottom-40">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail" style="height: 150px;">
+                                        <img src="~/uploads/musicvideo/@Model.MusicVideo.CoverImage" />
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="height:200px"> </div>
+                                    <div>
+                                        <span class="btn default btn-file">
+                                            <span class="fileinput-new btn btn-success"> انتخاب کنید </span>
+                                            <span class="fileinput-exists btn btn-default"> تغییر عکس </span>
+                                            <input type="file" asp-for="Input.MyCoverImage" accept=".jpg, .png, .jpeg, .gif, .tif, .tiff, .JPG" />
+                                        </span>
+                                        <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                                    </div>
+                                    <span asp-validation-for="Input.MyCoverImage" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MyQuality480"></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" asp-for="Input.MyQuality480" accept=".mp3" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">@Model.MusicVideo.Quality480</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Input.MyQuality480" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MyQuality720"></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" asp-for="Input.MyQuality720" accept=".mp3" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">@Model.MusicVideo.Quality720</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Input.MyQuality720" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MyQuality1080"></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" asp-for="Input.MyQuality1080" accept=".mp3" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">@Model.MusicVideo.Quality1080</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Input.MyQuality1080" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Lyric"></label>
+                                <textarea class="form-control" id="mytextarea" name="Input.Lyric">@Model.MusicVideo.Lyric</textarea>
+                                <span asp-validation-for="Input.Lyric" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Link"></label>
+                                <input asp-for="Input.Link" class="form-control" value="@Model.MusicVideo.Link">
+                                <span asp-validation-for="Input.Link" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.TitleTag"></label>
+                                <input asp-for="Input.TitleTag" class="form-control" value="@Model.MusicVideo.TitleTag">
+                                <span asp-validation-for="Input.TitleTag" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MetaDescription"></label>
+                                <input asp-for="Input.MetaDescription" class="form-control" value="@Model.MusicVideo.MetaDescription">
+                                <span asp-validation-for="Input.MetaDescription" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MetaTag"></label>
+                                <input asp-for="Input.MetaTag" class="form-control" value="@Model.MusicVideo.MetaTag">
+                                <span asp-validation-for="Input.MetaTag" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.StyleId"></label>
+                                <select class="form-control select2" asp-for="Input.StyleId" asp-items="Model.ListOfStyles" style="width: 100%;"></select>
+                                <span asp-validation-for="Input.StyleId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.ArtistId"></label>
+                                <select class="form-control select2" asp-for="Input.ArtistId" asp-items="Model.ListOfArtists" style="width: 100%;"></select>
+                                <span asp-validation-for="Input.ArtistId" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#musicvideos-list').addClass('menu-open');
+            $('#musicvideos-link').addClass('active');
+            $('#allmusicvideos-link').addClass('active');
+        });
+        tinymce.init({
+            selector: '#mytextarea',
+            height: 950,
+            plugins: 'print preview fullscreen image link media template codesample table charmap hr help',
+            toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat |fullscreen',
+            language: 'fa_IR',
+            directionality: 'rtl'
+        });
+    </script>
+}
