@@ -24,7 +24,7 @@ namespace PaniMusic.Ui.Pages.PaniAdmin.Images
 
         public double PageCount { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int page = 1)
+        public async Task<IActionResult> OnGetAsync([FromQuery]int page = 1)
         {
             // paging
 
