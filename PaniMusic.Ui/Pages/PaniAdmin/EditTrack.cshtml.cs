@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PaniMusic.Core.Models;
-using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
 using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
@@ -22,20 +21,13 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
 
         private readonly IArtistCrud artistCrud;
 
-        private readonly IAlbumCrud albumCrud;
-
-        public EditTrackModel(ITrackCrud trackCrud
-            , IStyleCrud styleCrud
-            , IArtistCrud artistCrud
-            , IAlbumCrud albumCrud)
+        public EditTrackModel(ITrackCrud trackCrud, IStyleCrud styleCrud, IArtistCrud artistCrud)
         {
             this.trackCrud = trackCrud;
 
             this.styleCrud = styleCrud;
 
             this.artistCrud = artistCrud;
-
-            this.albumCrud = albumCrud;
         }
 
         [BindProperty]
@@ -47,8 +39,6 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
 
         public SelectList ListOfArtists { get; set; }
 
-        public SelectList ListOfAlbums { get; set; }
-
         [TempData]
         public bool EditTrack { get; set; }
 
@@ -56,7 +46,7 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         {
             Track = await trackCrud.GetTrackById(id);
 
-            if (Track == null)
+            if (Track == null || Track.AlbumId != null)
                 return RedirectToPage("AllTracks");
 
             var allStyles = await styleCrud.GetAllStyles();
@@ -66,13 +56,6 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             var allArtists = await artistCrud.GetAllArtists();
 
             ListOfArtists = new SelectList(allArtists, "Id", "Name", Track.Artist.Id);
-
-            if (Track.AlbumId != null)
-            {
-                var allAlbums = await albumCrud.GetAllAlbums();
-
-                ListOfAlbums = new SelectList(allAlbums, "Id", "Name", Track.AlbumId);
-            }
 
             return Page();
         }

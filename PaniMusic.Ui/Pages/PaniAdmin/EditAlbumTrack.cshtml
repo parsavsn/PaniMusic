@@ -1,0 +1,108 @@
+﻿@page
+@model PaniMusic.Ui.Pages.PaniAdmin.EditAlbumTrackModel
+@{
+    ViewData["Title"] = $"ویرایش آهنگ {Model.Track.Name}";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">ویرایش آهنگ @Model.Track.Name</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6 text-left">
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-8">
+
+
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">ویرایش</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label asp-for="Input.Id"></label>
+                                <input asp-for="Input.Id" class="form-control" value="@Model.Track.Id" readonly>
+                                <span asp-validation-for="Input.Id" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Name"></label>
+                                <input asp-for="Input.Name" class="form-control" value="@Model.Track.Name">
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MyQuality128"></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" asp-for="Input.MyQuality128" accept=".mp3" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">@Model.Track.Quality128</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Input.MyQuality128" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.MyQuality320"></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" asp-for="Input.MyQuality320" accept=".mp3" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">@Model.Track.Quality320</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Input.MyQuality320" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Input.StyleId" value="@Model.Album.StyleId" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Input.ArtistId" value="@Model.Album.ArtistId" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Input.AlbumId" value="@Model.Album.Id" class="form-control">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#albums-list').addClass('menu-open');
+            $('#albums-link').addClass('active');
+            $('#allalbums-link').addClass('active');
+        });
+    </script>
+}

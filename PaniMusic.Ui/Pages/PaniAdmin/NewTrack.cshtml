@@ -63,7 +63,7 @@
                                 <label asp-for="Input.MyQuality128"></label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" asp-for="Input.MyQuality128" class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" asp-for="Input.MyQuality128" accept=".mp3" class="custom-file-input" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                 <label asp-for="Input.MyQuality320"></label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" asp-for="Input.MyQuality320" class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" asp-for="Input.MyQuality320" accept=".mp3" class="custom-file-input" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
                                     </div>
                                 </div>
@@ -122,15 +122,6 @@
                                 <select class="form-control select2" asp-for="Input.ArtistId" asp-items="Model.ListOfArtists" style="width: 100%;"></select>
                                 <span asp-validation-for="Input.ArtistId" class="text-danger"></span>
                             </div>
-
-                            @if (Model.AlbumId != null)
-                            {
-                                <div class="form-group">
-                                    <label asp-for="Input.AlbumId"></label>
-                                    <select class="form-control select2" asp-for="Input.AlbumId" asp-items="Model.ListOfAlbums" style="width: 100%;"></select>
-                                    <span asp-validation-for="Input.AlbumId" class="text-danger"></span>
-                                </div>
-                            }
 
                         </div>
                         <!-- /.card-body -->

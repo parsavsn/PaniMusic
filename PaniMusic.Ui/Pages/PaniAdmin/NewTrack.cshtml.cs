@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using PaniMusic.Core.Models;
-using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
 using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
@@ -22,28 +20,17 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
 
         private readonly IArtistCrud artistCrud;
 
-        private readonly IAlbumCrud albumCrud;
-
-        public NewTrackModel(ITrackCrud trackCrud
-            , IStyleCrud styleCrud
-            , IArtistCrud artistCrud
-            , IAlbumCrud albumCrud)
+        public NewTrackModel(ITrackCrud trackCrud, IStyleCrud styleCrud, IArtistCrud artistCrud)
         {
             this.trackCrud = trackCrud;
 
             this.styleCrud = styleCrud;
 
             this.artistCrud = artistCrud;
-
-            this.albumCrud = albumCrud;
         }
 
         [BindProperty]
         public AddTrackInput Input { get; set; }
-
-        public int? AlbumId { get; set; }
-
-        public Album Album { get; set; }
 
         public SelectList ListOfStyles { get; set; }
 
@@ -54,7 +41,7 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         [TempData]
         public bool AddTrack { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? albumId)
+        public async Task<IActionResult> OnGetAsync()
         {
             var allStyles = await styleCrud.GetAllStyles();
 
@@ -63,17 +50,6 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
             var allArtists = await artistCrud.GetAllArtists();
 
             ListOfArtists = new SelectList(allArtists, "Id", "Name");
-
-            AlbumId = albumId;
-
-            if (albumId != null)
-            {
-                var allAlbums = await albumCrud.GetAllAlbums();
-
-                var getAlbum = await albumCrud.GetAlbumById((int)albumId);
-
-                ListOfAlbums = new SelectList(allAlbums, "Id", "Name", getAlbum.Id);
-            }
 
             return Page();
         }

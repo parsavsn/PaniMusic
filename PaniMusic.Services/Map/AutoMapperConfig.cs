@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PaniMusic.Core.Models;
 using PaniMusic.Services.Map.CrudDtos.Album.Add;
+using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Add;
 using PaniMusic.Services.Map.CrudDtos.Artist.Add;
 using PaniMusic.Services.Map.CrudDtos.Feedback.Add;
 using PaniMusic.Services.Map.CrudDtos.GalleryCategory.Add;
@@ -50,6 +51,8 @@ namespace PaniMusic.Services.Map
 
             CreateMap<MusicVideo, RecommendedOutput>()
                 .ForMember(x => x.Artist, y => y.MapFrom(z => z.Artist.Name));
+
+            CreateMap<AddAlbumTrackInput, Track>();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PaniMusic.Core.Models;
 using PaniMusic.Repository.ContextRepository;
+using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Add;
 using PaniMusic.Services.Map.CrudDtos.Track.Add;
 using PaniMusic.Services.Map.CrudDtos.Track.Update;
 using System;
@@ -58,13 +59,40 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             return true;
         }
 
+        public async Task<bool> AddAlbumTrack(AddAlbumTrackInput addAlbumTrackInput)
+        {
+            var addNewGuid = Guid.NewGuid().ToString();
+
+            await UploadFile(addAlbumTrackInput.MyQuality128, addNewGuid);
+
+            await UploadFile(addAlbumTrackInput.MyQuality320, addNewGuid);
+
+            var newAlbumTrack = mapper.Map<Track>(addAlbumTrackInput);
+
+            if (addAlbumTrackInput.MyQuality128.Length > 0)
+                newAlbumTrack.Quality128 = addNewGuid + "-" + addAlbumTrackInput.MyQuality128.FileName;
+
+            if (addAlbumTrackInput.MyQuality320.Length > 0)
+                newAlbumTrack.Quality320 = addNewGuid + "-" + addAlbumTrackInput.MyQuality320.FileName;
+
+            newAlbumTrack.Visit = 0;
+
+            newAlbumTrack.RecordDate = DateTime.Now;
+
+            trackRepository.Insert(newAlbumTrack);
+
+            await trackRepository.Save();
+
+            return true;
+        }
+
         public async Task<Track> GetTrackByLink(string link)
         {
             var getTrack = await trackRepository.GetQuery()
                 .Include(track => track.Style)
                 .Include(track => track.Artist)
                 .Include(track => track.Album)
-                .Where(x => x.AlbumId == null)
+                .Where(track => track.AlbumId == null)
                 .FirstOrDefaultAsync(track => track.Link == link);
 
             if (getTrack == null)
@@ -85,8 +113,22 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 .Include(track => track.Style)
                 .Include(track => track.Artist)
                 .Include(track => track.Album)
-                .Where(x => x.AlbumId == null)
                 .FirstOrDefaultAsync(track => track.Id == id);
+
+            if (getTrack == null)
+                return null;
+
+            return getTrack;
+        }
+
+        public async Task<List<Track>> GetTracksForAlbum(int albumId)
+        {
+            var getTrack = await trackRepository.GetQuery()
+                .Include(track => track.Style)
+                .Include(track => track.Artist)
+                .Include(track => track.Album)
+                .Where(track => track.AlbumId == albumId)
+                .ToListAsync();
 
             if (getTrack == null)
                 return null;
@@ -102,7 +144,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 .Include(tracks => tracks.Album)
                 .Where(x => x.AlbumId == null)
                 .ToListAsync();
-            
+
             return getallTracks;
         }
 
