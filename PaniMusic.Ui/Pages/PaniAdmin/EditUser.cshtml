@@ -1,14 +1,14 @@
 ﻿@page
 @model PaniMusic.Ui.Pages.PaniAdmin.EditUserModel
 @{
-    ViewData["Title"] = "ویرایش کاربر";
+    ViewData["Title"] = $"ویرایش کاربر {Model.User.Name}";
 }
 
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">ویرایش کاربر</h1>
+                <h1 class="m-0 text-dark">ویرایش کاربر @Model.User.Name</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->

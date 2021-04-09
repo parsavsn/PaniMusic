@@ -131,6 +131,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
         {
             var getMusicVideo = await musicVideoRepository.Get(id);
 
+            if (getMusicVideo == null)
+                return false;
+
             DeleteFile(getMusicVideo.CoverImage);
 
             DeleteFile(getMusicVideo.Quality480);

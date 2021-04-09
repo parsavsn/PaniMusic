@@ -1,13 +1,13 @@
 ﻿@page
 @model PaniMusic.Ui.Pages.PaniAdmin.EditArtistModel
 @{
-    ViewData["Title"] = "ویرایش هنرمند";
+    ViewData["Title"] = $"ویرایش هنرمند {Model.Artist.Name}";
 }
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">ویرایش هنرمند</h1>
+                <h1 class="m-0 text-dark">ویرایش هنرمند @Model.Artist.Name</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->

@@ -1,7 +1,7 @@
 ﻿@page
 @model PaniMusic.Ui.Pages.PaniAdmin.EditMusicVideoModel
 @{
-    ViewData["Title"] = "ویرایش موزیک ویدیو";
+    ViewData["Title"] = $"ویرایش موزیک ویدیو {Model.MusicVideo.Name}";
 }
 
 
@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">ویرایش موزیک ویدیو</h1>
+                <h1 class="m-0 text-dark">ویرایش موزیک ویدیو @Model.MusicVideo.Name</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->

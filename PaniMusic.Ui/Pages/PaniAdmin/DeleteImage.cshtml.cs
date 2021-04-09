@@ -24,6 +24,9 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
         {
             DeleteImage = await galleryImageCrud.DeleteGalleryImage(id);
 
+            if (DeleteImage == false)
+                return RedirectToPage("AllCategories");
+
             return Redirect($"categoryimages?id={categoryId}");
         }
     }

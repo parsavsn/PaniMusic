@@ -91,6 +91,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
         {
             var getArtist = await artistRepository.Get(id);
 
+            if (getArtist == null)
+                return false;
+
             DeleteFile(getArtist.Image);
 
             artistRepository.Delete(id);

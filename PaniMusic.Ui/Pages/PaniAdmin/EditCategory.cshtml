@@ -1,13 +1,13 @@
 ﻿@page
 @model PaniMusic.Ui.Pages.PaniAdmin.EditCategoryModel
 @{
-    ViewData["Title"] = "ویرایش دسته بندی";
+    ViewData["Title"] = $"ویرایش دسته بندی {Model.GalleryCategory.Name}";
 }
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">ویرایش دسته بندی</h1>
+                <h1 class="m-0 text-dark">ویرایش دسته بندی @Model.GalleryCategory.Name</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->

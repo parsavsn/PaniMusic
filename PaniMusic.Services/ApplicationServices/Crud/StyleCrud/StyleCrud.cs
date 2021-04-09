@@ -77,6 +77,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
 
         public async Task<bool> DeleteStyle(int id)
         {
+            var getStyle = await styleRepository.Get(id);
+
+            if (getStyle == null)
+                return false;
+
             styleRepository.Delete(id);
 
             await styleRepository.Save();

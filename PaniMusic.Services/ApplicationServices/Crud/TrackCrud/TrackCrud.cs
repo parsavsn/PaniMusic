@@ -175,6 +175,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
         {
             var getTrack = await trackRepository.Get(id);
 
+            if (getTrack == null)
+                return false;
+
             DeleteFile(getTrack.CoverImage);
 
             DeleteFile(getTrack.Quality128);

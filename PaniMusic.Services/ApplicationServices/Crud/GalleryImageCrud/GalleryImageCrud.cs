@@ -65,6 +65,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
         {
             var getGalleryImage = await galleryImageRepository.Get(id);
 
+            if (getGalleryImage == null)
+                return false;
+
             DeleteFile(getGalleryImage.Image);
 
             galleryImageRepository.Delete(id);

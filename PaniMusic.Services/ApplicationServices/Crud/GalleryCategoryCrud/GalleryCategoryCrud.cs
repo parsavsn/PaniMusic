@@ -90,6 +90,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
         {
             var getGalleryCategory = await galleryCategoryRepostiory.Get(id);
 
+            if (getGalleryCategory == null)
+                return false;
+
             DeleteFile(getGalleryCategory.Image);
 
             galleryCategoryRepostiory.Delete(id);

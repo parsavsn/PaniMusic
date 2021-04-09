@@ -47,6 +47,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
         {
             var getFeedback = await feedbackRepository.Get(id);
 
+            if (getFeedback == null)
+                return false;
+
             getFeedback.IsAccept = true;
 
             feedbackRepository.Update(getFeedback);
@@ -58,6 +61,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
 
         public async Task<bool> DeleteFeedback(int id)
         {
+            var getFeedback = await feedbackRepository.Get(id);
+
+            if (getFeedback == null)
+                return false;
+
             feedbackRepository.Delete(id);
 
             await feedbackRepository.Save();

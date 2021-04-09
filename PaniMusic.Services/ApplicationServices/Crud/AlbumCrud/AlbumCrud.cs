@@ -124,6 +124,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
         {
             var getAlbum = await albumRepository.Get(id);
 
+            if (getAlbum == null)
+                return false;
+
             DeleteFile(getAlbum.CoverImage);
 
             DeleteFile(getAlbum.Quality128);
