@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PaniMusic.Services.Map.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,16 +14,20 @@ namespace PaniMusic.Services.Map.CrudDtos.MusicVideo.Add
         public string Name { get; set; }
 
         [Display(Name = "کاور")]
+        [UploadFileSize(10048576)]
         [Required(ErrorMessage = "انتخاب تصویر برای موزیک ویدیو الزامی است.")]
         public IFormFile MyCoverImage { get; set; }
 
         [Display(Name = "کیفیت 480")]
+        [UploadFileSize(70048576)]
         public IFormFile MyQuality480 { get; set; }
 
         [Display(Name = "کیفیت 720")]
+        [UploadFileSize(15048576)]
         public IFormFile MyQuality720 { get; set; }
 
         [Display(Name = "کیفیت 1080")]
+        [UploadFileSize(200048576)]
         public IFormFile MyQuality1080 { get; set; }
 
         [Display(Name = "متن موزیک")]

@@ -38,14 +38,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
             await UploadFile(addTrackInput.MyQuality320, addNewGuid);
 
+            var getLength = addTrackInput.MyQuality128.Length;
+
             var newTrack = mapper.Map<Track>(addTrackInput);
 
             newTrack.CoverImage = addNewGuid + "-" + addTrackInput.MyCoverImage.FileName;
 
-            if (addTrackInput.MyQuality128.Length > 0)
+            if (addTrackInput.MyQuality128?.Length > 0)
                 newTrack.Quality128 = addNewGuid + "-" + addTrackInput.MyQuality128.FileName;
 
-            if (addTrackInput.MyQuality320.Length > 0)
+            if (addTrackInput.MyQuality320?.Length > 0)
                 newTrack.Quality320 = addNewGuid + "-" + addTrackInput.MyQuality320.FileName;
 
             newTrack.Visit = 0;

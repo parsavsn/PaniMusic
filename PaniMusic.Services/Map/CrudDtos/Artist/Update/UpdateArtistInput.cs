@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PaniMusic.Services.Map.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,6 +17,7 @@ namespace PaniMusic.Services.Map.CrudDtos.Artist.Update
         public string Name { get; set; }
 
         [Display(Name = "تصویر")]
+        [UploadFileSize(10048576)]
         public IFormFile MyImage { get; set; }
 
         [Display(Name = "بیوگرافی")]

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PaniMusic.Services.Map.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace PaniMusic.Services.Map.CrudDtos.Artist.Add
         public string Name { get; set; }
 
         [Display(Name = "تصویر")]
+        [UploadFileSize(10048576)]
         [Required(ErrorMessage = "انتخاب تصویر برای هنرمند الزامی است.")]
         public IFormFile MyImage { get; set; }
 

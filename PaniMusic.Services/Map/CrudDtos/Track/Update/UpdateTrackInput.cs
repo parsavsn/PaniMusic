@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PaniMusic.Services.Map.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,12 +17,15 @@ namespace PaniMusic.Services.Map.CrudDtos.Track.Update
         public string Name { get; set; }
 
         [Display(Name = "کاور")]
+        [UploadFileSize(10048576)]
         public IFormFile MyCoverImage { get; set; }
 
         [Display(Name = "کیفیت 128")]
+        [UploadFileSize(10048576)]
         public IFormFile MyQuality128 { get; set; }
 
         [Display(Name = "کیفیت 320")]
+        [UploadFileSize(15048576)]
         public IFormFile MyQuality320 { get; set; }
 
         [Display(Name = "متن آهنگ")]

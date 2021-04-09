@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PaniMusic.Services.Map.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,13 +14,16 @@ namespace PaniMusic.Services.Map.CrudDtos.Album.Add
         public string Name { get; set; }
 
         [Display(Name = "کاور")]
+        [UploadFileSize(10048576)]
         [Required(ErrorMessage = "انتخاب تصویر برای آلبوم الزامی است.")]
         public IFormFile MyCoverImage { get; set; }
 
         [Display(Name = "کیفیت 128")]
+        [UploadFileSize(170048576)]
         public IFormFile MyQuality128 { get; set; }
 
         [Display(Name = "کیفیت 320")]
+        [UploadFileSize(220048576)]
         public IFormFile MyQuality320 { get; set; }
 
         [Display(Name = "لینک")]

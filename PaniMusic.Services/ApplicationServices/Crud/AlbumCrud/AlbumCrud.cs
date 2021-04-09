@@ -39,10 +39,10 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
             newAlbum.CoverImage = addNewGuid + "-" + addAlbumInput.MyCoverImage.FileName;
 
-            if (addAlbumInput.MyQuality128.Length > 0)
+            if (addAlbumInput.MyQuality128?.Length > 0)
                 newAlbum.Quality128 = addNewGuid + "-" + addAlbumInput.MyQuality128.FileName;
 
-            if (addAlbumInput.MyQuality320.Length > 0)
+            if (addAlbumInput.MyQuality320?.Length > 0)
                 newAlbum.Quality320 = addNewGuid + "-" + addAlbumInput.MyQuality320.FileName;
 
             newAlbum.Visit = 0;

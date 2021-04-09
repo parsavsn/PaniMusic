@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using PaniMusic.Ui.Extention;
 using PaniMusic.Core.Models;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace PaniMusic.Ui
 {
@@ -51,6 +52,17 @@ namespace PaniMusic.Ui
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 8;
                 options.Password.RequiredUniqueChars = 1;
+            });
+
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.MaxRequestBodySize = int.MaxValue;
+            });
+
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = long.MaxValue;
             });
 
             services.AddRazorPages();

@@ -42,13 +42,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
             newMusicVideo.CoverImage = addNewGuid + "-" + addMusicVideoInput.MyCoverImage.FileName;
 
-            if (addMusicVideoInput.MyQuality480.Length > 0)
+            if (addMusicVideoInput.MyQuality480?.Length > 0)
                 newMusicVideo.Quality480 = addNewGuid + "-" + addMusicVideoInput.MyQuality480.FileName;
 
-            if (addMusicVideoInput.MyQuality720.Length > 0)
+            if (addMusicVideoInput.MyQuality720?.Length > 0)
                 newMusicVideo.Quality720 = addNewGuid + "-" + addMusicVideoInput.MyQuality720.FileName;
 
-            if (addMusicVideoInput.MyQuality1080.Length > 0)
+            if (addMusicVideoInput.MyQuality1080?.Length > 0)
                 newMusicVideo.Quality1080 = addNewGuid + "-" + addMusicVideoInput.MyQuality1080.FileName;
 
             newMusicVideo.Visit = 0;

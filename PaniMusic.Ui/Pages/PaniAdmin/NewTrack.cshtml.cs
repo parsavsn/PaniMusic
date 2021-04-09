@@ -36,8 +36,6 @@ namespace PaniMusic.Ui.Pages.PaniAdmin
 
         public SelectList ListOfArtists { get; set; }
 
-        public SelectList ListOfAlbums { get; set; }
-
         [TempData]
         public bool AddTrack { get; set; }
 
