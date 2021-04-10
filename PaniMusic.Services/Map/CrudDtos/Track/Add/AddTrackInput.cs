@@ -23,7 +23,7 @@ namespace PaniMusic.Services.Map.CrudDtos.Track.Add
         public IFormFile MyQuality128 { get; set; }
 
         [Display(Name = "کیفیت 320")]
-        [UploadFileSize(15048576)]
+        [UploadFileSize(20048576)]
         public IFormFile MyQuality320 { get; set; }
 
         [Display(Name = "متن آهنگ")]

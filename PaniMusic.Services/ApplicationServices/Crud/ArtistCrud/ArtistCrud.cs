@@ -28,13 +28,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
         public async Task<bool> AddArtist(AddArtistInput addArtistInput)
         {
-            var addNewGuid = Guid.NewGuid().ToString();
-
-            await UploadFile(addArtistInput.MyImage, addNewGuid);
+            await UploadFile(addArtistInput.MyImage);
 
             var newArtist = mapper.Map<Artist>(addArtistInput);
 
-            newArtist.Image = addNewGuid + "-" + addArtistInput.MyImage.FileName;
+            newArtist.Image = addArtistInput.MyImage.FileName;
 
             artistRepository.Insert(newArtist);
 
@@ -72,13 +70,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
         public async Task<bool> UpdateArtist(UpdateArtistInput updateArtistInput)
         {
-            var updateNewGuid = Guid.NewGuid().ToString();
-
-            await UploadFile(updateArtistInput.MyImage, updateNewGuid);
+            await UploadFile(updateArtistInput.MyImage);
 
             var getArtist = await artistRepository.Get(updateArtistInput.Id);
 
-            var changeArtist = ChangeForUpdate(getArtist, updateArtistInput, updateNewGuid);
+            var changeArtist = ChangeForUpdate(getArtist, updateArtistInput);
 
             artistRepository.Update(changeArtist);
 
@@ -103,7 +99,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             return true;
         }
 
-        private async Task UploadFile(IFormFile myFile, string myGuid)
+        private async Task UploadFile(IFormFile myFile)
         {
             if (myFile?.Length > 0)
             {
@@ -111,7 +107,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
                 "wwwroot",
                 "uploads",
                 "artist",
-                myGuid + "-" + myFile.FileName);
+                myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -120,13 +116,18 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
             }
         }
 
-        private Artist ChangeForUpdate(Artist artist, UpdateArtistInput input, string myGuid)
+        private Artist ChangeForUpdate(Artist artist, UpdateArtistInput input)
         {
             artist.Name = input.Name;
 
             if (input.MyImage?.Length > 0)
-                artist.Image = myGuid + "-" + input.MyImage.FileName;
+            {
+                if (artist.Image != null)
+                    DeleteFile(artist.Image);
 
+                artist.Image = input.MyImage.FileName;
+            }
+            
             artist.Biography = input.BioGraphy;
 
             artist.Link = input.Link;

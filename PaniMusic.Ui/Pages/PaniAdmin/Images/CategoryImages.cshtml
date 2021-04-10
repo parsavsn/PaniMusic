@@ -27,7 +27,7 @@
 
             <div class="col-12">
 
-                @if ((int?)TempData["CategoryId"] != null)
+                @if ((bool?)TempData["AddImage"] == true && (bool?)TempData["AddImage"] != null)
                 {
                     <div class="alert alert-info alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -35,6 +35,7 @@
                         تصویر جدید با موفقیت به لیست تصاویر اضافه شد
                     </div>
                 }
+
 
                 @if ((bool?)TempData["DeleteImage"] == true && (bool?)TempData["DeleteImage"] != null)
                 {

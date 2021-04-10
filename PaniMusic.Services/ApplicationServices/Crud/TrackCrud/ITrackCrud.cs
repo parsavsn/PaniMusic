@@ -1,5 +1,6 @@
 ﻿using PaniMusic.Core.Models;
 using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Add;
+using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Update;
 using PaniMusic.Services.Map.CrudDtos.Track.Add;
 using PaniMusic.Services.Map.CrudDtos.Track.Update;
 using System;
@@ -24,6 +25,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
         Task<List<Track>> GetAllTracks();
 
         Task<bool> UpdateTrack(UpdateTrackInput updateTrackInput);
+
+        Task<bool> UpdateAlbumTrack(UpdateAlbumTrackInput updateAlbumTrackInput);
 
         Task<bool> DeleteTrack(int id);
     }

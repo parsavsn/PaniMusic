@@ -28,6 +28,7 @@ namespace PaniMusic.Services.ApplicationServices.Recommended.TopVisited.TrackTop
         {
             var allTracks = await trackRepository.GetQuery()
                 .Include(x => x.Artist)
+                .Where(x => x.AlbumId == null)
                 .ToListAsync();
 
             var topVisitedTracks = allTracks

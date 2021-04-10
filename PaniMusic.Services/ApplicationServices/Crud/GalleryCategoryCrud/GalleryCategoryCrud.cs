@@ -35,13 +35,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
         public async Task<bool> AddGalleryCategory(AddGalleryCategoryInput addGalleryCategoryInput)
         {
-            var addNewGuid = Guid.NewGuid().ToString();
-
-            await UploadFile(addGalleryCategoryInput.MyImage, addNewGuid);
+            await UploadFile(addGalleryCategoryInput.MyImage);
 
             var newGalleryCategory = mapper.Map<GalleryCategory>(addGalleryCategoryInput);
 
-            newGalleryCategory.Image = addNewGuid + "-" + addGalleryCategoryInput.MyImage.FileName;
+            newGalleryCategory.Image = addGalleryCategoryInput.MyImage.FileName;
 
             galleryCategoryRepostiory.Insert(newGalleryCategory);
 
@@ -78,13 +76,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
         public async Task<bool> UpdateGalleryCategory(UpdateGalleryCategoryInput updateGalleryCategoryInput)
         {
-            var updateNewGuid = Guid.NewGuid().ToString();
-
-            await UploadFile(updateGalleryCategoryInput.MyImage, updateNewGuid);
+            await UploadFile(updateGalleryCategoryInput.MyImage);
 
             var getGalleryCategory = await galleryCategoryRepostiory.Get(updateGalleryCategoryInput.Id);
 
-            var changeGalleryCategory = ChangeForUpdate(getGalleryCategory, updateGalleryCategoryInput, updateNewGuid);
+            var changeGalleryCategory = ChangeForUpdate(getGalleryCategory, updateGalleryCategoryInput);
 
             galleryCategoryRepostiory.Update(changeGalleryCategory);
 
@@ -118,7 +114,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             return true;
         }
 
-        private async Task UploadFile(IFormFile myFile, string myGuid)
+        private async Task UploadFile(IFormFile myFile)
         {
             if (myFile?.Length > 0)
             {
@@ -126,7 +122,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
                 "wwwroot",
                 "uploads",
                 "gallerycategory",
-                myGuid + "-" + myFile.FileName);
+                myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -135,14 +131,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
             }
         }
 
-        private GalleryCategory ChangeForUpdate(GalleryCategory category
-            , UpdateGalleryCategoryInput input
-            , string myGuid)
+        private GalleryCategory ChangeForUpdate(GalleryCategory category, UpdateGalleryCategoryInput input)
         {
             category.Name = input.Name;
 
             if (input.MyImage?.Length > 0)
-                category.Image = myGuid + "-" + input.MyImage.FileName;
+            {
+                if (category.Image != null)
+                    DeleteFile(category.Image);
+
+                category.Image = input.MyImage.FileName;
+            }
 
             category.Link = input.Link;
 

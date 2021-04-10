@@ -14,6 +14,7 @@ namespace PaniMusic.Services.Map.CrudDtos.GalleryCategory.Update
         public int Id { get; set; }
 
         [Display(Name = "نام")]
+        [Required(ErrorMessage = "پر کردن نام دسته بندی الزامی است.")]
         public string Name { get; set; }
 
         [Display(Name = "تصویر")]
@@ -21,15 +22,19 @@ namespace PaniMusic.Services.Map.CrudDtos.GalleryCategory.Update
         public IFormFile MyImage { get; set; }
 
         [Display(Name = "لینک")]
+        [Required(ErrorMessage = "دسته بندی باید حاوی لینک باشد.")]
         public string Link { get; set; }
 
         [Display(Name = "تگ title")]
+        [Required(ErrorMessage = "پر کردن تگ title الزامی است.")]
         public string TitleTag { get; set; }
 
         [Display(Name = "تگ metadescription")]
+        [Required(ErrorMessage = "پر کردن تگ metadescription الزامی است.")]
         public string MetaDescription { get; set; }
 
         [Display(Name = "تگ metakeywoard")]
+        [Required(ErrorMessage = "پر کردن تگ metakeywoard الزامی است.")]
         public string MetaTag { get; set; }
     }
 }

@@ -28,28 +28,26 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
         public async Task<bool> AddMusicVideo(AddMusicVideoInput addMusicVideoInput)
         {
-            var addNewGuid = Guid.NewGuid().ToString();
+            await UploadFile(addMusicVideoInput.MyCoverImage);
 
-            await UploadFile(addMusicVideoInput.MyCoverImage, addNewGuid);
+            await UploadFile(addMusicVideoInput.MyQuality480);
 
-            await UploadFile(addMusicVideoInput.MyQuality480, addNewGuid);
+            await UploadFile(addMusicVideoInput.MyQuality720);
 
-            await UploadFile(addMusicVideoInput.MyQuality720, addNewGuid);
-
-            await UploadFile(addMusicVideoInput.MyQuality1080, addNewGuid);
+            await UploadFile(addMusicVideoInput.MyQuality1080);
 
             var newMusicVideo = mapper.Map<MusicVideo>(addMusicVideoInput);
 
-            newMusicVideo.CoverImage = addNewGuid + "-" + addMusicVideoInput.MyCoverImage.FileName;
+            newMusicVideo.CoverImage = addMusicVideoInput.MyCoverImage.FileName;
 
             if (addMusicVideoInput.MyQuality480?.Length > 0)
-                newMusicVideo.Quality480 = addNewGuid + "-" + addMusicVideoInput.MyQuality480.FileName;
+                newMusicVideo.Quality480 = addMusicVideoInput.MyQuality480.FileName;
 
             if (addMusicVideoInput.MyQuality720?.Length > 0)
-                newMusicVideo.Quality720 = addNewGuid + "-" + addMusicVideoInput.MyQuality720.FileName;
+                newMusicVideo.Quality720 = addMusicVideoInput.MyQuality720.FileName;
 
             if (addMusicVideoInput.MyQuality1080?.Length > 0)
-                newMusicVideo.Quality1080 = addNewGuid + "-" + addMusicVideoInput.MyQuality1080.FileName;
+                newMusicVideo.Quality1080 = addMusicVideoInput.MyQuality1080.FileName;
 
             newMusicVideo.Visit = 0;
 
@@ -106,19 +104,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
         public async Task<bool> UpdateMusicVideo(UpdateMusicVideoInput updateMusicVideoInput)
         {
-            var updateNewGuid = Guid.NewGuid().ToString();
+            await UploadFile(updateMusicVideoInput.MyCoverImage);
 
-            await UploadFile(updateMusicVideoInput.MyCoverImage, updateNewGuid);
+            await UploadFile(updateMusicVideoInput.MyQuality480);
 
-            await UploadFile(updateMusicVideoInput.MyQuality480, updateNewGuid);
+            await UploadFile(updateMusicVideoInput.MyQuality720);
 
-            await UploadFile(updateMusicVideoInput.MyQuality720, updateNewGuid);
-
-            await UploadFile(updateMusicVideoInput.MyQuality1080, updateNewGuid);
+            await UploadFile(updateMusicVideoInput.MyQuality1080);
 
             var getMusicVideo = await musicVideoRepository.Get(updateMusicVideoInput.Id);
 
-            var changeMusicVideo = ChangeForUpdate(getMusicVideo, updateMusicVideoInput, updateNewGuid);
+            var changeMusicVideo = ChangeForUpdate(getMusicVideo, updateMusicVideoInput);
 
             musicVideoRepository.Update(changeMusicVideo);
 
@@ -149,7 +145,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             return true;
         }
 
-        private async Task UploadFile(IFormFile myFile, string myGuid)
+        private async Task UploadFile(IFormFile myFile)
         {
             if (myFile?.Length > 0)
             {
@@ -157,7 +153,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
                 "wwwroot",
                 "uploads",
                 "musicvideo",
-                myGuid + "-" + myFile.FileName);
+                myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -166,21 +162,40 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             }
         }
 
-        private MusicVideo ChangeForUpdate(MusicVideo musicVideo, UpdateMusicVideoInput input, string myGuid)
+        private MusicVideo ChangeForUpdate(MusicVideo musicVideo, UpdateMusicVideoInput input)
         {
             musicVideo.Name = input.Name;
 
             if (input.MyCoverImage?.Length > 0)
-                musicVideo.CoverImage = myGuid + "-" + input.MyCoverImage.FileName;
+            {
+                DeleteFile(musicVideo.CoverImage);
+
+                musicVideo.CoverImage = input.MyCoverImage.FileName;
+            }
 
             if (input.MyQuality480?.Length > 0)
-                musicVideo.Quality480 = myGuid + "-" + input.MyQuality480.FileName;
+            {
+                if (musicVideo.Quality480 != null)
+                    DeleteFile(musicVideo.Quality480);
+
+                musicVideo.Quality480 = input.MyQuality480.FileName;
+            }
 
             if (input.MyQuality720?.Length > 0)
-                musicVideo.Quality720 = myGuid + "-" + input.MyQuality720.FileName;
+            {
+                if (musicVideo.Quality720 != null)
+                    DeleteFile(musicVideo.Quality720);
+
+                musicVideo.Quality720 = input.MyQuality720.FileName;
+            }
 
             if (input.MyQuality1080?.Length > 0)
-                musicVideo.Quality1080 = myGuid + "-" + input.MyQuality1080.FileName;
+            {
+                if (musicVideo.Quality1080 != null)
+                    DeleteFile(musicVideo.Quality1080);
+
+                musicVideo.Quality1080 = input.MyQuality1080.FileName;
+            }
 
             musicVideo.Lyric = input.Lyric;
 
@@ -191,6 +206,10 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             musicVideo.MetaDescription = input.MetaDescription;
 
             musicVideo.MetaTag = input.MetaTag;
+
+            musicVideo.StyleId = input.StyleId;
+
+            musicVideo.ArtistId = input.ArtistId;
 
             return musicVideo;
         }

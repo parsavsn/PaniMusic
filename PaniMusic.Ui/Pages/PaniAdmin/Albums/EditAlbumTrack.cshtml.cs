@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PaniMusic.Core.Models;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
-using PaniMusic.Services.Map.CrudDtos.Track.Update;
+using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Update;
 
 namespace PaniMusic.Ui.Pages.PaniAdmin.Albums
 {
@@ -25,7 +25,7 @@ namespace PaniMusic.Ui.Pages.PaniAdmin.Albums
         }
 
         [BindProperty]
-        public UpdateTrackInput Input { get; set; }
+        public UpdateAlbumTrackInput Input { get; set; }
 
         public Track Track { get; set; }
 
@@ -53,7 +53,7 @@ namespace PaniMusic.Ui.Pages.PaniAdmin.Albums
             if (!ModelState.IsValid)
                 return Page();
 
-            EditAlbumTrack = await trackCrud.UpdateTrack(Input);
+            EditAlbumTrack = await trackCrud.UpdateAlbumTrack(Input);
 
             return Redirect($"allalbumtracks?id={TempData["AlbumId"]}");
         }

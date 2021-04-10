@@ -23,7 +23,7 @@ namespace PaniMusic.Services.Map.CrudDtos.MusicVideo.Add
         public IFormFile MyQuality480 { get; set; }
 
         [Display(Name = "کیفیت 720")]
-        [UploadFileSize(15048576)]
+        [UploadFileSize(150048576)]
         public IFormFile MyQuality720 { get; set; }
 
         [Display(Name = "کیفیت 1080")]

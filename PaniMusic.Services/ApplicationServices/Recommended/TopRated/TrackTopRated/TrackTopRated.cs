@@ -29,6 +29,7 @@ namespace PaniMusic.Services.ApplicationServices.Recommended.TopRated.TrackTopRa
             var allTracks = await trackRepository.GetQuery()
                 .Include(x => x.Artist)
                 .Include(y => y.Feedbacks)
+                .Where(x => x.AlbumId == null)
                 .ToListAsync();
 
             var topRatedTracks = allTracks

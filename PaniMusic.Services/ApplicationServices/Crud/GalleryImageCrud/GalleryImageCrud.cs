@@ -34,13 +34,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
 
         public async Task<bool> AddGalleryImage(AddGalleryImageInput addGalleryImageInput)
         {
-            var addNewGuid = Guid.NewGuid().ToString();
+            var myGuid = Guid.NewGuid().ToString();
 
-            await UploadFile(addGalleryImageInput.MyImage, addNewGuid);
+            await UploadFile(addGalleryImageInput.MyImage);
 
             var newGalleryImage = mapper.Map<GalleryImage>(addGalleryImageInput);
 
-            newGalleryImage.Image = addNewGuid + "-" + addGalleryImageInput.MyImage.FileName;
+            newGalleryImage.Image = addGalleryImageInput.MyImage.FileName;
 
             galleryImageRepository.Insert(newGalleryImage);
 
@@ -77,7 +77,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
             return true;
         }
 
-        private async Task UploadFile(IFormFile myFile, string myGuid)
+        private async Task UploadFile(IFormFile myFile)
         {
             if (myFile?.Length > 0)
             {
@@ -85,7 +85,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
                 "wwwroot",
                 "uploads",
                 "galleryimage",
-                myGuid + "-" + myFile.FileName);
+                myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {

@@ -29,21 +29,27 @@ namespace PaniMusic.Services.Map.CrudDtos.Album.Update
         public IFormFile MyQuality320 { get; set; }
 
         [Display(Name = "لینک")]
+        [Required(ErrorMessage = "آلبوم باید حاوی لینک باشد.")]
         public string Link { get; set; }
 
         [Display(Name = "تگ title")]
+        [Required(ErrorMessage = "پر کردن تگ title الزامی است.")]
         public string TitleTag { get; set; }
 
         [Display(Name = "تگ metadescription")]
+        [Required(ErrorMessage = "پر کردن تگ metadescription الزامی است.")]
         public string MetaDescription { get; set; }
 
         [Display(Name = "تگ metakeywoard")]
+        [Required(ErrorMessage = "پر کردن تگ metakeywoard الزامی است.")]
         public string MetaTag { get; set; }
 
         [Display(Name = "سبک")]
+        [Required(ErrorMessage = "سبک آلبوم باید مشخص گردد.")]
         public int StyleId { get; set; }
 
         [Display(Name = "خواننده")]
+        [Required(ErrorMessage = "خواننده آلبوم باید مشخص گردد.")]
         public int ArtistId { get; set; }
     }
 }

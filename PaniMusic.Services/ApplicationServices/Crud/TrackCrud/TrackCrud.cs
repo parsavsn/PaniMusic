@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PaniMusic.Core.Models;
 using PaniMusic.Repository.ContextRepository;
 using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Add;
+using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Update;
 using PaniMusic.Services.Map.CrudDtos.Track.Add;
 using PaniMusic.Services.Map.CrudDtos.Track.Update;
 using System;
@@ -30,23 +31,21 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
         public async Task<bool> AddTrack(AddTrackInput addTrackInput)
         {
-            var addNewGuid = Guid.NewGuid().ToString();
+            await UploadFile(addTrackInput.MyCoverImage);
 
-            await UploadFile(addTrackInput.MyCoverImage, addNewGuid);
+            await UploadFile(addTrackInput.MyQuality128);
 
-            await UploadFile(addTrackInput.MyQuality128, addNewGuid);
-
-            await UploadFile(addTrackInput.MyQuality320, addNewGuid);
+            await UploadFile(addTrackInput.MyQuality320);
 
             var newTrack = mapper.Map<Track>(addTrackInput);
 
-            newTrack.CoverImage = addNewGuid + "-" + addTrackInput.MyCoverImage.FileName;
+            newTrack.CoverImage = addTrackInput.MyCoverImage.FileName;
 
             if (addTrackInput.MyQuality128?.Length > 0)
-                newTrack.Quality128 = addNewGuid + "-" + addTrackInput.MyQuality128.FileName;
+                newTrack.Quality128 = addTrackInput.MyQuality128.FileName;
 
             if (addTrackInput.MyQuality320?.Length > 0)
-                newTrack.Quality320 = addNewGuid + "-" + addTrackInput.MyQuality320.FileName;
+                newTrack.Quality320 = addTrackInput.MyQuality320.FileName;
 
             newTrack.Visit = 0;
 
@@ -61,19 +60,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
         public async Task<bool> AddAlbumTrack(AddAlbumTrackInput addAlbumTrackInput)
         {
-            var addNewGuid = Guid.NewGuid().ToString();
+            await UploadFile(addAlbumTrackInput.MyQuality128);
 
-            await UploadFile(addAlbumTrackInput.MyQuality128, addNewGuid);
-
-            await UploadFile(addAlbumTrackInput.MyQuality320, addNewGuid);
+            await UploadFile(addAlbumTrackInput.MyQuality320);
 
             var newAlbumTrack = mapper.Map<Track>(addAlbumTrackInput);
 
             if (addAlbumTrackInput.MyQuality128?.Length > 0)
-                newAlbumTrack.Quality128 = addNewGuid + "-" + addAlbumTrackInput.MyQuality128.FileName;
+                newAlbumTrack.Quality128 = addAlbumTrackInput.MyQuality128.FileName;
 
             if (addAlbumTrackInput.MyQuality320?.Length > 0)
-                newAlbumTrack.Quality320 = addNewGuid + "-" + addAlbumTrackInput.MyQuality320.FileName;
+                newAlbumTrack.Quality320 = addAlbumTrackInput.MyQuality320.FileName;
 
             newAlbumTrack.Visit = 0;
 
@@ -150,19 +147,50 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
         public async Task<bool> UpdateTrack(UpdateTrackInput updateTrackInput)
         {
-            var updateNewGuid = Guid.NewGuid().ToString();
+            await UploadFile(updateTrackInput.MyCoverImage);
 
-            await UploadFile(updateTrackInput.MyCoverImage, updateNewGuid);
+            await UploadFile(updateTrackInput.MyQuality128);
 
-            await UploadFile(updateTrackInput.MyQuality128, updateNewGuid);
-
-            await UploadFile(updateTrackInput.MyQuality320, updateNewGuid);
+            await UploadFile(updateTrackInput.MyQuality320);
 
             var getTrack = await trackRepository.Get(updateTrackInput.Id);
 
-            var changeTrack = ChangeForUpdate(getTrack, updateTrackInput, updateNewGuid);
+            var changeTrack = ChangeForUpdate(getTrack, updateTrackInput);
 
             trackRepository.Update(changeTrack);
+
+            await trackRepository.Save();
+
+            return true;
+        }
+
+        public async Task<bool> UpdateAlbumTrack(UpdateAlbumTrackInput updateAlbumTrackInput)
+        {
+            await UploadFile(updateAlbumTrackInput.MyQuality128);
+
+            await UploadFile(updateAlbumTrackInput.MyQuality320);
+
+            var getAlbumTrack = await trackRepository.Get(updateAlbumTrackInput.Id);
+
+            getAlbumTrack.Name = updateAlbumTrackInput.Name;
+
+            if (updateAlbumTrackInput.MyQuality128?.Length > 0)
+            {
+                if (getAlbumTrack.Quality128 != null)
+                    DeleteFile(getAlbumTrack.Quality128);
+
+                getAlbumTrack.Quality128 = updateAlbumTrackInput.MyQuality128.FileName;
+            }
+
+            if (updateAlbumTrackInput.MyQuality320?.Length > 0)
+            {
+                if (getAlbumTrack.Quality320 != null)
+                    DeleteFile(getAlbumTrack.Quality320);
+
+                getAlbumTrack.Quality320 = updateAlbumTrackInput.MyQuality320.FileName;
+            }
+
+            trackRepository.Update(getAlbumTrack);
 
             await trackRepository.Save();
 
@@ -189,7 +217,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             return true;
         }
 
-        private async Task UploadFile(IFormFile myFile, string myGuid)
+        private async Task UploadFile(IFormFile myFile)
         {
             if (myFile?.Length > 0)
             {
@@ -197,7 +225,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 "wwwroot",
                 "uploads",
                 "track",
-                myGuid + "-" + myFile.FileName);
+                myFile.FileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -206,18 +234,32 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
             }
         }
 
-        private Track ChangeForUpdate(Track track, UpdateTrackInput input, string myGuid)
+        private Track ChangeForUpdate(Track track, UpdateTrackInput input)
         {
             track.Name = input.Name;
 
             if (input.MyCoverImage?.Length > 0)
-                track.CoverImage = myGuid + "-" + input.MyCoverImage.FileName;
+            {
+                DeleteFile(track.CoverImage);
+
+                track.CoverImage = input.MyCoverImage.FileName;
+            }
 
             if (input.MyQuality128?.Length > 0)
-                track.Quality128 = myGuid + "-" + input.MyQuality128.FileName;
+            {
+                if (track.Quality128 != null)
+                    DeleteFile(track.Quality128);
+
+                track.Quality128 = input.MyQuality128.FileName;
+            }
 
             if (input.MyQuality320?.Length > 0)
-                track.Quality320 = myGuid + "-" + input.MyQuality320.FileName;
+            {
+                if (track.Quality320 != null)
+                    DeleteFile(track.Quality320);
+
+                track.Quality320 = input.MyQuality320.FileName;
+            }
 
             track.Lyric = input.Lyric;
 
