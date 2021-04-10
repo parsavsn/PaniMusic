@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\uploads\files\**" />
-    <Content Remove="wwwroot\uploads\files\**" />
-    <EmbeddedResource Remove="wwwroot\uploads\files\**" />
-    <None Remove="wwwroot\uploads\files\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
@@ -24,15 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaniMusic.Services\PaniMusic.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\uploads\album\" />
-    <Folder Include="wwwroot\uploads\artist\" />
-    <Folder Include="wwwroot\uploads\gallerycategory\" />
-    <Folder Include="wwwroot\uploads\galleryimage\" />
-    <Folder Include="wwwroot\uploads\musicvideo\" />
-    <Folder Include="wwwroot\uploads\track\" />
   </ItemGroup>
 
 </Project>
