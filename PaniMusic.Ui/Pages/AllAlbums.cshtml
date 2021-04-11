@@ -1,9 +1,9 @@
 ﻿@page
-@model IndexModel
+@model PaniMusic.Ui.Pages.AllAlbumsModel
 @{
-    ViewData["Title"] = "صفحه اصلی - دانلود آهنگ";
+    ViewData["Title"] = "دانلود آلبوم";
     ViewData["metadescription"] = "ارائه بروز ترین آهنگ ها ، آلبوم ها و موزیک ویدیو ها در رسانه پانی موزیک";
-    ViewData["metakeywoard"] = "دانلود آهنگ";
+    ViewData["metakeywoard"] = "دانلود آلبوم";
 }
 
 <main id="main">
@@ -13,13 +13,13 @@
         <div class="row">
             <div class="col-xl-7 col-lg-7 col-md-12">
 
-                @foreach (var item in Model.AllTracks)
+                @foreach (var item in Model.AllAlbums)
                 {
                     <div class="ps">
                         <div class="pstop">
                             <h3 class="top-title">
-                                <a href="track/@item.Link">
-                                    دانلود آهنگ @item.Artist.Name به نام @item.Name
+                                <a href="album/@item.Link">
+                                    دانلود آلبوم @item.Artist.Name به نام @item.Name
                                 </a>
                             </h3>
                             <div class="top-else">
@@ -47,16 +47,16 @@
                                     @item.Artist.Name @item.Name
                                 </h4>
                                 <h5 class="style-type">
-                                    سبک : <a href="style/@item.Style.Link">@item.Style.Name</a>
+                                    سبک : @item.Style.Name
                                 </h5>
-                                <img class="music-poster" src="~/uploads/track/@item.CoverImage" alt="آهنگ @item.Name">
+                                <img class="music-poster" src="~/uploads/album/@item.CoverImage" alt="آلبوم @item.Name">
                             </div>
                         </div>
                         <div class="psdown">
                             <span>
                                 تعداد بازدید : @item.Visit
                             </span>
-                            <a href="track/@item.Link" class="download-btn">دانلود آهنگ</a>
+                            <a href="album/@item.Link" class="download-btn">دانلود آلبوم</a>
                         </div>
                     </div>
                 }
@@ -79,7 +79,7 @@
             </div>
             <div class="col-xl-5 col-lg-5 col-md-12">
                 <form action="#" style="display: flex;margin-bottom: 25px;">
-                    <input type="text" class="form-control searchbox-input" placeholder="جستجوی آهنگ">
+                    <input type="text" class="form-control searchbox-input" placeholder="جستجوی آلبوم">
                     <button type="submit" class="btn btn-primary searchbox-submit">
                         <i class="fa fa-search"></i>
                     </button>
@@ -95,7 +95,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#mymenu-home').addClass('active');
+            $('#mymenu-album').addClass('active');
         });
     </script>
 }

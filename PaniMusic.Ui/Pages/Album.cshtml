@@ -1,10 +1,11 @@
 ﻿@page "{link}"
-@model PaniMusic.Ui.Pages.TrackModel
+@model PaniMusic.Ui.Pages.AlbumModel
 @{
-    ViewData["Title"] = $"{Model.Track.TitleTag}";
-    ViewData["metadescription"] = $"{Model.Track.MetaDescription}";
-    ViewData["metakeywoard"] = $"{Model.Track.MetaTag}";
+    ViewData["Title"] = $"{Model.Album.TitleTag}";
+    ViewData["metadescription"] = $"{Model.Album.MetaDescription}";
+    ViewData["metakeywoard"] = $"{Model.Album.MetaTag}";
 }
+
 
 <main id="main">
 
@@ -17,22 +18,22 @@
                     <div class="pstop">
                         <h3 class="top-title">
                             <a href="#">
-                                دانلود آهنگ @Model.Track.Name به نام @Model.Track.Name
+                                دانلود آلبوم @Model.Album.Artist.Name به نام @Model.Album.Name
                             </a>
                         </h3>
                         <div class="top-else">
                             <span>
-                                تاریخ انتشار : @Model.Track.RecordDate.ToPersianDate()
+                                تاریخ انتشار : @Model.Album.RecordDate.ToPersianDate()
                             </span>
                             <span>
                                 تعداد نظرات : @{
-                                    if (Model.Track.Feedbacks == null)
+                                    if (Model.Album.Feedbacks == null)
                                     {
                                         <span>0</span>
                                     }
                                     else
                                     {
-                                        <span>@Model.Track.Feedbacks.Count</span>
+                                        <span>@Model.Album.Feedbacks.Count</span>
                                     }
                                 }
                             </span>
@@ -42,42 +43,48 @@
                     <div class="pcnt">
                         <div class="text-center">
                             <h4 class="center-title">
-                                @Model.Track.Artist.Name @Model.Track.Name
+                                @Model.Album.Artist.Name @Model.Album.Name
                             </h4>
                             <h5 class="style-type">
-                                سبک : <a href="style/@Model.Track.Style.Link">@Model.Track.Style.Name</a>
+                                سبک : @Model.Album.Style.Name
                             </h5>
-                            <img class="music-poster" src="~/uploads/track/@Model.Track.CoverImage" alt="آهنگ @Model.Track.Name">
+                            <img class="music-poster" src="~/uploads/album/@Model.Album.CoverImage" alt="آلبوم @Model.Album.Name">
                         </div>
                     </div>
 
                     <div class="download-music-btn">
-                        <a href="~/uploads/track/@Model.Track.Quality128" class="btn btn-info" style="margin-bottom: 10px;">دانلود آهنگ با کیفیت 128</a>
-                        <a href="~/uploads/track/@Model.Track.Quality320" class="btn btn-outline-info">دانلود آهنگ با کیفیت 320</a>
+                        <a href="~/uploads/album/@Model.Album.Quality128" class="btn btn-info" style="margin-bottom: 10px;">دانلود آلبوم با کیفیت 128 (یکجا)</a>
+                        <a href="~/uploads/album/@Model.Album.Quality320" class="btn btn-outline-info">دانلود آلبوم با کیفیت 320 (یکجا)</a>
                     </div>
 
-                    <div class="online-music">
-                        <h6>پخش آنلاین آهنگ با کیفیت 128</h6>
-                        <audio controls style="margin-bottom: 20px;">
-                            <source src="~/uploads/track/@Model.Track.Quality128" type="audio/mpeg">
-                            مرورگر شما از پخش آنلاین موزیک پشتیبانی نمی‌کند.
-                        </audio>
-                        <h6>پخش آنلاین آهنگ با کیفیت 320</h6>
-                        <audio controls>
-                            <source src="~/uploads/track/@Model.Track.Quality320" type="audio/mpeg">
-                            مرورگر شما از پخش آنلاین موزیک پشتیبانی نمی‌کند.
-                        </audio>
-                    </div>
-
-                    <div class="lyric">
-                        <h3 class="lyric-title text-center">متن آهنگ @Model.Track.Name از @Model.Track.Artist.Name</h3>
-                        <div class="lyric-text">
-                            @Html.Raw(Model.Track.Lyric)
+                    <div class="album-musics-list">
+                        <div class="pcblk">
+                            <div class="blktl">
+                                <b style="color: #000;">دانلود آلبوم با کیفیت 128 (تک تک)</b>
+                            </div>
+                            <ul class="text-right list-of-bests" id="music-list-style">
+                                @foreach (var item in Model.Album.Tracks)
+                                {
+                                    <li><a href="~/uploads/track/@item.Quality128">@item.Name</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="pcblk">
+                            <div class="blktl">
+                                <b style="color: #000;">دانلود آلبوم با کیفیت 320 (تک تک)</b>
+                            </div>
+                            <ul class="text-right list-of-bests" id="music-list-style">
+                                @foreach (var item in Model.Album.Tracks)
+                                {
+                                    <li><a href="~/uploads/track/@item.Quality320">@item.Name</a></li>
+                                }
+                            </ul>
                         </div>
                     </div>
+
                     <div class="psdown">
                         <span>
-                            تعداد بازدید : @Model.Track.Visit
+                            تعداد بازدید : @Model.Album.Visit
                         </span>
                     </div>
                 </div>
@@ -110,21 +117,21 @@
                 <div class="comments text-right">
 
                     <div class="comments-title">
-                        <h4 style="color: #000;">نظرات آهنگ @Model.Track.Artist.Name به نام @Model.Track.Name</h4>
+                        <h4 style="color: #000;">نظرات آلبوم @Model.Album.Artist.Name به نام @Model.Album.Name</h4>
                         <div class="d-flex justify-content-between">
                             @{
-                                if (Model.Track.Feedbacks == null)
+                                if (Model.Album.Feedbacks == null)
                                 {
                                     <span class="text-success">کل نظرات ثبت شده : 0</span>
                                     <span style="font-size: 13px;"> تایید شده : 0 | درحال بررسی : 0 </span>
                                 }
                                 else
                                 {
-                                    var isAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == true);
+                                    var isAccepted = Model.Album.Feedbacks.Select(x => x.IsAccept == true);
 
-                                    var notAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == false);
+                                    var notAccepted = Model.Album.Feedbacks.Select(x => x.IsAccept == false);
 
-                                    <span class="text-success">کل نظرات ثبت شده : @Model.Track.Feedbacks.Count</span>
+                                    <span class="text-success">کل نظرات ثبت شده : @Model.Album.Feedbacks.Count</span>
                                     <span style="font-size: 13px;">
                                         تایید شده :
                                         @{
@@ -158,9 +165,9 @@
 
                     <div class="allcomments">
                         @{
-                            if (Model.Track.Feedbacks != null)
+                            if (Model.Album.Feedbacks != null)
                             {
-                                foreach (var item in Model.Track.Feedbacks)
+                                foreach (var item in Model.Album.Feedbacks)
                                 {
                                     <div class="user-comment">
                                         <div class="user-comment-title d-flex justify-content-between">
@@ -204,7 +211,7 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </form>
-
+                
             </div>
         </div>
     </div>
@@ -215,7 +222,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#mymenu-home').addClass('active');
+            $('#mymenu-album').addClass('active');
         });
     </script>
 }

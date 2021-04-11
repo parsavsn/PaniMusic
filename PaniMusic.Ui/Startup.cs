@@ -67,7 +67,7 @@ namespace PaniMusic.Ui
 
             services.AddRazorPages(options =>
             {
-                options.Conventions.AddPageRoute("/Track", "{link?}");
+                options.Conventions.AddPageRoute("/", "{link}");
             });
         }
 
@@ -89,7 +89,7 @@ namespace PaniMusic.Ui
                 await next();
                 if (context.Response.StatusCode == 404)
                 {
-                    context.Request.Path = "/my404page";
+                    context.Request.Path = "/My404Page";
                     await next();
                 }
             });

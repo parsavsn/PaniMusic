@@ -27,6 +27,8 @@ namespace PaniMusic.Ui.Pages
 
         public async Task<IActionResult> OnGetAsync([FromQuery]int page = 1)
         {
+            // paging
+
             var getAllTracks = await trackCrud.GetAllTracks();
 
             int skip = (page - 1) * 5;
