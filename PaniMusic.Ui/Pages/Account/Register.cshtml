@@ -1,0 +1,55 @@
+﻿@page
+@model PaniMusic.Ui.Pages.Account.RegisterModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت نام | پانی موزیک</title>
+    <link href="~/img/favicon.png" rel="icon">
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/formstyle.css">
+    <link rel="stylesheet" type="text/css" href="~/css/myformstyle.css">
+</head>
+<body>
+    <div class="form-body without-side">
+        <div class="row">
+            <div class="img-holder">
+                <div class="bg"></div>
+                <div class="info-holder">
+                    <img src="~/img/graphic3.svg">
+                </div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items text-right" dir="rtl">
+                        <img src="~/img/logo.png" style="margin-bottom: 35px;padding-right: 35px;">
+                        <h3 class="text-right">ایجاد حساب کاربری جدید</h3>
+                        <p class="text-right">با ایجاد حساب کاربری ، می‌توانید فعالیت خود را در وبسایت شروع کنید</p>
+                        <form>
+                            <input class="form-control text-right" type="text" name="name" placeholder="نام و نام خانوادگی" required>
+                            <input class="form-control text-right" type="email" name="email" placeholder="ایمیل" required>
+                            <input class="form-control text-right" type="password" name="password" placeholder="رمز عبور" required>
+                            <input class="form-control text-right" type="password" name="password" placeholder="تکرار رمز عبور" required>
+                            <div class="form-button">
+                                <button id="submit" type="submit" class="ibtn">ثبت نام</button>
+                            </div>
+                        </form>
+                        <div class="page-links" style="margin-top: 38px;">
+                            <a asp-page="Login">ورود به حساب کاربری</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>
