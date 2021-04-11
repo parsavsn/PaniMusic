@@ -53,33 +53,45 @@
                     </div>
 
                     <div class="download-music-btn">
-                        <a href="~/uploads/album/@Model.Album.Quality128" class="btn btn-info" style="margin-bottom: 10px;">دانلود آلبوم با کیفیت 128 (یکجا)</a>
-                        <a href="~/uploads/album/@Model.Album.Quality320" class="btn btn-outline-info">دانلود آلبوم با کیفیت 320 (یکجا)</a>
+                        @if (Model.Album.Quality128 != null)
+                        {
+                            <a href="~/uploads/album/@Model.Album.Quality128" class="btn btn-info" style="margin-bottom: 10px;">دانلود آلبوم با کیفیت 128 (یکجا)</a>
+                        }
+                        @if (Model.Album.Quality320 != null)
+                        {
+                            <a href="~/uploads/album/@Model.Album.Quality320" class="btn btn-outline-info">دانلود آلبوم با کیفیت 320 (یکجا)</a>
+                        }
                     </div>
 
                     <div class="album-musics-list">
-                        <div class="pcblk">
-                            <div class="blktl">
-                                <b style="color: #000;">دانلود آلبوم با کیفیت 128 (تک تک)</b>
+                        @if (Model.Album.Quality128 != null)
+                        {
+                            <div class="pcblk">
+                                <div class="blktl">
+                                    <b style="color: #000;">دانلود آلبوم با کیفیت 128 (تک تک)</b>
+                                </div>
+                                <ul class="text-right list-of-bests" id="music-list-style">
+                                    @foreach (var item in Model.Album.Tracks)
+                                    {
+                                        <li><a href="~/uploads/track/@item.Quality128">@item.Name</a></li>
+                                    }
+                                </ul>
                             </div>
-                            <ul class="text-right list-of-bests" id="music-list-style">
-                                @foreach (var item in Model.Album.Tracks)
-                                {
-                                    <li><a href="~/uploads/track/@item.Quality128">@item.Name</a></li>
-                                }
-                            </ul>
-                        </div>
-                        <div class="pcblk">
-                            <div class="blktl">
-                                <b style="color: #000;">دانلود آلبوم با کیفیت 320 (تک تک)</b>
+                        }
+                        @if (Model.Album.Quality320 != null)
+                        {
+                            <div class="pcblk">
+                                <div class="blktl">
+                                    <b style="color: #000;">دانلود آلبوم با کیفیت 320 (تک تک)</b>
+                                </div>
+                                <ul class="text-right list-of-bests" id="music-list-style">
+                                    @foreach (var item in Model.Album.Tracks)
+                                    {
+                                        <li><a href="~/uploads/track/@item.Quality320">@item.Name</a></li>
+                                    }
+                                </ul>
                             </div>
-                            <ul class="text-right list-of-bests" id="music-list-style">
-                                @foreach (var item in Model.Album.Tracks)
-                                {
-                                    <li><a href="~/uploads/track/@item.Quality320">@item.Name</a></li>
-                                }
-                            </ul>
-                        </div>
+                        }
                     </div>
 
                     <div class="psdown">
@@ -211,7 +223,7 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </form>
-                
+
             </div>
         </div>
     </div>

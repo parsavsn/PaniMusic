@@ -1,9 +1,9 @@
 ﻿@page "{link}"
-@model PaniMusic.Ui.Pages.TrackModel
+@model PaniMusic.Ui.Pages.MusicVideoModel
 @{
-    ViewData["Title"] = $"{Model.Track.TitleTag}";
-    ViewData["metadescription"] = $"{Model.Track.MetaDescription}";
-    ViewData["metakeywoard"] = $"{Model.Track.MetaTag}";
+    ViewData["Title"] = $"{Model.MusicVideo.TitleTag}";
+    ViewData["metadescription"] = $"{Model.MusicVideo.MetaDescription}";
+    ViewData["metakeywoard"] = $"{Model.MusicVideo.MetaTag}";
 }
 
 <main id="main">
@@ -17,22 +17,22 @@
                     <div class="pstop">
                         <h3 class="top-title">
                             <a href="#">
-                                دانلود آهنگ @Model.Track.Name به نام @Model.Track.Name
+                                دانلود موزیک ویدیو @Model.MusicVideo.Name به نام @Model.MusicVideo.Name
                             </a>
                         </h3>
                         <div class="top-else">
                             <span>
-                                تاریخ انتشار : @Model.Track.RecordDate.ToPersianDate()
+                                تاریخ انتشار : @Model.MusicVideo.RecordDate.ToPersianDate()
                             </span>
                             <span>
                                 تعداد نظرات : @{
-                                    if (Model.Track.Feedbacks == null)
+                                    if (Model.MusicVideo.Feedbacks == null)
                                     {
                                         <span>0</span>
                                     }
                                     else
                                     {
-                                        <span>@Model.Track.Feedbacks.Count</span>
+                                        <span>@Model.MusicVideo.Feedbacks.Count</span>
                                     }
                                 }
                             </span>
@@ -42,57 +42,74 @@
                     <div class="pcnt">
                         <div class="text-center">
                             <h4 class="center-title">
-                                @Model.Track.Artist.Name @Model.Track.Name
+                                @Model.MusicVideo.Artist.Name @Model.MusicVideo.Name
                             </h4>
                             <h5 class="style-type">
-                                سبک : <a href="style/@Model.Track.Style.Link">@Model.Track.Style.Name</a>
+                                سبک : @Model.MusicVideo.Style.Name
                             </h5>
-                            <img class="music-poster" src="~/uploads/track/@Model.Track.CoverImage" alt="آهنگ @Model.Track.Name">
+                            <img class="music-poster" src="~/uploads/musicvideo/@Model.MusicVideo.CoverImage" alt="موزیک ویدیو @Model.MusicVideo.Name">
                         </div>
                     </div>
 
                     <div class="download-music-btn">
-                        @if (Model.Track.Quality128 != null)
+                        @if (Model.MusicVideo.Quality480 != null)
                         {
-                            <a href="~/uploads/track/@Model.Track.Quality128" class="btn btn-info" style="margin-bottom: 10px;">دانلود آهنگ با کیفیت 128</a>
+                            <a href="~/uploads/musicvideo/@Model.MusicVideo.Quality480" class="btn btn-outline-info" style="margin: 5px 0px;">دانلود موزیک ویدیو با کیفیت 480</a>
                         }
-                        @if (Model.Track.Quality320 != null)
+                        @if (Model.MusicVideo.Quality720 != null)
                         {
-                            <a href="~/uploads/track/@Model.Track.Quality320" class="btn btn-outline-info">دانلود آهنگ با کیفیت 320</a>
+                            <a href="~/uploads/musicvideo/@Model.MusicVideo.Quality720" class="btn btn-info" style="margin: 5px 0px;">دانلود موزیک ویدیو با کیفیت 720</a>
+                        }
+                        @if (Model.MusicVideo.Quality1080 != null)
+                        {
+                            <a href="~/uploads/musicvideo/@Model.MusicVideo.Quality1080" class="btn btn-outline-info" style="margin: 5px 0px;">دانلود موزیک ویدیو با کیفیت 1080</a>
                         }
                     </div>
 
                     <div class="online-music">
-                        @if (Model.Track.Quality128 != null)
-                        {
-                            <h6>پخش آنلاین آهنگ با کیفیت 128</h6>
-                            <audio controls style="margin-bottom: 20px;">
-                                <source src="~/uploads/track/@Model.Track.Quality128" type="audio/mpeg">
-                                مرورگر شما از پخش آنلاین موزیک پشتیبانی نمی‌کند.
-                            </audio>
-                        }
-                        @if (Model.Track.Quality320 != null)
-                        {
-                            <h6>پخش آنلاین آهنگ با کیفیت 320</h6>
-                            <audio controls>
-                                <source src="~/uploads/track/@Model.Track.Quality320" type="audio/mpeg">
-                                مرورگر شما از پخش آنلاین موزیک پشتیبانی نمی‌کند.
-                            </audio>
+                        @{
+                            if (Model.MusicVideo.Quality480 != null)
+                            {
+                                <div class="online-music">
+                                    <video width="500" controls>
+                                        <source src="~/uploads/musicvideo/@Model.MusicVideo.Quality480" type="video/mp4">
+                                        مرورگر شما از پخش آنلاین موزیک ویدیو پشتیبانی نمی‌کند.
+                                    </video>
+                                </div>
+                            }
+                            else if (Model.MusicVideo.Quality720 != null)
+                            {
+                                <div class="online-music">
+                                    <video width="500" controls>
+                                        <source src="~/uploads/musicvideo/@Model.MusicVideo.Quality720" type="video/mp4">
+                                        مرورگر شما از پخش آنلاین موزیک ویدیو پشتیبانی نمی‌کند.
+                                    </video>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="online-music">
+                                    <video width="500" controls>
+                                        <source src="~/uploads/musicvideo/@Model.MusicVideo.Quality1080" type="video/mp4">
+                                        مرورگر شما از پخش آنلاین موزیک ویدیو پشتیبانی نمی‌کند.
+                                    </video>
+                                </div>
+                            }
                         }
                     </div>
 
-                    @if (Model.Track.Lyric != null)
+                    @if (Model.MusicVideo.Lyric != null)
                     {
                         <div class="lyric">
-                            <h3 class="lyric-title text-center">متن آهنگ @Model.Track.Name از @Model.Track.Artist.Name</h3>
+                            <h3 class="lyric-title text-center">متن موزیک ویدیو @Model.MusicVideo.Name از @Model.MusicVideo.Artist.Name</h3>
                             <div class="lyric-text">
-                                @Html.Raw(Model.Track.Lyric)
+                                @Html.Raw(Model.MusicVideo.Lyric)
                             </div>
                         </div>
                     }
                     <div class="psdown">
                         <span>
-                            تعداد بازدید : @Model.Track.Visit
+                            تعداد بازدید : @Model.MusicVideo.Visit
                         </span>
                     </div>
                 </div>
@@ -125,21 +142,21 @@
                 <div class="comments text-right">
 
                     <div class="comments-title">
-                        <h4 style="color: #000;">نظرات آهنگ @Model.Track.Artist.Name به نام @Model.Track.Name</h4>
+                        <h4 style="color: #000;">نظرات آهنگ @Model.MusicVideo.Artist.Name به نام @Model.MusicVideo.Name</h4>
                         <div class="d-flex justify-content-between">
                             @{
-                                if (Model.Track.Feedbacks == null)
+                                if (Model.MusicVideo.Feedbacks == null)
                                 {
                                     <span class="text-success">کل نظرات ثبت شده : 0</span>
                                     <span style="font-size: 13px;"> تایید شده : 0 | درحال بررسی : 0 </span>
                                 }
                                 else
                                 {
-                                    var isAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == true);
+                                    var isAccepted = Model.MusicVideo.Feedbacks.Select(x => x.IsAccept == true);
 
-                                    var notAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == false);
+                                    var notAccepted = Model.MusicVideo.Feedbacks.Select(x => x.IsAccept == false);
 
-                                    <span class="text-success">کل نظرات ثبت شده : @Model.Track.Feedbacks.Count</span>
+                                    <span class="text-success">کل نظرات ثبت شده : @Model.MusicVideo.Feedbacks.Count</span>
                                     <span style="font-size: 13px;">
                                         تایید شده :
                                         @{
@@ -173,9 +190,9 @@
 
                     <div class="allcomments">
                         @{
-                            if (Model.Track.Feedbacks != null)
+                            if (Model.MusicVideo.Feedbacks != null)
                             {
-                                foreach (var item in Model.Track.Feedbacks)
+                                foreach (var item in Model.MusicVideo.Feedbacks)
                                 {
                                     <div class="user-comment">
                                         <div class="user-comment-title d-flex justify-content-between">
@@ -230,7 +247,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#mymenu-home').addClass('active');
+            $('#mymenu-musicvideo').addClass('active');
         });
     </script>
 }

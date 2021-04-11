@@ -17,7 +17,6 @@
     <link href="~/lib/icofont/icofont.min.css" rel="stylesheet">
     <link href="~/lib/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="~/lib/remixicon/remixicon.css" rel="stylesheet">
-    <link href="~/lib/venobox/venobox.css" rel="stylesheet">
     <link href="~/lib/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="~/lib/aos/aos.css" rel="stylesheet">
     <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -40,7 +39,7 @@
                 <ul>
                     <li id="mymenu-home"><a asp-page="Index">صفحه اصلی</a></li>
                     <li id="mymenu-album"><a asp-page="AllAlbums">آلبوم</a></li>
-                    <li id="mymenu-musicvideo"><a href="allmusicvideos">موزیک ویدیو</a></li>
+                    <li id="mymenu-musicvideo"><a asp-page="AllMusicVideos">موزیک ویدیو</a></li>
                     <li id="mymenu-artist"><a href="allartists">هنرمندان</a></li>
                     <li id="mymenu-gallery"><a href="gallery">گالری تصاویر</a></li>
                     <li id="mymenu-about"><a href="aboutus">درباره ما</a></li>
@@ -60,9 +59,9 @@
                     <h1>Everything in the universe has a rhythm , everything dances</h1>
                     <h2 class="text-right" dir="rtl">در این دنیا هر چیزی ریتم خودش را دارد ، هرچیزی می‌رقصد</h2>
                     <div class="d-lg-flex top-three-buttons">
-                        <a href="#" class="btn-get-started scrollto">دانلود آلبوم</a>
-                        <a href="#" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> موزیک ویدیو <i class="icofont-play-alt-2"></i></a>
-                        <a href="#" class="btn-download-music scrollto">دانلود آهنگ</a>
+                        <a asp-page="AllAlbums" class="btn-get-started scrollto">دانلود آلبوم</a>
+                        <a asp-page="AllMusicVideos" class="btn-watch-video"> موزیک ویدیو <i class="icofont-play-alt-2"></i></a>
+                        <a asp-page="Index" class="btn-download-music scrollto">دانلود آهنگ</a>
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
@@ -152,7 +151,6 @@
     <script src="~/lib/jquery.easing/jquery.easing.min.js"></script>
     <script src="~/lib/waypoints/jquery.waypoints.min.js"></script>
     <script src="~/lib/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="~/lib/venobox/venobox.min.js"></script>
     <script src="~/lib/owl.carousel/owl.carousel.min.js"></script>
     <script src="~/lib/aos/aos.js"></script>
 
