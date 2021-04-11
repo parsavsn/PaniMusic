@@ -1,7 +1,91 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "صفحه اصلی - دانلود آهنگ";
 }
 
-<h1><a href="/paniadmin">admin</a></h1>
+<main id="main">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+
+                @foreach (var item in Model.AllTracks)
+                {
+                    <div class="ps">
+                        <div class="pstop">
+                            <h3 class="top-title">
+                                <a href="track/@item.Link">
+                                    دانلود آهنگ @item.Artist.Name به نام @item.Name
+                                </a>
+                            </h3>
+                            <div class="top-else">
+                                <span>
+                                    تاریخ انتشار : @item.RecordDate.ToPersianDate()
+                                </span>
+                                <span>
+                                    تعداد نظرات : @{
+                                        if (item.Feedbacks == null)
+                                        {
+                                            <span>0</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.Feedbacks.Count</span>
+                                        }
+                                    }
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="pcnt">
+                            <div class="text-center">
+                                <h4 class="center-title">
+                                    @item.Artist.Name @item.Name
+                                </h4>
+                                <h5 class="style-type">
+                                    سبک : <a href="style/@item.Style.Link">@item.Style.Name</a>
+                                </h5>
+                                <img class="music-poster" src="~/uploads/track/@item.CoverImage" alt="آهنگ @item.Name">
+                            </div>
+                        </div>
+                        <div class="psdown">
+                            <span>
+                                تعداد بازدید : @item.Visit
+                            </span>
+                            <a href="track/@item.Link" class="download-btn">دانلود آهنگ</a>
+                        </div>
+                    </div>
+                }
+
+                <div class="d-flex justify-content-center">
+                    <div dir="ltr" class="paging-nav index-paging" style="margin: 0px auto;">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item @(((Model.PageId - 1) == 0) ? "disabled" : "")"><a class="page-link" href="?page=@(Model.PageId - 1)">قبلی</a></li>
+                                @for (int pageNumber = 1; pageNumber <= Model.PageCount; pageNumber++)
+                                {
+                                    <li class="page-item @((Model.PageId == pageNumber)?"active":"")"><a class="page-link" href="?page=@pageNumber">@pageNumber</a></li>
+                                }
+                                <li class="page-item @((Model.PageId == Model.PageCount) ? "disabled" : "")"><a class="page-link" href="?page=@(Model.PageId + 1)">بعدی</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-12">
+                <form action="#" style="display: flex;margin-bottom: 25px;">
+                    <input type="text" class="form-control searchbox-input" placeholder="جستجوی آهنگ">
+                    <button type="submit" class="btn btn-primary searchbox-submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+</main>

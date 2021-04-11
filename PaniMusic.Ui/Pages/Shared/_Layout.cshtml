@@ -1,49 +1,164 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaniMusic.Ui</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewData["title"] | پانی موزیک</title>
+    <meta content="@ViewData["metadescription"]" name="description">
+    <meta content="@ViewData["metakeywoard"]" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/lib/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/lib/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/lib/venobox/venobox.css" rel="stylesheet">
+    <link href="~/lib/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/aos/aos.css" rel="stylesheet">
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">PaniMusic.Ui</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center">
+
+            <img src="~/img/logo.png" class="logo mr-auto">
+            <a href="#about" class="get-started-btn scrollto">ورود</a>
+
+            <nav class="nav-menu d-none d-lg-block" dir="rtl">
+                <ul>
+                    <li id="mymenu-home"><a href="index.html">صفحه اصلی</a></li>
+                    <li id="mymenu-album"><a href="#about">آلبوم</a></li>
+                    <li id="mymenu-musicvideo"><a href="#services">موزیک ویدیو</a></li>
+                    <li id="mymenu-artist"><a href="#portfolio">هنرمندان</a></li>
+                    <li id="mymenu-gallery"><a href="#team">گالری تصاویر</a></li>
+                    <li id="mymenu-about"><a href="#contact">درباره ما</a></li>
+                </ul>
+            </nav><!-- .nav-menu -->
+
+
+
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <h1>Everything in the universe has a rhythm , everything dances</h1>
+                    <h2 class="text-right" dir="rtl">در این دنیا هر چیزی ریتم خودش را دارد ، هرچیزی می‌رقصد</h2>
+                    <div class="d-lg-flex top-three-buttons">
+                        <a href="#" class="btn-get-started scrollto">دانلود آلبوم</a>
+                        <a href="#" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> موزیک ویدیو <i class="icofont-play-alt-2"></i></a>
+                        <a href="#" class="btn-download-music scrollto">دانلود آهنگ</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="~/img/music-clipart.png" class="img-fluid animated" alt="موزیک">
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - PaniMusic.Ui - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
-    </footer>
 
+    </section>
+    <!-- End Hero -->
+
+    @RenderBody()
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 footer-links">
+                        <h4 class="text-center">دسترسی به آرشیو برخی از هنرمندان</h4>
+                        <div class="artists-list">
+                            <ul>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">مهدی یراحی</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">شهاب مظفری</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">یاس</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">مهراد هیدن</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">ماکان بند</a></li>
+                            </ul>
+                            <ul>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">بهزاد لیتو</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">پوریا پوتک</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">همایون شجریان</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">رضا پیشرو</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">رضا بهرام</a></li>
+                            </ul>
+                            <ul>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">علی عبدالمالکی</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">شایع</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">سالار عقیلی</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">علی یاسینی</a></li>
+                                <li><i class="bx bx-chevron-left"></i> <a href="#">بابک جهانبخش</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 footer-links">
+                        <h4 class="text-center">از جدیدترین موزیک ها باخبر شوید!</h4>
+                        <form action="#" class="text-right">
+                            <div style="display: flex;">
+                                <div class="form-group" style="width: 50%;">
+                                    <input type="text" class="form-control" id="usr" placeholder="نام">
+                                </div>
+                                <div class="form-group" style="width: 50%;margin-right: 10px;">
+                                    <input type="text" class="form-control" id="usr" placeholder="نام خانوادگی">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="ایمیل" id="email">
+                            </div>
+                            <button type="submit" class="btn btn-primary submit-newsletter" style="width: 100%;">ثبت</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container footer-bottom clearfix">
+            <div class="credits">
+                طراح و برنامه نویس : <a href="#">پارسا ویسانی</a>
+            </div>
+            <div class="copyright">
+                &copy; تمامی حقوق برای <b>پانی موزیک</b> محفوظ می‌باشد.
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/lib/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/lib/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/lib/venobox/venobox.min.js"></script>
+    <script src="~/lib/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/lib/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+
 
     @RenderSection("Scripts", required: false)
 </body>
