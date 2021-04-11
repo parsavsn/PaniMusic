@@ -1,0 +1,48 @@
+﻿@page
+@model PaniMusic.Ui.Pages.GalleryModel
+@{
+    ViewData["Title"] = "گالری تصاویر";
+    ViewData["metadescription"] = "دانلود تصاویر کنسرت های داخلی و خارجی در کیفیت های مختلف";
+    ViewData["metakeywoard"] = "دانلود عکس کنسرت";
+}
+
+
+
+<main id="main">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+                @foreach (var item in Model.GalleryCategories)
+                {
+                    <div class="postart gallery-art">
+                        <a href="/images/@item.Link" class="gallery-img">
+                            <img src="~/uploads/gallerycategory/@item.Image">
+                        </a>
+                        <a href="/images/@item.Link" class="title gallery-title">@item.Name</a>
+                        <a href="/images/@item.Link" class="btn btn-info btn-sm asar-btn">تصاویر بیشتر</a>
+                    </div>
+                }
+            </div>
+
+            <div class="col-xl-5 col-lg-5 col-md-12">
+                
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#mymenu-gallery').addClass('active');
+        });
+    </script>
+}

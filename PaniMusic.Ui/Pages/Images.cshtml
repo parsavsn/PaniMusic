@@ -1,0 +1,45 @@
+﻿@page "{link}"
+@model PaniMusic.Ui.Pages.ImagesModel
+@{
+    ViewData["Title"] = $"{Model.GalleryCategory.TitleTag}";
+    ViewData["metadescription"] = $"{Model.GalleryCategory.MetaDescription}";
+    ViewData["metakeywoard"] = $"{Model.GalleryCategory.MetaTag}";
+}
+
+
+<main id="main">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="ps" style="height: 650px;">
+                    <div class="pstop">
+                        <h3 class="top-title">
+                            <a href="#">
+                                @Model.GalleryCategory.Name
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="images-of-gallery">
+                        @foreach (var item in Model.GalleryImages)
+                        {
+                            <img src="~/uploads/galleryimage/@item.Image" data-action="zoom" class="float-right">
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</main>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#mymenu-gallery').addClass('active');
+        });
+    </script>
+}
