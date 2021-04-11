@@ -65,7 +65,10 @@ namespace PaniMusic.Ui
                 options.MultipartBodyLengthLimit = long.MaxValue;
             });
 
-            services.AddRazorPages();
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/Track", "{link?}");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

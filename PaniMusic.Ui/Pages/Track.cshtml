@@ -1,0 +1,213 @@
+﻿@page "{link?}"
+@model PaniMusic.Ui.Pages.TrackModel
+@{
+    ViewData["Title"] = $"{Model.Track.TitleTag}";
+    ViewData["metadescription"] = $"{Model.Track.MetaDescription}";
+    ViewData["metakeywoard"] = $"{Model.Track.MetaTag}";
+}
+
+<main id="main">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+
+                <div class="ps">
+                    <div class="pstop">
+                        <h3 class="top-title">
+                            <a href="#">
+                                دانلود آهنگ @Model.Track.Name به نام @Model.Track.Name
+                            </a>
+                        </h3>
+                        <div class="top-else">
+                            <span>
+                                تاریخ انتشار : @Model.Track.RecordDate.ToPersianDate()
+                            </span>
+                            <span>
+                                تعداد نظرات : @{
+                                    if (Model.Track.Feedbacks == null)
+                                    {
+                                        <span>0</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@Model.Track.Feedbacks.Count</span>
+                                    }
+                                }
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="pcnt">
+                        <div class="text-center">
+                            <h4 class="center-title">
+                                @Model.Track.Artist.Name @Model.Track.Name
+                            </h4>
+                            <h5 class="style-type">
+                                سبک : <a href="style/@Model.Track.Style.Link">@Model.Track.Style.Name</a>
+                            </h5>
+                            <img class="music-poster" src="~/uploads/track/@Model.Track.CoverImage" alt="آهنگ @Model.Track.Name">
+                        </div>
+                    </div>
+
+                    <div class="download-music-btn">
+                        <a href="~/uploads/track/@Model.Track.Quality128" class="btn btn-info" style="margin-bottom: 10px;">دانلود آهنگ با کیفیت 128</a>
+                        <a href="~/uploads/track/@Model.Track.Quality320" class="btn btn-outline-info">دانلود آهنگ با کیفیت 320</a>
+                    </div>
+
+                    <div class="online-music">
+                        <h6>پخش آنلاین آهنگ با کیفیت 128</h6>
+                        <audio controls style="margin-bottom: 20px;">
+                            <source src="~/uploads/track/@Model.Track.Quality128" type="audio/mpeg">
+                            مرورگر شما از پخش آنلاین موزیک پشتیبانی نمی‌کند.
+                        </audio>
+                        <h6>پخش آنلاین آهنگ با کیفیت 320</h6>
+                        <audio controls>
+                            <source src="~/uploads/track/@Model.Track.Quality320" type="audio/mpeg">
+                            مرورگر شما از پخش آنلاین موزیک پشتیبانی نمی‌کند.
+                        </audio>
+                    </div>
+
+                    <div class="lyric">
+                        <h3 class="lyric-title text-center">متن آهنگ @Model.Track.Name از @Model.Track.Artist.Name</h3>
+                        <div class="lyric-text">
+                            @Html.Raw(Model.Track.Lyric)
+                        </div>
+                    </div>
+                    <div class="psdown">
+                        <span>
+                            تعداد بازدید : @Model.Track.Visit
+                        </span>
+                    </div>
+                </div>
+
+                <div class="commentbox">
+                    <form action="#" class="text-right">
+                        <div style="display: flex;">
+                            <div class="form-group" style="width: 50%;">
+                                <input type="text" class="form-control" id="usr" placeholder="نام نمایشی در نظرات">
+                            </div>
+                            <div class="form-group" style="width: 50%;margin-right: 10px;">
+                                <select class="form-control" id="sel1">
+                                    <option>امتیاز</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="5" id="mytextarea" placeholder="نظر شما..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">ثبت</button>
+                    </form>
+                </div>
+
+                <div class="comments text-right">
+
+                    <div class="comments-title">
+                        <h4 style="color: #000;">نظرات آهنگ @Model.Track.Artist.Name به نام @Model.Track.Name</h4>
+                        <div class="d-flex justify-content-between">
+                            @{
+                                if (Model.Track.Feedbacks == null)
+                                {
+                                    <span class="text-success">کل نظرات ثبت شده : 0</span>
+                                    <span style="font-size: 13px;"> تایید شده : 0 | درحال بررسی : 0 </span>
+                                }
+                                else
+                                {
+                                    var isAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == true);
+
+                                    var notAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == false);
+
+                                    <span class="text-success">کل نظرات ثبت شده : @Model.Track.Feedbacks.Count</span>
+                                    <span style="font-size: 13px;">
+                                        تایید شده :
+                                        @{
+                                            if (isAccepted == null)
+                                            {
+                                                <span>0</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@isAccepted.Count()</span>
+                                            }
+                                        } |
+                                        درحال بررسی :
+                                        @{
+                                            if (notAccepted == null)
+                                            {
+                                                <span>0</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@notAccepted.Count()</span>
+                                            }
+                                        }
+                                    </span>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    @* bottom div is for show users comments and rates (star) *@
+
+                    <div class="allcomments">
+                        @{
+                            if (Model.Track.Feedbacks != null)
+                            {
+                                foreach (var item in Model.Track.Feedbacks)
+                                {
+                                    <div class="user-comment">
+                                        <div class="user-comment-title d-flex justify-content-between">
+                                            <span class="user-show">@item.Name :</span>
+                                            <div>
+                                                @{
+                                                    int feedbackRate = item.Rate;
+
+                                                    int notFeedbackRate = 5 - feedbackRate;
+
+                                                    for (int star = 0; star == feedbackRate; star++)
+                                                    {
+                                                        <span class="fa fa-star checked"></span>
+                                                    }
+
+                                                    if (notFeedbackRate != 0)
+                                                    {
+                                                        for (int notstar = 0; notstar == notFeedbackRate; notstar++)
+                                                        {
+                                                            <span class="fa fa-star"></span>
+                                                        }
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="user-comment-text">
+                                            @item.Comment
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-12">
+                <form action="#" style="display: flex;margin-bottom: 25px;">
+                    <input type="text" class="form-control searchbox-input" placeholder="جستجوی آهنگ">
+                    <button type="submit" class="btn btn-primary searchbox-submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+</main>
