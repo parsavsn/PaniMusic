@@ -1,0 +1,60 @@
+﻿@page
+@model PaniMusic.Ui.Pages.AllArtistsModel
+@{
+    ViewData["Title"] = "هنرمندان";
+    ViewData["metadescription"] = "دانلود آهنگ هنرمندان داخلی و خارجی در سبک های مختلف";
+    ViewData["metakeywoard"] = "دانلود عکس هنرمندان";
+}
+
+<main id="main">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+
+                @foreach (var item in Model.AllArtists)
+                {
+                    <div class="postart">
+                        <a href="artist/@item.Link" class="img">
+                            <img src="~/uploads/artist/@item.Image">
+                        </a>
+                        <a href="artist/@item.Link" class="title">@item.Name</a>
+                        <a href="artist/@item.Link" class="btn btn-info btn-sm asar-btn">آثار هنرمند</a>
+                    </div>
+                }
+
+                <div dir="ltr" class="paging-nav index-paging float-right" style="padding-right: 150px;">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item @(((Model.PageId - 1) == 0) ? "disabled" : "")"><a class="page-link" href="?page=@(Model.PageId - 1)">قبلی</a></li>
+                            @for (int pageNumber = 1; pageNumber <= Model.PageCount; pageNumber++)
+                            {
+                                <li class="page-item @((Model.PageId == pageNumber)?"active":"")"><a class="page-link" href="?page=@pageNumber">@pageNumber</a></li>
+                            }
+                            <li class="page-item @((Model.PageId == Model.PageCount) ? "disabled" : "")"><a class="page-link" href="?page=@(Model.PageId + 1)">بعدی</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-xl-5 col-lg-5 col-md-12">
+
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#mymenu-artist').addClass('active');
+        });
+    </script>
+}

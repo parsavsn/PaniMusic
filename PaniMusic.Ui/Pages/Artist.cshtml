@@ -1,0 +1,105 @@
+﻿@page "{link}"
+@model PaniMusic.Ui.Pages.ArtistModel
+@{
+    ViewData["Title"] = $"{Model.Artist.TitleTag}";
+    ViewData["metadescription"] = $"{Model.Artist.MetaDescription}";
+    ViewData["metakeywoard"] = $"{Model.Artist.MetaTag}";
+}
+
+
+
+<main id="main">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+
+                <div class="ps">
+                    <div class="pstop">
+                        <h3 class="top-title">
+                            <a href="/artist/@Model.Artist.Link">
+                                @Model.Artist.Name
+                            </a>
+                        </h3>
+                    </div>
+
+                    <div class="pcnt artist-biography">
+                        <img src="~/uploads/artist/@Model.Artist.Image" style="margin: 50px 0px;">
+                        @Html.Raw(Model.Artist.Biography)
+                    </div>
+                </div>
+
+
+                @if (Model.Artist.Tracks != null)
+                {
+                    @foreach (var item in Model.Artist.Tracks)
+                    {
+                        <div class="ps">
+                            <div class="pstop">
+                                <h3 class="top-title">
+                                    <a href="/track/@item.Link">
+                                        دانلود آهنگ @item.Artist.Name به نام @item.Name
+                                    </a>
+                                </h3>
+                                <div class="top-else">
+                                    <span>
+                                        تاریخ انتشار : @item.RecordDate.ToPersianDate()
+                                    </span>
+                                    <span>
+                                        تعداد نظرات : @{
+                                            if (item.Feedbacks == null)
+                                            {
+                                                <span>0</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@item.Feedbacks.Count</span>
+                                            }
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="pcnt">
+                                <div class="text-center">
+                                    <h4 class="center-title">
+                                        @item.Artist.Name @item.Name
+                                    </h4>
+                                    <h5 class="style-type">
+                                        سبک : @item.Style.Name
+                                    </h5>
+                                    <img class="music-poster" src="~/uploads/track/@item.CoverImage" alt="آهنگ @item.Name">
+                                </div>
+                            </div>
+                            <div class="psdown">
+                                <span>
+                                    تعداد بازدید : @item.Visit
+                                </span>
+                                <a href="/track/@item.Link" class="download-btn">دانلود آهنگ</a>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-12">
+                
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#mymenu-artist').addClass('active');
+        });
+    </script>
+}
