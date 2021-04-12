@@ -15,7 +15,7 @@ namespace PaniMusic.Services.Map.CrudDtos.User.Update
         public string Name { get; set; }
 
         [Display(Name = "ایمیل")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "ایمیل معتبر وارد شود.")]
         public string Email { get; set; }
 
         [Display(Name = "رمز عبور")]

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PaniMusic.Core.Models;
+using PaniMusic.Services.Map.AccountDtos;
 using PaniMusic.Services.Map.CrudDtos.Album.Add;
 using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Add;
 using PaniMusic.Services.Map.CrudDtos.Artist.Add;
@@ -53,6 +54,9 @@ namespace PaniMusic.Services.Map
                 .ForMember(x => x.Artist, y => y.MapFrom(z => z.Artist.Name));
 
             CreateMap<AddAlbumTrackInput, Track>();
+
+            CreateMap<RegisterInput, User>()
+                .ForMember(x => x.UserName, y => y.MapFrom(x => x.Email));
         }
     }
 }

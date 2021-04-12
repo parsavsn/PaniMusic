@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PaniMusic.Core.Models;
 using PaniMusic.Repository.ContextRepository;
+using PaniMusic.Services.ApplicationServices.Account;
 using PaniMusic.Services.ApplicationServices.CountStatistics;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
@@ -101,6 +102,8 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IVisitStatistics, VisitStatistics>();
 
             services.AddTransient<ICountStatistics, CounStatistics>();
+
+            services.AddScoped<IAccount, Account>();
         }
     }
 }

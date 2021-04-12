@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace PaniMusic.Services.Map.CrudDtos.User.Add
+namespace PaniMusic.Services.Map.AccountDtos
 {
-    public class AddUserInput
+    public class RegisterInput
     {
         [Required(ErrorMessage = "پر کردن فید نام و نام خانوادگی الزامی است.")]
         [Display(Name = "نام و نام خانوادگی")]
@@ -27,8 +27,5 @@ namespace PaniMusic.Services.Map.CrudDtos.User.Add
         [Compare(nameof(Password), ErrorMessage = "رمز عبور و تکرار آن یکسان نیست.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
-
-        [Display(Name = "تایید ایمیل")]
-        public bool EmailConfirmed { get; set; }
     }
 }

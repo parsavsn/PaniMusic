@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<User> SignInManager
+
+<!DOCTYPE html>
 <html lang="fa">
 
 <head>
@@ -34,7 +36,14 @@
         <div class="container d-flex align-items-center">
 
             <img src="~/img/logo.png" class="logo mr-auto">
-            <a asp-page="Account/Login" class="get-started-btn scrollto">ورود</a>
+            @if (SignInManager.IsSignedIn(User))
+                {
+                    <a asp-page="PaniAdmin/Index" class="get-started-btn scrollto">حساب کاربری</a>
+                }
+                else
+                {
+                    <a asp-page="Account/Login" class="get-started-btn scrollto">ورود</a>
+                }
 
             <nav class="nav-menu d-none d-lg-block" dir="rtl">
                 <ul>

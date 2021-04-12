@@ -35,24 +35,11 @@ namespace PaniMusic.Ui
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
 
-            // I put the dependency services in the DependencyExtensions.cs file from Extention folder
+            // I put the dependency & identity services in the DependencyExtensions.cs file from Extention folder
 
             services.AddDependency();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<PaniMusicDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                // Password settings
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 8;
-                options.Password.RequiredUniqueChars = 1;
-            });
+            services.AddAspNetIdentity();
 
             services.Configure<IISServerOptions>(options =>
             {
