@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace PaniMusic.Services.ApplicationServices.Account
 {
-    public class Account : IAccount
+    public class EmailSender : IEmailSender
     {
-        public Task SendEmail(string toEmail, string subject, string message, bool isMessageHtml = false)
+        public Task SendEmail(string toEmail, string subject, string message)
         {
             using (var client = new SmtpClient())
             {
@@ -35,7 +35,6 @@ namespace PaniMusic.Services.ApplicationServices.Account
                     From = new MailAddress(""),
                     Subject = subject,
                     Body = message,
-                    IsBodyHtml = isMessageHtml
                 };
 
                 client.Send(emailMessage);

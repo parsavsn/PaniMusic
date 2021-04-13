@@ -62,9 +62,37 @@
                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                             </div>
 
+                            <div style="border-bottom: 2px solid #e1e2e4;margin-top: 30px;">
+                                <label class="text-info">دسترسی ها</label>
+                            </div>
+
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input asp-for="Input.EmailConfirmed" class="form-check-input" style="margin-left: 5px;">تایید ایمیل
+                                    <input asp-for="Input.UserPanel" class="form-check-input" style="margin: 20px 10px">پنل کاربری
+                                </label>
+                            </div>
+
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input asp-for="Input.AdminPanel" class="form-check-input" style="margin: 20px 10px">پنل ادمین
+                                </label>
+                            </div>
+
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input asp-for="Input.NewItem" class="form-check-input" style="margin: 20px 10px">ایجاد آیتم
+                                </label>
+                            </div>
+
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input asp-for="Input.EditItem" class="form-check-input" style="margin: 20px 10px">ویرایش آیتم
+                                </label>
+                            </div>
+
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input asp-for="Input.DeleteItem" class="form-check-input" style="margin: 20px 10px">حذف آیتم
                                 </label>
                             </div>
 

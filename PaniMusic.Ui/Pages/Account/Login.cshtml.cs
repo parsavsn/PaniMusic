@@ -23,26 +23,20 @@ namespace PaniMusic.Ui.Pages.Account
         [BindProperty]
         public LoginInput Input { get; set; }
 
-        public string ReturnUrl { get; set; }
-
         public string AccountLockOut { get; set; }
 
-        public IActionResult OnGet(string returnUrl = null)
+        public IActionResult OnGet()
         {
             if (signInManager.IsSignedIn(User))
                 return RedirectToPage("/Index");
-
-            ReturnUrl = returnUrl;
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (signInManager.IsSignedIn(User))
                 return RedirectToPage("/Index");
-
-            ReturnUrl = returnUrl;
 
             if (ModelState.IsValid)
             {
@@ -50,9 +44,6 @@ namespace PaniMusic.Ui.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                        return Redirect(returnUrl);
-
                     return RedirectToPage("/Index");
                 }
 

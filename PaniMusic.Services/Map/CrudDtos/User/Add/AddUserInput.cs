@@ -28,7 +28,19 @@ namespace PaniMusic.Services.Map.CrudDtos.User.Add
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name = "تایید ایمیل")]
-        public bool EmailConfirmed { get; set; }
+        [Display(Name = "پنل کاربری")]
+        public bool UserPanel { get; set; }
+
+        [Display(Name = "پنل ادمین")]
+        public bool AdminPanel { get; set; }
+
+        [Display(Name = "ایجاد آیتم")]
+        public bool NewItem { get; set; }
+
+        [Display(Name = "ویرایش آیتم")]
+        public bool EditItem { get; set; }
+
+        [Display(Name = "حذف آیتم")]
+        public bool DeleteItem { get; set; }
     }
 }

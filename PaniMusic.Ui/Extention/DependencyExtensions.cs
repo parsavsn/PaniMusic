@@ -103,7 +103,7 @@ namespace PaniMusic.Ui.Extention
 
             services.AddTransient<ICountStatistics, CounStatistics>();
 
-            services.AddScoped<IAccount, Account>();
+            services.AddScoped<IEmailSender, EmailSender>();
         }
     }
 }

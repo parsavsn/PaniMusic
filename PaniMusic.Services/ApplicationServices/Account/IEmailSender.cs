@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PaniMusic.Services.ApplicationServices.Account
 {
-    public interface IAccount
+    public interface IEmailSender
     {
-        public Task SendEmail(string toEmail, string subject, string message, bool isMessageHtml = false);
+        public Task SendEmail(string toEmail, string subject, string message);
     }
 }

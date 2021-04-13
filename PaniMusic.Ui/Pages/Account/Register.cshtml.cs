@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PaniMusic.Core.Models;
 using PaniMusic.Services.ApplicationServices.Account;
+using PaniMusic.Services.Identity;
 using PaniMusic.Services.Map.AccountDtos;
 
 namespace PaniMusic.Ui.Pages.Account
@@ -17,11 +19,11 @@ namespace PaniMusic.Ui.Pages.Account
     {
         private readonly UserManager<User> userManager;
 
-        private readonly IAccount account;
+        private readonly IEmailSender account;
 
         private readonly IMapper mapper;
 
-        public RegisterModel(UserManager<User> userManager, IAccount account, IMapper mapper)
+        public RegisterModel(UserManager<User> userManager, IEmailSender account, IMapper mapper)
         {
             this.userManager = userManager;
 
@@ -41,12 +43,12 @@ namespace PaniMusic.Ui.Pages.Account
             {
                 var mapNewUser = mapper.Map<User>(Input);
 
-                mapNewUser.EmailConfirmed = false;
-
                 Result = await userManager.CreateAsync(mapNewUser, Input.Password);
 
                 if (Result.Succeeded)
                 {
+                    await userManager.AddClaimAsync(mapNewUser, new Claim(PaniClaims.UserPanel , true.ToString()));
+
                     var emailConfirmationToken =
                         await userManager.GenerateEmailConfirmationTokenAsync(mapNewUser);
 

@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
+using PaniMusic.Services.Identity;
 using PaniMusic.Services.Map.CrudDtos.Style.Add;
 
 namespace PaniMusic.Ui.Pages.PaniAdmin.Styles
 {
+    [Authorize(Policy = "AdminPanel")]
     public class NewStyleModel : PageModel
     {
         private readonly IStyleCrud styleCrud;
@@ -26,6 +29,9 @@ namespace PaniMusic.Ui.Pages.PaniAdmin.Styles
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.HasClaim(PaniClaims.NewItem, true.ToString()))
+                return RedirectToPage("/AccessDenied");
+
             if (!ModelState.IsValid)
                 return Page();
 

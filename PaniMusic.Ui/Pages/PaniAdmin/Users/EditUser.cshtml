@@ -1,14 +1,14 @@
 ﻿@page
 @model PaniMusic.Ui.Pages.PaniAdmin.Users.EditUserModel
 @{
-    ViewData["Title"] = $"ویرایش کاربر {Model.User.Name}";
+    ViewData["Title"] = $"ویرایش کاربر {Model.MyUser.Name}";
 }
 
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">ویرایش کاربر @Model.User.Name</h1>
+                <h1 class="m-0 text-dark">ویرایش کاربر @Model.MyUser.Name</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 text-left">
             </div><!-- /.col -->
@@ -38,19 +38,19 @@
 
                             <div class="form-group">
                                 <label asp-for="Input.Id"></label>
-                                <input asp-for="Input.Id" class="form-control" value="@Model.User.Id" readonly>
+                                <input asp-for="Input.Id" class="form-control" value="@Model.MyUser.Id" readonly>
                                 <span asp-validation-for="Input.Id" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.Name"></label>
-                                <input asp-for="Input.Name" class="form-control" value="@Model.User.Name">
+                                <input asp-for="Input.Name" class="form-control" value="@Model.MyUser.Name">
                                 <span asp-validation-for="Input.Name" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="Input.Email"></label>
-                                <input asp-for="Input.Email" class="form-control" value="@Model.User.Email">
+                                <input asp-for="Input.Email" class="form-control" value="@Model.MyUser.Email">
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
 
@@ -66,22 +66,120 @@
                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                             </div>
 
+                            @if (Model.MyUser.EmailConfirmed == true)
+                            {
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input asp-for="Input.EmailConfirmed" checked class="form-check-input" style="margin-left: 5px;">تایید ایمیل
+                                    </label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input asp-for="Input.EmailConfirmed" class="form-check-input" style="margin-left: 5px;">تایید ایمیل
+                                    </label>
+                                </div>
+                            }
+
+                            <div style="border-bottom: 2px solid #e1e2e4;margin-top: 30px;">
+                                <label class="text-info">دسترسی ها</label>
+                            </div>
+
                             @{
-                                if (Model.User.EmailConfirmed == true)
+                                foreach (var item in Model.HasClaims)
                                 {
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input asp-for="Input.EmailConfirmed" class="form-check-input" style="margin-left: 5px;" checked>تایید ایمیل
-                                        </label>
-                                    </div>
+                                    switch (item)
+                                    {
+                                        case "UserPanel":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.UserPanel" class="form-check-input" checked style="margin: 20px 10px">پنل کاربری
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "AdminPanel":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.AdminPanel" class="form-check-input" checked style="margin: 20px 10px">پنل ادمین
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "NewItem":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.NewItem" class="form-check-input" checked style="margin: 20px 10px">ایجاد آیتم
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "EditItem":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.EditItem" class="form-check-input" checked style="margin: 20px 10px">ویرایش آیتم
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "DeleteItem":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.DeleteItem" class="form-check-input" checked style="margin: 20px 10px">حذف آیتم
+                                                </label>
+                                            </div>
+                                            break;
+                                    }
                                 }
-                                else
+                            }
+
+                            @{
+                                foreach (var item in Model.HasNotClaims)
                                 {
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input asp-for="Input.EmailConfirmed" class="form-check-input" style="margin-left: 5px;">تایید ایمیل
-                                        </label>
-                                    </div>
+                                    switch (item)
+                                    {
+                                        case "UserPanel":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.UserPanel" class="form-check-input" style="margin: 20px 10px">پنل کاربری
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "AdminPanel":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.AdminPanel" class="form-check-input" style="margin: 20px 10px">پنل ادمین
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "NewItem":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.NewItem" class="form-check-input" style="margin: 20px 10px">ایجاد آیتم
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "EditItem":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.EditItem" class="form-check-input" style="margin: 20px 10px">ویرایش آیتم
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        case "DeleteItem":
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input asp-for="Input.DeleteItem" class="form-check-input" style="margin: 20px 10px">حذف آیتم
+                                                </label>
+                                            </div>
+                                            break;
+                                    }
                                 }
                             }
 

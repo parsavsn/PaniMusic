@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PaniMusic.Services.ApplicationServices.CountStatistics;
@@ -9,6 +10,7 @@ using PaniMusic.Services.ApplicationServices.VisitStatistics;
 
 namespace PaniMusic.Ui.Pages.PaniAdmin
 {
+    [Authorize(Policy = "AdminPanel")]
     public class IndexModel : PageModel
     {
         private readonly IVisitStatistics visitStatistics;

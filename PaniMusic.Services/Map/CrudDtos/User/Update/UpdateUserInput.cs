@@ -11,9 +11,11 @@ namespace PaniMusic.Services.Map.CrudDtos.User.Update
         [Required(ErrorMessage = "وارد کردن شناسه الزامی است.")]
         public string Id { get; set; }
 
+        [Required(ErrorMessage = "پر کردن فید نام و نام خانوادگی الزامی است.")]
         [Display(Name = "نام و نام خانوادگی")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "پر کردن فیلد ایمیل الزامی است.")]
         [Display(Name = "ایمیل")]
         [EmailAddress(ErrorMessage = "ایمیل معتبر وارد شود.")]
         public string Email { get; set; }
@@ -30,5 +32,20 @@ namespace PaniMusic.Services.Map.CrudDtos.User.Update
 
         [Display(Name = "تایید ایمیل")]
         public bool EmailConfirmed { get; set; }
+
+        [Display(Name = "پنل کاربری")]
+        public bool UserPanel { get; set; }
+
+        [Display(Name = "پنل ادمین")]
+        public bool AdminPanel { get; set; }
+
+        [Display(Name = "ایجاد آیتم")]
+        public bool NewItem { get; set; }
+
+        [Display(Name = "ویرایش آیتم")]
+        public bool EditItem { get; set; }
+
+        [Display(Name = "حذف آیتم")]
+        public bool DeleteItem { get; set; }
     }
 }

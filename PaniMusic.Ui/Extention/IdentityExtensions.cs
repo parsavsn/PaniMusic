@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using PaniMusic.Core.DatabaseContext;
 using PaniMusic.Core.Models;
+using PaniMusic.Services.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,13 @@ namespace PaniMusic.Ui.Extention
                 options.SlidingExpiration = true;
             });
 
+            services.AddAuthorization(option => {
+                option.AddPolicy("UserPanel", policy => policy.RequireClaim(PaniClaims.UserPanel));
+                option.AddPolicy("AdminPanel", policy => policy.RequireClaim(PaniClaims.AdminPanel));
+                option.AddPolicy("NewItem", policy => policy.RequireClaim(PaniClaims.NewItem));
+                option.AddPolicy("EditItem", policy => policy.RequireClaim(PaniClaims.EditItem));
+                option.AddPolicy("DeleteItem", policy => policy.RequireClaim(PaniClaims.DeleteItem));
+            });
         }
     }
 }

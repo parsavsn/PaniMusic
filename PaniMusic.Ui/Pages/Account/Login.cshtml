@@ -7,7 +7,7 @@
 
 <h3 class="text-right">ورود به حساب کاربری</h3>
 <p class="text-right" style="font-size: 16px;">برای دسترسی به برخی از امکانات وبسایت ، ابتدا باید وارد حساب کاربری خود شوید.</p>
-<form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+<form method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
     @if (Model.AccountLockOut != null)
     {

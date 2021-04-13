@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,10 +10,12 @@ using PaniMusic.Core.Models;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
+using PaniMusic.Services.Identity;
 using PaniMusic.Services.Map.CrudDtos.Album.Update;
 
 namespace PaniMusic.Ui.Pages.PaniAdmin.Albums
 {
+    [Authorize(Policy = "AdminPanel")]
     public class EditAlbumModel : PageModel
     {
         private readonly IAlbumCrud albumCrud;
@@ -62,6 +65,9 @@ namespace PaniMusic.Ui.Pages.PaniAdmin.Albums
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.HasClaim(PaniClaims.EditItem, true.ToString()))
+                return RedirectToPage("/AccessDenied");
+
             if (!ModelState.IsValid)
                 return Page();
 

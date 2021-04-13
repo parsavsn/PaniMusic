@@ -16,9 +16,9 @@ namespace PaniMusic.Ui.Pages.Account
     {
         private readonly UserManager<User> userManager;
 
-        private readonly IAccount account;
+        private readonly IEmailSender account;
 
-        public ForgetPasswordModel(UserManager<User> userManager, IAccount account)
+        public ForgetPasswordModel(UserManager<User> userManager, IEmailSender account)
         {
             this.userManager = userManager;
 

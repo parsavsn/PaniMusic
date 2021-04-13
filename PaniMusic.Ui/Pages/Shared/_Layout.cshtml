@@ -1,4 +1,5 @@
-﻿@inject SignInManager<User> SignInManager
+﻿@using PaniMusic.Services.Identity
+@inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
 <html lang="fa">
@@ -37,14 +38,20 @@
 
             <img src="~/img/logo.png" class="logo mr-auto">
             @if (SignInManager.IsSignedIn(User))
+            {
+                if (User.HasClaim(PaniClaims.AdminPanel, true.ToString()))
                 {
-                    <a asp-page="PaniAdmin/Index" class="get-started-btn scrollto">حساب کاربری</a>
+                    <a asp-page="PaniAdmin/Index" class="get-started-btn scrollto">پنل مدیریت</a>
                 }
-                else
+                else if (User.HasClaim(PaniClaims.UserPanel, true.ToString()))
                 {
-                    <a asp-page="Account/Login" class="get-started-btn scrollto">ورود</a>
+                    <a asp-page="PaniUser/Index" class="get-started-btn scrollto">پنل کاربری</a>
                 }
-
+            }
+            else
+            {
+                <a asp-page="Account/Login" class="get-started-btn scrollto">ورود</a>
+            }
             <nav class="nav-menu d-none d-lg-block" dir="rtl">
                 <ul>
                     <li id="mymenu-home"><a asp-page="Index">صفحه اصلی</a></li>

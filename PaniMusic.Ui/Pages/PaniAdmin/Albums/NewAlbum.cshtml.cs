@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
+using PaniMusic.Services.Identity;
 using PaniMusic.Services.Map.CrudDtos.Album.Add;
 
 namespace PaniMusic.Ui.Pages.PaniAdmin.Albums
 {
+    [Authorize(Policy = "AdminPanel")]
     public class NewAlbumModel : PageModel
     {
         private readonly IAlbumCrud albumCrud;
@@ -54,6 +57,9 @@ namespace PaniMusic.Ui.Pages.PaniAdmin.Albums
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.HasClaim(PaniClaims.NewItem, true.ToString()))
+                return RedirectToPage("/AccessDenied");
+
             if (!ModelState.IsValid)
                 return Page();
 
