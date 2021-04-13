@@ -135,9 +135,9 @@
                                 }
                                 else
                                 {
-                                    var isAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == true);
+                                    var isAccepted = Model.Track.Feedbacks.Where(x => x.IsAccept == true).ToList();
 
-                                    var notAccepted = Model.Track.Feedbacks.Select(x => x.IsAccept == false);
+                                    var notAccepted = Model.Track.Feedbacks.Where(x => x.IsAccept == false).ToList();
 
                                     <span class="text-success">کل نظرات ثبت شده : @Model.Track.Feedbacks.Count</span>
                                     <span style="font-size: 13px;">
@@ -177,34 +177,37 @@
                             {
                                 foreach (var item in Model.Track.Feedbacks)
                                 {
-                                    <div class="user-comment">
-                                        <div class="user-comment-title d-flex justify-content-between">
-                                            <span class="user-show">@item.Name :</span>
-                                            <div>
-                                                @{
-                                                    int feedbackRate = item.Rate;
+                                    if (item.IsAccept == true)
+                                    {
+                                        <div class="user-comment">
+                                            <div class="user-comment-title d-flex justify-content-between">
+                                                <span class="user-show">@item.Name :</span>
+                                                <div>
+                                                    @{
+                                                        int feedbackRate = item.Rate;
 
-                                                    int notFeedbackRate = 5 - feedbackRate;
+                                                        int notFeedbackRate = 5 - feedbackRate;
 
-                                                    for (int star = 0; star == feedbackRate; star++)
-                                                    {
-                                                        <span class="fa fa-star checked"></span>
-                                                    }
-
-                                                    if (notFeedbackRate != 0)
-                                                    {
-                                                        for (int notstar = 0; notstar == notFeedbackRate; notstar++)
+                                                        for (int star = 1; star <= feedbackRate; star++)
                                                         {
-                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                        }
+
+                                                        if (notFeedbackRate != 0)
+                                                        {
+                                                            for (int notstar = 1; notstar <= notFeedbackRate; notstar++)
+                                                            {
+                                                                <span class="fa fa-star"></span>
+                                                            }
                                                         }
                                                     }
-                                                }
+                                                </div>
+                                            </div>
+                                            <div class="user-comment-text">
+                                                @item.Comment
                                             </div>
                                         </div>
-                                        <div class="user-comment-text">
-                                            @item.Comment
-                                        </div>
-                                    </div>
+                                    }
                                 }
                             }
                             else
@@ -227,7 +230,7 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </form>
-
+                <partial name="_SidebarPartial" />
             </div>
         </div>
     </div>

@@ -139,9 +139,9 @@
                                 }
                                 else
                                 {
-                                    var isAccepted = Model.Album.Feedbacks.Select(x => x.IsAccept == true);
+                                    var isAccepted = Model.Album.Feedbacks.Where(x => x.IsAccept == true).ToList();
 
-                                    var notAccepted = Model.Album.Feedbacks.Select(x => x.IsAccept == false);
+                                    var notAccepted = Model.Album.Feedbacks.Where(x => x.IsAccept == false).ToList();
 
                                     <span class="text-success">کل نظرات ثبت شده : @Model.Album.Feedbacks.Count</span>
                                     <span style="font-size: 13px;">
@@ -226,12 +226,12 @@
             </div>
             <div class="col-xl-5 col-lg-5 col-md-12">
                 <form action="#" style="display: flex;margin-bottom: 25px;">
-                    <input type="text" class="form-control searchbox-input" placeholder="جستجوی آهنگ">
+                    <input type="text" class="form-control searchbox-input" placeholder="جستجوی آلبوم">
                     <button type="submit" class="btn btn-primary searchbox-submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </form>
-
+                <partial name="_SidebarPartial" />
             </div>
         </div>
     </div>

@@ -1,0 +1,118 @@
+﻿@using PaniMusic.Services.ApplicationServices.Recommended.TopRated.AlbumTopRated;
+@using PaniMusic.Services.ApplicationServices.Recommended.TopRated.MusicVideoTopRated;
+@using PaniMusic.Services.ApplicationServices.Recommended.TopRated.TrackTopRated;
+@using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.AlbumTopVisited;
+@using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.MusicVideoTopVisited;
+@using PaniMusic.Services.ApplicationServices.Recommended.TopVisited.TrackTopVisited;
+@using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
+
+@*
+    when I use Partial taghelper , I get null reference exception (becuase partial taghelper can't read OnGet method) .
+    so I delete code behind & put all codes in this file.
+*@
+
+
+@inject ITrackTopVisited trackTopVisited
+
+@inject IAlbumTopVisited albumTopVisited
+
+@inject IMusicVideoTopVisited musicVideoTopVisited
+
+@inject ITrackTopRated trackTopRated
+
+@inject IAlbumTopRated albumTopRated
+
+@inject IMusicVideoTopRated musicVideoTopRated
+
+@inject IStyleCrud styleCrud
+
+@{
+    Layout = null;
+
+    var topTrackVisited = await trackTopVisited.TopVisitedTracks(6);
+
+    var topAlbumVisited = await albumTopVisited.TopVisitedAlbums(6);
+
+    var topMusicVideoVisited = await musicVideoTopVisited.TopVisitedMusicVideos(6);
+
+    var topTrackTopRated = await trackTopRated.TopRatedTracks(6);
+
+    var topAlbumRated = await albumTopRated.TopRatedAlbums(6);
+
+    var topMusicVideoRated = await musicVideoTopRated.TopRatedMusicVideos(6);
+
+    var allStyles = await styleCrud.GetAllStyles();
+}
+
+
+
+
+
+<div class="pcblk">
+    <div class="blktl">
+        <b style="color: #000;">برترین‌ها براساس بازدید</b>
+        <div class="categories">
+            <span class="left-items select-category" id="music-visit"> آهنگ </span>
+            <span class="left-items" id="album-visit"> آلبوم </span>
+            <span class="left-items" id="musicvideo-visit"> موزیک ویدیو </span>
+        </div>
+    </div>
+    <ul class="text-right list-of-bests" id="music-list-visit">
+
+        @foreach (var item in topTrackVisited)
+        {
+            <li><a href="/track/@item.Link">@item.Artist - @item.Name</a></li>
+        }
+    </ul>
+    <ul class="text-right list-of-bests hide" id="album-list-visit">
+        @foreach (var item in topAlbumVisited)
+        {
+            <li><a href="/album/@item.Link">@item.Artist - @item.Name</a></li>
+        }
+    </ul>
+    <ul class="text-right list-of-bests hide" id="musicvideo-list-visit">
+        @foreach (var item in topMusicVideoVisited)
+        {
+            <li><a href="/musicvideo/@item.Link">@item.Artist - @item.Name</a></li>
+        }
+    </ul>
+</div>
+<div class="pcblk">
+    <div class="blktl">
+        <b style="color: #000;">برترین‌ها براساس امتیاز</b>
+        <div class="categories">
+            <span class="left-items select-category" id="music-rate"> آهنگ </span>
+            <span class="left-items" id="album-rate"> آلبوم </span>
+            <span class="left-items" id="musicvideo-rate"> موزیک ویدیو </span>
+        </div>
+    </div>
+    <ul class="text-right list-of-bests" id="music-list-rate">
+        @foreach (var item in topTrackTopRated)
+        {
+            <li><a href="/track/@item.Link">@item.Artist - @item.Name</a></li>
+        }
+    </ul>
+    <ul class="text-right list-of-bests hide" id="album-list-rate">
+        @foreach (var item in topAlbumRated)
+        {
+            <li><a href="/album/@item.Link">@item.Artist - @item.Name</a></li>
+        }
+    </ul>
+    <ul class="text-right list-of-bests hide" id="musicvideo-list-rate">
+        @foreach (var item in topMusicVideoRated)
+        {
+            <li><a href="/musicvideo/@item.Link">@item.Artist - @item.Name</a></li>
+        }
+    </ul>
+</div>
+<div class="pcblk">
+    <div class="blktl">
+        <b style="color: #000;">آهنگ بر اساس سبک</b>
+    </div>
+    <ul class="text-right list-of-bests">
+        @foreach (var item in allStyles)
+        {
+            <li><a href="/style/@item.Link">@item.Name</a></li>
+        }
+    </ul>
+</div>

@@ -89,6 +89,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
                 .Include(track => track.Style)
                 .Include(track => track.Artist)
                 .Include(track => track.Album)
+                .Include(track => track.Feedbacks)
                 .Where(track => track.AlbumId == null)
                 .FirstOrDefaultAsync(track => track.Link == link);
 

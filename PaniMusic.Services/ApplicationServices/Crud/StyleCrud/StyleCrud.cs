@@ -39,6 +39,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
         {
             var getStyle = await styleRepository.GetQuery()
                 .Include(style => style.Tracks)
+                .ThenInclude(style => style.Artist)
+                .Include(style => style.Tracks)
+                .ThenInclude(style => style.Feedbacks)
                 .FirstOrDefaultAsync(style => style.Link == link);
 
             if (getStyle == null)

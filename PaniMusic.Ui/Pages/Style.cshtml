@@ -1,10 +1,11 @@
-﻿@page
-@model IndexModel
+﻿@page "{link}"
+@model PaniMusic.Ui.Pages.StyleModel
 @{
-    ViewData["Title"] = "صفحه اصلی - دانلود آهنگ";
+    ViewData["Title"] = $"دانلود آهنگ های {Model.Style.Name}";
     ViewData["metadescription"] = "ارائه بروز ترین آهنگ ها ، آلبوم ها و موزیک ویدیو ها در رسانه پانی موزیک";
-    ViewData["metakeywoard"] = "دانلود آهنگ";
+    ViewData["metakeywoard"] = $"دانلود آهنگ های {Model.Style.Name}";
 }
+
 
 <main id="main">
 
@@ -13,12 +14,12 @@
         <div class="row">
             <div class="col-xl-7 col-lg-7 col-md-12">
 
-                @foreach (var item in Model.AllTracks)
+                @foreach (var item in Model.StyleTracks)
                 {
                     <div class="ps">
                         <div class="pstop">
                             <h3 class="top-title">
-                                <a href="track/@item.Link">
+                                <a href="/track/@item.Link">
                                     دانلود آهنگ @item.Artist.Name به نام @item.Name
                                 </a>
                             </h3>
@@ -47,7 +48,7 @@
                                     @item.Artist.Name @item.Name
                                 </h4>
                                 <h5 class="style-type">
-                                    سبک : <a href="style/@item.Style.Link">@item.Style.Name</a>
+                                    سبک : <a href="/style/@item.Style.Link">@item.Style.Name</a>
                                 </h5>
                                 <img class="music-poster" src="~/uploads/track/@item.CoverImage" alt="آهنگ @item.Name">
                             </div>
@@ -56,10 +57,10 @@
                             <span>
                                 تعداد بازدید : @item.Visit
                             </span>
-                            <a href="track/@item.Link" class="download-btn">دانلود آهنگ</a>
+                            <a href="/track/@item.Link" class="download-btn">دانلود آهنگ</a>
                         </div>
                     </div>
-                                        }
+                }
 
                 <div class="d-flex justify-content-center">
                     <div dir="ltr" class="paging-nav index-paging" style="margin: 0px auto;">

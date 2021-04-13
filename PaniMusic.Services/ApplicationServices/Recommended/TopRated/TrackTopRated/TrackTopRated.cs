@@ -26,16 +26,13 @@ namespace PaniMusic.Services.ApplicationServices.Recommended.TopRated.TrackTopRa
 
         public async Task<List<RecommendedOutput>> TopRatedTracks(int numberOfItems)
         {
-            var allTracks = await trackRepository.GetQuery()
+            var topRatedTracks = await trackRepository.GetQuery()
                 .Include(x => x.Artist)
-                .Include(y => y.Feedbacks)
-                .Where(x => x.AlbumId == null)
-                .ToListAsync();
-
-            var topRatedTracks = allTracks
-                .OrderByDescending(x => x.Feedbacks.Select(z => z.Rate))
+                .Include(x => x.Feedbacks)
+                .Where(x => x.AlbumId == null && x.Feedbacks.All(y => y.IsAccept == true))
+                .OrderByDescending(x => x.Feedbacks.Average(x => x.Rate))
                 .Take(numberOfItems)
-                .ToList();
+                .ToListAsync();
 
             return mapper.Map<List<RecommendedOutput>>(topRatedTracks);
         }

@@ -8,6 +8,6 @@ namespace PaniMusic.Services.ApplicationServices.NewsletterService
 {
     public interface INewsletterService
     {
-        Task Add(AddNewsletterInput addNewsLetterInput);
+        Task<bool> Add(AddNewsletterInput addNewsLetterInput);
     }
 }

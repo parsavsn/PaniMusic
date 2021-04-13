@@ -78,9 +78,33 @@
                                             <td>@item.User.Email</td>
                                             <td>@item.Rate</td>
                                             <td>@item.Comment</td>
-                                            <td>@item.TrackId</td>
-                                            <td>@item.AlbumId</td>
-                                            <td>@item.MusicVideoId</td>
+                                            @if (item.Track != null)
+                                            {
+                                                <td><a href="/track/@item.Track.Link">@item.TrackId</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+                                            @if (item.Album != null)
+                                            {
+                                                <td><a href="/album.@item.Album.Link">@item.AlbumId</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+                                            @if (item.MusicVideo != null)
+                                            {
+                                                <td><a href="/musicvideo/@item.MusicVideo.Link">@item.MusicVideoId</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
                                             <td>
                                                 @if (item.IsAccept == false)
                                                 {

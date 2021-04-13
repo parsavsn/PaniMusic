@@ -26,15 +26,12 @@ namespace PaniMusic.Services.ApplicationServices.Recommended.TopRated.MusicVideo
 
         public async Task<List<RecommendedOutput>> TopRatedMusicVideos(int numberOfItems)
         {
-            var allMusicVideos = await musicVideoRepository.GetQuery()
+            var topRatedMusicVideos = await musicVideoRepository.GetQuery()
                 .Include(x => x.Artist)
                 .Include(x => x.Feedbacks)
-                .ToListAsync();
-
-            var topRatedMusicVideos = allMusicVideos
-                .OrderByDescending(x => x.Feedbacks.Select(y => y.Rate))
+                .OrderByDescending(x => x.Feedbacks.Average(x => x.Rate))
                 .Take(numberOfItems)
-                .ToList();
+                .ToListAsync();
 
             return mapper.Map<List<RecommendedOutput>>(topRatedMusicVideos);
         }

@@ -37,7 +37,10 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
         public async Task<List<Feedback>> GetAllFeedbacks()
         {
             var getAllFeedbacks = await feedbackRepository.GetQuery()
-                .Include(x => x.User)
+                .Include(feedback => feedback.User)
+                .Include(feedback => feedback.Track)
+                .Include(feedback => feedback.Album)
+                .Include(feedback => feedback.MusicVideo)
                 .ToListAsync();
 
             return getAllFeedbacks;
