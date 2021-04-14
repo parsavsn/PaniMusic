@@ -40,25 +40,28 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAcceptFeedback(int id)
+        public async Task<IActionResult> UpdateAcceptFeedback([FromQuery] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             var getFeedbackForAccept = await feedbackCrud.UpdateAcceptFeedback(id);
 
             if (getFeedbackForAccept == false)
-                return BadRequest();
+                return NotFound();
 
             return Ok(getFeedbackForAccept);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteFeedback(int id)
+        public async Task<IActionResult> DeleteFeedback([FromQuery] int id)
         {
             var deleteFeedback = await feedbackCrud.DeleteFeedback(id);
 
             if (deleteFeedback == false)
-                return BadRequest();
+                return NotFound();
 
-            return Ok(deleteFeedback)
+            return Ok(deleteFeedback);
         }
     }
 }

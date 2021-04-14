@@ -53,13 +53,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
         {
             var getGalleryCategory = await galleryCategoryRepository.Get(categoryId);
 
+            if (getGalleryCategory == null)
+                return null;
+
             var getGalleryImages = await galleryImageRepository.GetQuery()
                 .Include(galleryImage => galleryImage.GalleryCategory)
                 .Where(galleryImage => galleryImage.GalleryCategoryId == getGalleryCategory.Id)
                 .ToListAsync();
-
-            if (getGalleryCategory == null || getGalleryImages == null)
-                return null;
 
             return getGalleryImages;
         }
