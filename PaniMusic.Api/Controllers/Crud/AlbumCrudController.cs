@@ -22,7 +22,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] AddAlbumInput addAlbumInput)
+        public async Task<IActionResult> CreateAlbum([FromForm] AddAlbumInput addAlbumInput)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -66,9 +66,12 @@ namespace PaniMusic.Api.Controllers.Crud
         public async Task<IActionResult> UpdateAlbum([FromForm] UpdateAlbumInput updateAlbumInput)
         {
             if (!ModelState.IsValid)
-                return NotFound();
+                return BadRequest();
 
             var updateAlbum = await albumCrud.UpdateAlbum(updateAlbumInput);
+
+            if (updateAlbum == false)
+                return NotFound();
 
             return Ok(updateAlbum);
         }
@@ -77,6 +80,9 @@ namespace PaniMusic.Api.Controllers.Crud
         public async Task<IActionResult> DeleteAlbum([FromQuery] int id)
         {
             var deleteAlbum = await albumCrud.DeleteAlbum(id);
+
+            if (deleteAlbum == false)
+                return NotFound();
 
             return Ok(deleteAlbum);
         }

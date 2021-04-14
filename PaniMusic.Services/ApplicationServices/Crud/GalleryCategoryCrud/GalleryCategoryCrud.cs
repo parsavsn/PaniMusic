@@ -76,9 +76,12 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud
 
         public async Task<bool> UpdateGalleryCategory(UpdateGalleryCategoryInput updateGalleryCategoryInput)
         {
-            await UploadFile(updateGalleryCategoryInput.MyImage);
-
             var getGalleryCategory = await galleryCategoryRepostiory.Get(updateGalleryCategoryInput.Id);
+
+            if (getGalleryCategory == null)
+                return false;
+
+            await UploadFile(updateGalleryCategoryInput.MyImage);
 
             var changeGalleryCategory = ChangeForUpdate(getGalleryCategory, updateGalleryCategoryInput);
 

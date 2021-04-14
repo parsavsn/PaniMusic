@@ -104,6 +104,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
 
         public async Task<bool> UpdateMusicVideo(UpdateMusicVideoInput updateMusicVideoInput)
         {
+            var getMusicVideo = await musicVideoRepository.Get(updateMusicVideoInput.Id);
+
+            if (getMusicVideo == null)
+                return false;
+
             await UploadFile(updateMusicVideoInput.MyCoverImage);
 
             await UploadFile(updateMusicVideoInput.MyQuality480);
@@ -111,8 +116,6 @@ namespace PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud
             await UploadFile(updateMusicVideoInput.MyQuality720);
 
             await UploadFile(updateMusicVideoInput.MyQuality1080);
-
-            var getMusicVideo = await musicVideoRepository.Get(updateMusicVideoInput.Id);
 
             var changeMusicVideo = ChangeForUpdate(getMusicVideo, updateMusicVideoInput);
 

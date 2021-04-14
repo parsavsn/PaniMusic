@@ -58,6 +58,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud
                 .Where(galleryImage => galleryImage.GalleryCategoryId == getGalleryCategory.Id)
                 .ToListAsync();
 
+            if (getGalleryCategory == null || getGalleryImages == null)
+                return null;
+
             return getGalleryImages;
         }
 

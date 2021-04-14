@@ -148,13 +148,16 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
         public async Task<bool> UpdateTrack(UpdateTrackInput updateTrackInput)
         {
+            var getTrack = await trackRepository.Get(updateTrackInput.Id);
+
+            if (getTrack == null)
+                return false;
+
             await UploadFile(updateTrackInput.MyCoverImage);
 
             await UploadFile(updateTrackInput.MyQuality128);
 
             await UploadFile(updateTrackInput.MyQuality320);
-
-            var getTrack = await trackRepository.Get(updateTrackInput.Id);
 
             var changeTrack = ChangeForUpdate(getTrack, updateTrackInput);
 
@@ -167,11 +170,14 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
         public async Task<bool> UpdateAlbumTrack(UpdateAlbumTrackInput updateAlbumTrackInput)
         {
+            var getAlbumTrack = await trackRepository.Get(updateAlbumTrackInput.Id);
+
+            if (getAlbumTrack == null)
+                return false;
+
             await UploadFile(updateAlbumTrackInput.MyQuality128);
 
             await UploadFile(updateAlbumTrackInput.MyQuality320);
-
-            var getAlbumTrack = await trackRepository.Get(updateAlbumTrackInput.Id);
 
             getAlbumTrack.Name = updateAlbumTrackInput.Name;
 

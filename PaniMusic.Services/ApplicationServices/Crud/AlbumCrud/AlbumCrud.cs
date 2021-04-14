@@ -104,6 +104,11 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
 
         public async Task<bool> UpdateAlbum(UpdateAlbumInput updateAlbumInput)
         {
+            var getAlbum = await albumRepository.Get(updateAlbumInput.Id);
+
+            if (getAlbum == null)
+                return false;
+
             var tracksOfAlbum = await trackRepository.GetQuery()
                 .Where(tracks => tracks.AlbumId == updateAlbumInput.Id)
                 .ToListAsync();
@@ -124,8 +129,6 @@ namespace PaniMusic.Services.ApplicationServices.Crud.AlbumCrud
             await UploadFile(updateAlbumInput.MyQuality128);
 
             await UploadFile(updateAlbumInput.MyQuality320);
-
-            var getAlbum = await albumRepository.Get(updateAlbumInput.Id);
 
             var changeAlbum = ChangeForUpdate(getAlbum, updateAlbumInput);
 

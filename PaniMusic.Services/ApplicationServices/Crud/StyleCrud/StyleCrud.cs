@@ -69,6 +69,9 @@ namespace PaniMusic.Services.ApplicationServices.Crud.StyleCrud
         {
             var getStyle = await styleRepository.Get(updateStyleInput.Id);
 
+            if (getStyle == null)
+                return false;
+
             var changeStyle = ChangeForUpdate(getStyle, updateStyleInput);
 
             styleRepository.Update(changeStyle);

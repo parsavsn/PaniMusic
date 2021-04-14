@@ -73,9 +73,12 @@ namespace PaniMusic.Services.ApplicationServices.Crud.ArtistCrud
 
         public async Task<bool> UpdateArtist(UpdateArtistInput updateArtistInput)
         {
-            await UploadFile(updateArtistInput.MyImage);
-
             var getArtist = await artistRepository.Get(updateArtistInput.Id);
+
+            if (getArtist == null)
+                return false;
+
+            await UploadFile(updateArtistInput.MyImage);
 
             var changeArtist = ChangeForUpdate(getArtist, updateArtistInput);
 
