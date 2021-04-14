@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaniMusic.Services.ApplicationServices.NewsletterService
+namespace PaniMusic.Services.ApplicationServices.NewsletterMembership
 {
-    public interface INewsletterService
+    public interface INewsletterMembership
     {
         Task<bool> Add(AddNewsletterInput addNewsLetterInput);
     }

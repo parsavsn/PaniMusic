@@ -9,15 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaniMusic.Services.ApplicationServices.NewsletterService
+namespace PaniMusic.Services.ApplicationServices.NewsletterMembership
 {
-    public class NewsLetterService : INewsletterService
+    public class NewsletterMembership : INewsletterMembership
     {
         private readonly IRepository<Newsletter> newsletterRepository;
 
         private readonly IMapper mapper;
 
-        public NewsLetterService(IRepository<Newsletter> newsletterRepository, IMapper mapper)
+        public NewsletterMembership(IRepository<Newsletter> newsletterRepository, IMapper mapper)
         {
             this.newsletterRepository = newsletterRepository;
 

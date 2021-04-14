@@ -12,7 +12,7 @@ using PaniMusic.Services.ApplicationServices.Crud.MusicVideoCrud;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
 using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
 using PaniMusic.Services.ApplicationServices.Crud.UserCrud;
-using PaniMusic.Services.ApplicationServices.NewsletterService;
+using PaniMusic.Services.ApplicationServices.NewsletterMembership;
 using PaniMusic.Services.ApplicationServices.Recommended.TopRated.AlbumTopRated;
 using PaniMusic.Services.ApplicationServices.Recommended.TopRated.MusicVideoTopRated;
 using PaniMusic.Services.ApplicationServices.Recommended.TopRated.TrackTopRated;
@@ -79,7 +79,7 @@ namespace PaniMusic.Ui.Extention
 
             services.AddTransient<IUserCrud, UserCrud>();
 
-            services.AddTransient<INewsletterService, NewsLetterService>();
+            services.AddTransient<INewsletterMembership, NewsletterMembership>();
 
             services.AddTransient<IAlbumTopRated, AlbumTopRated>();
 

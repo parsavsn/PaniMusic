@@ -26,13 +26,13 @@ namespace PaniMusic.Services.ApplicationServices.Account
 
                 client.Credentials = credentials;
                 client.Host = "";
-                client.Port = 587;
-                client.EnableSsl = true;
+                client.Port = 25;
+                client.EnableSsl = false;
 
                 using var emailMessage = new MailMessage()
                 {
                     To = { new MailAddress(toEmail) },
-                    From = new MailAddress(""),
+                    From = new MailAddress("",""),
                     Subject = subject,
                     Body = message,
                 };

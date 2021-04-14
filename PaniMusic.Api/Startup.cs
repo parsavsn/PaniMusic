@@ -15,6 +15,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using PaniMusic.Api.Extention;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.OpenApi.Models;
+using PaniMusic.Api.Middleware;
 
 namespace PaniMusic.Api
 {
@@ -34,9 +37,34 @@ namespace PaniMusic.Api
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
 
-            // I put the dependency services in the DependencyExtensions.cs file from Extention folder
+            // I put the dependency & identity services in the DependencyExtensions.cs file from Extention folder
 
             services.AddDependency();
+
+            services.AddAspNetIdentity();
+
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.MaxRequestBodySize = int.MaxValue;
+            });
+
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = long.MaxValue;
+            });
+
+            services.AddSwaggerGen(swaggerGen =>
+            swaggerGen.SwaggerDoc("PaniMusic", new OpenApiInfo
+            {
+                Title = "PaniMusic",
+                Version = "V1"
+            }));
+
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddControllers();
         }
@@ -48,11 +76,17 @@ namespace PaniMusic.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(swaggerUi => swaggerUi.SwaggerEndpoint("/swagger/PaniMusic/swagger.json", "PaniMusic"));
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
