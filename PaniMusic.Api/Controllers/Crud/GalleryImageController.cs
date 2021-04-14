@@ -26,9 +26,9 @@ namespace PaniMusic.Api.Controllers.Crud
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var createGalleryImage = await galleryImageCrud.AddGalleryImage(input);
+            await galleryImageCrud.AddGalleryImage(input);
 
-            return Ok(createGalleryImage);
+            return Ok();
         }
 
         [HttpGet]
@@ -53,7 +53,7 @@ namespace PaniMusic.Api.Controllers.Crud
             if (deleteGalleryImage == false)
                 return NotFound();
 
-            return Ok(deleteGalleryImage);
+            return Ok();
         }
     }
 }

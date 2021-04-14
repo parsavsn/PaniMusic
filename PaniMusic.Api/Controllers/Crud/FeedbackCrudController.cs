@@ -26,9 +26,9 @@ namespace PaniMusic.Api.Controllers.Crud
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var createFeedback = await feedbackCrud.AddFeedback(addFeedbackInput);
+            await feedbackCrud.AddFeedback(addFeedbackInput);
 
-            return Ok(createFeedback);
+            return Ok();
         }
 
         [HttpGet]
@@ -50,7 +50,7 @@ namespace PaniMusic.Api.Controllers.Crud
             if (getFeedbackForAccept == false)
                 return NotFound();
 
-            return Ok(getFeedbackForAccept);
+            return Ok();
         }
 
         [HttpDelete]
@@ -61,7 +61,7 @@ namespace PaniMusic.Api.Controllers.Crud
             if (deleteFeedback == false)
                 return NotFound();
 
-            return Ok(deleteFeedback);
+            return Ok();
         }
     }
 }

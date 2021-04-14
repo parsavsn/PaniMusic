@@ -27,9 +27,9 @@ namespace PaniMusic.Api.Controllers.Crud
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var createArtist = await artistCrud.AddArtist(addArtistInput);
+            await artistCrud.AddArtist(addArtistInput);
 
-            return Ok(createArtist);
+            return Ok();
         }
 
         [HttpGet("{link}")]
@@ -73,7 +73,7 @@ namespace PaniMusic.Api.Controllers.Crud
             if (updateArtist == false)
                 return NotFound();
 
-            return Ok(updateArtist);
+            return Ok();
         }
 
         [HttpDelete]
@@ -84,7 +84,7 @@ namespace PaniMusic.Api.Controllers.Crud
             if (deleteArtist == false)
                 return NotFound();
 
-            return Ok(deleteArtist);
+            return Ok();
         }
     }
 }

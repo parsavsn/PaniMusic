@@ -27,9 +27,9 @@ namespace PaniMusic.Api.Controllers.Crud
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var createGalleryCategory = await galleryCategoryCrud.AddGalleryCategory(input);
+            await galleryCategoryCrud.AddGalleryCategory(input);
 
-            return Ok(createGalleryCategory);
+            return Ok();
         }
 
         [HttpGet("{link}")]
@@ -73,7 +73,7 @@ namespace PaniMusic.Api.Controllers.Crud
             if (updateGalleryCategory == false)
                 return NotFound();
 
-            return Ok(updateGalleryCategory);
+            return Ok();
         }
 
         [HttpDelete]
@@ -84,7 +84,7 @@ namespace PaniMusic.Api.Controllers.Crud
             if (deleteGalleryCategory == false)
                 return NotFound();
 
-            return Ok(deleteGalleryCategory);
+            return Ok();
         }
     }
 }
