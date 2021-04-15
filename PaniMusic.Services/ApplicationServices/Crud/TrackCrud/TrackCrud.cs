@@ -20,11 +20,15 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
     {
         private readonly IRepository<Track> trackRepository;
 
+        private readonly IRepository<Album> albumRepository;
+
         private readonly IMapper mapper;
 
-        public TrackCrud(IRepository<Track> trackRepository, IMapper mapper)
+        public TrackCrud(IRepository<Track> trackRepository, IRepository<Album> albumRepository, IMapper mapper)
         {
             this.trackRepository = trackRepository;
+
+            this.albumRepository = albumRepository;
 
             this.mapper = mapper;
         }
@@ -121,15 +125,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.TrackCrud
 
         public async Task<List<Track>> GetTracksForAlbum(int albumId)
         {
+            var getAlbum = await albumRepository.Get(albumId);
+
+            if (getAlbum == null)
+                return null;
+
             var getTrack = await trackRepository.GetQuery()
                 .Include(track => track.Style)
                 .Include(track => track.Artist)
                 .Include(track => track.Album)
                 .Where(track => track.AlbumId == albumId)
                 .ToListAsync();
-
-            if (getTrack == null)
-                return null;
 
             return getTrack;
         }
