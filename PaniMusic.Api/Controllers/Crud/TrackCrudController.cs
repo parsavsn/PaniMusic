@@ -73,10 +73,10 @@ namespace PaniMusic.Api.Controllers.Crud
             var getTracksForAlbum = await trackCrud.GetTracksForAlbum(albumId);
 
             if (getTracksForAlbum == null)
-                return NotFound("Album not found");
+                return NotFound("آلبوم مورد نظر پیدا نشد");
 
             if (getTracksForAlbum.Count == 0)
-                return NotFound("The relevant Album has no Tracks");
+                return NotFound("آهنگی برای آلبوم مورد نظر پیدا نشد");
 
             return Ok(getTracksForAlbum);
         }

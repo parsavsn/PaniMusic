@@ -37,10 +37,10 @@ namespace PaniMusic.Api.Controllers.Crud
             var getGalleryImages = await galleryImageCrud.GetGalleryImages(categoryId);
 
             if (getGalleryImages == null)
-                return NotFound("Category not found");
+                return NotFound("دسته بندی مورد نظر پیدا نشد");
 
             if (getGalleryImages.Count == 0)
-                return NotFound("The relevant category has no images");
+                return NotFound("تصویری برای دسته بندی مورد نظر پیدا نشد");
 
             return Ok(getGalleryImages);
         }
