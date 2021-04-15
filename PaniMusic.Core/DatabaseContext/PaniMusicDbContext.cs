@@ -34,5 +34,11 @@ namespace PaniMusic.Core.DatabaseContext
         public DbSet<Style> Styles { get; set; }
 
         public DbSet<Track> Tracks { get; set; }
+
+        public DbSet<FavoriteTrack> FavoriteTracks { get; set; }
+
+        public DbSet<FavoriteAlbum> FavoriteAlbums { get; set; }
+
+        public DbSet<FavoriteMusicVideo> FavoriteMusicVideos { get; set; }
     }
 }

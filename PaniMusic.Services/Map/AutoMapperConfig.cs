@@ -4,6 +4,9 @@ using PaniMusic.Services.Map.AccountDtos;
 using PaniMusic.Services.Map.CrudDtos.Album.Add;
 using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Add;
 using PaniMusic.Services.Map.CrudDtos.Artist.Add;
+using PaniMusic.Services.Map.CrudDtos.FavoriteAlbum;
+using PaniMusic.Services.Map.CrudDtos.FavoriteMusicVideo;
+using PaniMusic.Services.Map.CrudDtos.FavoriteTrack;
 using PaniMusic.Services.Map.CrudDtos.Feedback.Add;
 using PaniMusic.Services.Map.CrudDtos.GalleryCategory.Add;
 using PaniMusic.Services.Map.CrudDtos.GalleryImage.Add;
@@ -57,6 +60,12 @@ namespace PaniMusic.Services.Map
 
             CreateMap<RegisterInput, User>()
                 .ForMember(x => x.UserName, y => y.MapFrom(x => x.Email));
+
+            CreateMap<AddFavoriteTrackInput, FavoriteTrack>();
+
+            CreateMap<AddFavoriteAlbumInput, FavoriteAlbum>();
+
+            CreateMap<AddFavoriteMusicVideoInput, FavoriteMusicVideo>();
         }
     }
 }

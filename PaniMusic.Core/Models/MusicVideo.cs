@@ -43,5 +43,7 @@ namespace PaniMusic.Core.Models
         public Style Style { get; set; }
 
         public Artist Artist { get; set; }
+
+        public List<MusicVideo> MusicVideos { get; set; }
     }
 }

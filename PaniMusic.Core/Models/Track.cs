@@ -45,5 +45,7 @@ namespace PaniMusic.Core.Models
         public Artist Artist { get; set; }
 
         public Album Album { get; set; }
+
+        public List<FavoriteTrack> FavoriteTracks { get; set; }
     }
 }

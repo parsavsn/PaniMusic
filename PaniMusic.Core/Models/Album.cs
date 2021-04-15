@@ -41,5 +41,7 @@ namespace PaniMusic.Core.Models
         public List<Feedback> Feedbacks { get; set; }
 
         public List<Track> Tracks { get; set; }
+
+        public List<FavoriteAlbum> FavoriteAlbums { get; set; }
     }
 }

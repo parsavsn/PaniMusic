@@ -5,6 +5,9 @@ using PaniMusic.Services.ApplicationServices.Account;
 using PaniMusic.Services.ApplicationServices.CountStatistics;
 using PaniMusic.Services.ApplicationServices.Crud.AlbumCrud;
 using PaniMusic.Services.ApplicationServices.Crud.ArtistCrud;
+using PaniMusic.Services.ApplicationServices.Crud.FavoriteAlbumCrud;
+using PaniMusic.Services.ApplicationServices.Crud.FavoriteMusicVideoCrud;
+using PaniMusic.Services.ApplicationServices.Crud.FavoriteTrackCrud;
 using PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud;
 using PaniMusic.Services.ApplicationServices.Crud.GalleryCategoryCrud;
 using PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud;
@@ -58,6 +61,12 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IRepository<Track>, Repository<Track>>();
 
             services.AddTransient<IRepository<Newsletter>, Repository<Newsletter>>();
+
+            services.AddTransient<IRepository<FavoriteTrack>, Repository<FavoriteTrack>>();
+
+            services.AddTransient<IRepository<FavoriteAlbum>, Repository<FavoriteAlbum>>();
+
+            services.AddTransient<IRepository<FavoriteMusicVideo>, Repository<FavoriteMusicVideo>>();
         }
         private static void AddServices(IServiceCollection services)
         {
@@ -80,6 +89,12 @@ namespace PaniMusic.Ui.Extention
             services.AddTransient<IUserCrud, UserCrud>();
 
             services.AddTransient<INewsletterMembership, NewsletterMembership>();
+
+            services.AddTransient<IFavoriteTrackCrud, FavoriteTrackCrud>();
+
+            services.AddTransient<IFavoriteAlbumCrud, FavoriteAlbumCrud>();
+
+            services.AddTransient<IFavoriteMusicVideoCrud, FavoriteMusicVideoCrud>();
 
             services.AddTransient<IAlbumTopRated, AlbumTopRated>();
 

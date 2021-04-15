@@ -10,5 +10,11 @@ namespace PaniMusic.Core.Models
         public string Name { get; set; }
 
         public List<Feedback> Feedbacks { get; set; }
+
+        public List<FavoriteTrack> FavoriteTracks { get; set; }
+
+        public List<FavoriteAlbum> FavoriteAlbums { get; set; }
+
+        public List<FavoriteMusicVideo> FavoriteMusicVideos { get; set; }
     }
 }

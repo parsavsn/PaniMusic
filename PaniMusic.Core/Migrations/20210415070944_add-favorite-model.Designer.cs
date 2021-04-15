@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaniMusic.Core.DatabaseContext;
 
 namespace PaniMusic.Core.Migrations
 {
     [DbContext(typeof(PaniMusicDbContext))]
-    partial class PaniMusicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210415070944_add-favorite-model")]
+    partial class addfavoritemodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,14 +237,20 @@ namespace PaniMusic.Core.Migrations
                     b.ToTable("Artists");
                 });
 
-            modelBuilder.Entity("PaniMusic.Core.Models.FavoriteAlbum", b =>
+            modelBuilder.Entity("PaniMusic.Core.Models.Favorite", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AlbumId")
+                    b.Property<int?>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MusicVideoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TrackId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -252,53 +260,13 @@ namespace PaniMusic.Core.Migrations
 
                     b.HasIndex("AlbumId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FavoriteAlbums");
-                });
-
-            modelBuilder.Entity("PaniMusic.Core.Models.FavoriteMusicVideo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MusicVideoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("MusicVideoId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FavoriteMusicVideos");
-                });
-
-            modelBuilder.Entity("PaniMusic.Core.Models.FavoriteTrack", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("TrackId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
 
                     b.HasIndex("TrackId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavoriteTracks");
+                    b.ToTable("Favorite");
                 });
 
             modelBuilder.Entity("PaniMusic.Core.Models.Feedback", b =>
@@ -420,9 +388,6 @@ namespace PaniMusic.Core.Migrations
                     b.Property<string>("MetaTag")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MusicVideoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -450,8 +415,6 @@ namespace PaniMusic.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArtistId");
-
-                    b.HasIndex("MusicVideoId");
 
                     b.HasIndex("StyleId");
 
@@ -686,51 +649,27 @@ namespace PaniMusic.Core.Migrations
                     b.Navigation("Style");
                 });
 
-            modelBuilder.Entity("PaniMusic.Core.Models.FavoriteAlbum", b =>
+            modelBuilder.Entity("PaniMusic.Core.Models.Favorite", b =>
                 {
                     b.HasOne("PaniMusic.Core.Models.Album", "Album")
-                        .WithMany("FavoriteAlbums")
-                        .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Favorites")
+                        .HasForeignKey("AlbumId");
+
+                    b.HasOne("PaniMusic.Core.Models.MusicVideo", "MusicVideo")
+                        .WithMany("Favorites")
+                        .HasForeignKey("MusicVideoId");
+
+                    b.HasOne("PaniMusic.Core.Models.Track", "Track")
+                        .WithMany("Favorites")
+                        .HasForeignKey("TrackId");
 
                     b.HasOne("PaniMusic.Core.Models.User", "User")
-                        .WithMany("FavoriteAlbums")
+                        .WithMany("Favorites")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Album");
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PaniMusic.Core.Models.FavoriteMusicVideo", b =>
-                {
-                    b.HasOne("PaniMusic.Core.Models.MusicVideo", "MusicVideo")
-                        .WithMany()
-                        .HasForeignKey("MusicVideoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PaniMusic.Core.Models.User", "User")
-                        .WithMany("FavoriteMusicVideos")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("MusicVideo");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PaniMusic.Core.Models.FavoriteTrack", b =>
-                {
-                    b.HasOne("PaniMusic.Core.Models.Track", "Track")
-                        .WithMany("FavoriteTracks")
-                        .HasForeignKey("TrackId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PaniMusic.Core.Models.User", "User")
-                        .WithMany("FavoriteTracks")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Track");
 
@@ -783,10 +722,6 @@ namespace PaniMusic.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PaniMusic.Core.Models.MusicVideo", null)
-                        .WithMany("MusicVideos")
-                        .HasForeignKey("MusicVideoId");
-
                     b.HasOne("PaniMusic.Core.Models.Style", "Style")
                         .WithMany("MusicVideos")
                         .HasForeignKey("StyleId")
@@ -825,7 +760,7 @@ namespace PaniMusic.Core.Migrations
 
             modelBuilder.Entity("PaniMusic.Core.Models.Album", b =>
                 {
-                    b.Navigation("FavoriteAlbums");
+                    b.Navigation("Favorites");
 
                     b.Navigation("Feedbacks");
 
@@ -848,9 +783,9 @@ namespace PaniMusic.Core.Migrations
 
             modelBuilder.Entity("PaniMusic.Core.Models.MusicVideo", b =>
                 {
-                    b.Navigation("Feedbacks");
+                    b.Navigation("Favorites");
 
-                    b.Navigation("MusicVideos");
+                    b.Navigation("Feedbacks");
                 });
 
             modelBuilder.Entity("PaniMusic.Core.Models.Style", b =>
@@ -864,18 +799,14 @@ namespace PaniMusic.Core.Migrations
 
             modelBuilder.Entity("PaniMusic.Core.Models.Track", b =>
                 {
-                    b.Navigation("FavoriteTracks");
+                    b.Navigation("Favorites");
 
                     b.Navigation("Feedbacks");
                 });
 
             modelBuilder.Entity("PaniMusic.Core.Models.User", b =>
                 {
-                    b.Navigation("FavoriteAlbums");
-
-                    b.Navigation("FavoriteMusicVideos");
-
-                    b.Navigation("FavoriteTracks");
+                    b.Navigation("Favorites");
 
                     b.Navigation("Feedbacks");
                 });
