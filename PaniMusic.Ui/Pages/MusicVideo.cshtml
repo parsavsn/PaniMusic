@@ -1,4 +1,7 @@
 ﻿@page "{link}"
+@inject UserManager<User> userManager
+@inject SignInManager<User> signInManager
+@using PaniMusic.Services.Identity
 @model PaniMusic.Ui.Pages.MusicVideoModel
 @{
     ViewData["Title"] = $"{Model.MusicVideo.TitleTag}";
@@ -115,28 +118,47 @@
                 </div>
 
                 <div class="commentbox">
-                    <form action="#" class="text-right">
+                    <h6 class="text-success text-center" id="send-comment-is-success"></h6>
+                    <h6 class="text-danger text-center" id="send-comment-is-not-success"></h6>
+
+                    <div class="text-right" id="form-comment">
                         <div style="display: flex;">
+
                             <div class="form-group" style="width: 50%;">
-                                <input type="text" class="form-control" id="usr" placeholder="نام نمایشی در نظرات">
+                                <input type="text" class="form-control" id="name-comment" placeholder="نام نمایشی در نظرات" required>
                             </div>
+
                             <div class="form-group" style="width: 50%;margin-right: 10px;">
-                                <select class="form-control" id="sel1">
+                                <select class="form-control" id="rate-comment" required>
                                     <option>امتیاز</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </select>
                             </div>
 
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="5" id="mytextarea" placeholder="نظر شما..."></textarea>
+                            <textarea class="form-control" rows="5" id="comment-comment" placeholder="نظر شما..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">ثبت</button>
-                    </form>
+
+                        @{
+                            if (signInManager.IsSignedIn(User) && User.HasClaim(PaniClaims.UserPanel, true.ToString()))
+                            {
+
+                                var currentUser = await userManager.GetUserAsync(User);
+
+                                <button onclick="sendMusicVideoCommentWithAjax('@Model.MusicVideo.Id', '@currentUser.Id')" class="btn btn-primary" style="width: 100%;">ثبت</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-primary" id="submitMusicVideoBtn" style="width: 100%;">ثبت</button>
+                            }
+                        }
+
+                    </div>
                 </div>
 
                 <div class="comments text-right">
@@ -256,6 +278,10 @@
     <script>
         $(document).ready(function () {
             $('#mymenu-musicvideo').addClass('active');
+
+            $('#submitMusicVideoBtn').click(function () {
+                alert('برای گذاشتن نظر ، باید حتما به عنوان کاربر وارد سایت شوید')
+            });
         });
     </script>
 }

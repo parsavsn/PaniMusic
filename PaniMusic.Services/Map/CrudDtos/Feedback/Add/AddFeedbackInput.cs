@@ -30,6 +30,7 @@ namespace PaniMusic.Services.Map.CrudDtos.Feedback.Add
 
         public int? MusicVideoId { get; set; }
 
+        [Required(ErrorMessage = "وارد کردن شناسه کاربری الزامی است.")]
         public string UserId { get; set; }
     }
 }

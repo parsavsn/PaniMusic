@@ -86,6 +86,12 @@ namespace PaniMusic.Api
 
             app.UseAuthorization();
 
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
+                .AllowCredentials());
+
             app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>

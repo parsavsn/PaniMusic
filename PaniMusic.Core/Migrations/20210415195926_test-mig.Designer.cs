@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaniMusic.Core.DatabaseContext;
 
 namespace PaniMusic.Core.Migrations
 {
     [DbContext(typeof(PaniMusicDbContext))]
-    partial class PaniMusicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210415195926_test-mig")]
+    partial class testmig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,7 +248,6 @@ namespace PaniMusic.Core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -269,7 +270,6 @@ namespace PaniMusic.Core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -292,7 +292,6 @@ namespace PaniMusic.Core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -333,7 +332,6 @@ namespace PaniMusic.Core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -721,9 +719,7 @@ namespace PaniMusic.Core.Migrations
 
                     b.HasOne("PaniMusic.Core.Models.User", "User")
                         .WithMany("FavoriteAlbums")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Album");
 
@@ -740,9 +736,7 @@ namespace PaniMusic.Core.Migrations
 
                     b.HasOne("PaniMusic.Core.Models.User", "User")
                         .WithMany("FavoriteMusicVideos")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("MusicVideo");
 
@@ -759,9 +753,7 @@ namespace PaniMusic.Core.Migrations
 
                     b.HasOne("PaniMusic.Core.Models.User", "User")
                         .WithMany("FavoriteTracks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Track");
 
@@ -784,9 +776,7 @@ namespace PaniMusic.Core.Migrations
 
                     b.HasOne("PaniMusic.Core.Models.User", "User")
                         .WithMany("Feedbacks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Album");
 

@@ -23,6 +23,9 @@ namespace PaniMusic.Api.Controllers.NewsletterMembership
         [HttpPost]
         public async Task<IActionResult> AddToNewsletterMembership([FromBody] AddNewsletterInput input)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             var addToNewsletterMembership = await newsletterMembership.Add(input);
 
             if (addToNewsletterMembership == false)

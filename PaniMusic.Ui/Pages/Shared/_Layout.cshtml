@@ -129,19 +129,22 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-12 footer-links">
                         <h4 class="text-center">از جدیدترین موزیک ها باخبر شوید!</h4>
-                        <form action="#" class="text-right">
+                        <h4 class="text-success text-center" id="send-is-success"></h4>
+                        <h4 class="text-danger text-center" id="send-is-not-success"></h4>
+
+                        <form class="text-right" id="form-newsletter">
                             <div style="display: flex;">
                                 <div class="form-group" style="width: 50%;">
-                                    <input type="text" class="form-control" id="usr" placeholder="نام">
+                                    <input type="text" class="form-control" id="firstName-newsletter" placeholder="نام" required>
                                 </div>
                                 <div class="form-group" style="width: 50%;margin-right: 10px;">
-                                    <input type="text" class="form-control" id="usr" placeholder="نام خانوادگی">
+                                    <input type="text" class="form-control" id="lastName-newsletter" placeholder="نام خانوادگی" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="ایمیل" id="email">
+                                <input type="email" class="form-control" id="email-newsletter" placeholder="ایمیل" required>
                             </div>
-                            <button type="submit" class="btn btn-primary submit-newsletter" style="width: 100%;">ثبت</button>
+                            <button type="submit" onclick="sendWithAjax()" class="btn btn-primary submit-newsletter" id="submit-newsletter" style="width: 100%;">ثبت</button>
                         </form>
                     </div>
 
@@ -175,6 +178,7 @@
     <!-- Template Main JS File -->
     <script src="~/js/main.js"></script>
 
+   
 
     @RenderSection("Scripts", required: false)
 </body>
