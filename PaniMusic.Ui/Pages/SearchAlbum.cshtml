@@ -1,0 +1,97 @@
+﻿@page
+@model PaniMusic.Ui.Pages.SearchAlbumModel
+@{
+    ViewData["Title"] = "جستجوی آلبوم";
+    ViewData["metadescription"] = "دانلود آلبوم در کیفیت های 128 و 320 بصورت یکجا و تکی در رسانه پانی موزیک";
+    ViewData["metakeywoard"] = "دانلود آلبوم";
+}
+
+<main id="main">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+
+                @if (Model.Albums.Count() == 0)
+                {
+                    <div class="alert alert-info alert-dismissible text-right" dir="rtl">
+                        <h5> متاسفیم !</h5>
+                        آلبومی یافت نشد...
+                    </div>
+                }
+                else
+                {
+                    @foreach (var item in Model.Albums)
+                    {
+                        <div class="ps">
+                            <div class="pstop">
+                                <h3 class="top-title">
+                                    <a href="album/@item.Link">
+                                        دانلود آلبوم @item.Artist.Name به نام @item.Name
+                                    </a>
+                                </h3>
+                                <div class="top-else">
+                                    <span>
+                                        تاریخ انتشار : @item.RecordDate.ToPersianDate()
+                                    </span>
+                                    <span>
+                                        تعداد نظرات : @{
+                                            if (item.Feedbacks == null)
+                                            {
+                                                <span>0</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@item.Feedbacks.Count</span>
+                                            }
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="pcnt">
+                                <div class="text-center">
+                                    <h4 class="center-title">
+                                        @item.Artist.Name @item.Name
+                                    </h4>
+                                    <h5 class="style-type">
+                                        سبک : @item.Style.Name
+                                    </h5>
+                                    <img class="music-poster" src="~/uploads/album/@item.CoverImage" alt="آلبوم @item.Name">
+                                </div>
+                            </div>
+                            <div class="psdown">
+                                <span>
+                                    تعداد بازدید : @item.Visit
+                                </span>
+                                <a href="album/@item.Link" class="download-btn">دانلود آلبوم</a>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-12">
+                <form asp-page="SearchAlbum" method="get" style="display: flex;margin-bottom: 25px;">
+                    <input type="text" name="name" class="form-control searchbox-input" placeholder="جستجوی آلبوم">
+                    <button type="submit" class="btn btn-primary searchbox-submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+                <partial name="_SidebarPartial" />
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#mymenu-album').addClass('active');
+        });
+    </script>
+}

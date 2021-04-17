@@ -78,8 +78,8 @@
 
             </div>
             <div class="col-xl-5 col-lg-5 col-md-12">
-                <form action="#" style="display: flex;margin-bottom: 25px;">
-                    <input type="text" class="form-control searchbox-input" placeholder="جستجوی آلبوم">
+                <form asp-page="SearchAlbum" method="get" style="display: flex;margin-bottom: 25px;">
+                    <input type="text" name="name" class="form-control searchbox-input" placeholder="جستجوی آلبوم">
                     <button type="submit" class="btn btn-primary searchbox-submit">
                         <i class="fa fa-search"></i>
                     </button>
