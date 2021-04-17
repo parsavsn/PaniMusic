@@ -35,12 +35,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteAlbumCrud
             return true;
         }
 
-        public async Task<List<Album>> GetFavoriteAlbums(string userId)
+        public async Task<IEnumerable<FavoriteAlbum>> GetFavoriteAlbums(string userId)
         {
             var getFavoriteAlbums = await favoriteAlbumRepository.GetQuery()
                 .Include(favorite => favorite.Album)
+                .Include(favorite => favorite.Album.Artist)
+                .Include(favorite => favorite.Album.Style)
                 .Where(favorite => favorite.UserId == userId)
-                .Select(favorite => favorite.Album)
                 .ToListAsync();
 
             return getFavoriteAlbums;

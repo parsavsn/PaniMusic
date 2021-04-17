@@ -11,7 +11,7 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteTrackCrud
     {
         Task<bool> AddFavoriteTrack(AddFavoriteTrackInput input);
 
-        Task<List<Track>> GetFavoriteTracks(string userId);
+        Task<IEnumerable<FavoriteTrack>> GetFavoriteTracks(string userId);
 
         Task<bool> DeleteFavoriteTrack(int favoriteTrackId);
     }

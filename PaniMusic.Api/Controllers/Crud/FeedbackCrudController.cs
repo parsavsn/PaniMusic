@@ -32,6 +32,17 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpGet]
+        public async Task<IActionResult> UserFeedbacks([FromQuery] string userId)
+        {
+            var getUserFeedbacks = await feedbackCrud.UserFeedbacks(userId);
+
+            if (getUserFeedbacks.Count == 0)
+                return NotFound();
+
+            return Ok(getUserFeedbacks);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAllFeedbacks()
         {
             var getAllFeedbacks = await feedbackCrud.GetAllFeedbacks();

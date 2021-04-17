@@ -13,6 +13,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud
 
         Task<bool> AddFeedback(AddFeedbackInput addFeedbackInput);
 
+        Task<List<Feedback>> UserFeedbacks(string userId);
+
         Task<List<Feedback>> GetAllFeedbacks();
 
         Task<bool> UpdateAcceptFeedback(int id);

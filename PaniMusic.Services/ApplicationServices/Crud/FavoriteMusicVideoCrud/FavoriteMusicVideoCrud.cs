@@ -35,12 +35,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteMusicVideoCrud
             return true;
         }
 
-        public async Task<List<MusicVideo>> GetFavoriteMusicVideos(string userId)
+        public async Task<IEnumerable<FavoriteMusicVideo>> GetFavoriteMusicVideos(string userId)
         {
             var getFavoriteMusicVideos = await favoriteMusicVideoRepository.GetQuery()
                 .Include(favorite => favorite.MusicVideo)
+                .Include(favorite => favorite.MusicVideo.Artist)
+                .Include(favorite => favorite.MusicVideo.Style)
                 .Where(favorite => favorite.UserId == userId)
-                .Select(favorite => favorite.MusicVideo)
                 .ToListAsync();
 
             return getFavoriteMusicVideos;
