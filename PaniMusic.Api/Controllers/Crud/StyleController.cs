@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.Crud.StyleCrud;
 using PaniMusic.Services.Map.CrudDtos.Style.Add;
@@ -22,6 +23,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "NewItem")]
         public async Task<IActionResult> CreateStyle([FromBody] AddStyleInput addStyleInput)
         {
             if (!ModelState.IsValid)
@@ -63,6 +66,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "EditItem")]
         public async Task<IActionResult> UpdateStyle([FromBody] UpdateStyleInput updateStyleInput)
         {
             if (!ModelState.IsValid)
@@ -77,6 +82,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpDelete]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "DeleteItem")]
         public async Task<IActionResult> DeleteStyle([FromQuery] int id)
         {
             var deleteStyle = await styleCrud.DeleteStyle(id);

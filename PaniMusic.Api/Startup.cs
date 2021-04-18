@@ -37,11 +37,13 @@ namespace PaniMusic.Api
 
             services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperConfig)));
 
-            // I put the dependency & identity services in the DependencyExtensions.cs file from Extention folder
+            // I put the dependency & identity & swagger services in the DependencyExtensions.cs file from Extention folder
 
             services.AddDependency();
 
             services.AddAspNetIdentity();
+
+            services.AddSwagger();
 
             services.Configure<IISServerOptions>(options =>
             {
@@ -52,14 +54,7 @@ namespace PaniMusic.Api
             {
                 options.ValueLengthLimit = int.MaxValue;
                 options.MultipartBodyLengthLimit = long.MaxValue;
-            });
-
-            services.AddSwaggerGen(swaggerGen =>
-            swaggerGen.SwaggerDoc("PaniMusic", new OpenApiInfo
-            {
-                Title = "PaniMusic",
-                Version = "V1"
-            }));
+            });            
 
             services.AddControllersWithViews()
             .AddNewtonsoftJson(options =>
@@ -83,6 +78,8 @@ namespace PaniMusic.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

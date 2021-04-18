@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.Crud.FeedbackCrud;
 using PaniMusic.Services.Map.CrudDtos.Feedback.Add;
@@ -32,6 +33,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpGet]
+        [Authorize(Policy = "UserPanel")]
         public async Task<IActionResult> UserFeedbacks([FromQuery] string userId)
         {
             var getUserFeedbacks = await feedbackCrud.UserFeedbacks(userId);
@@ -51,6 +53,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> UpdateAcceptFeedback([FromQuery] int id)
         {
             if (!ModelState.IsValid)
@@ -65,6 +68,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpDelete]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> DeleteFeedback([FromQuery] int id)
         {
             var deleteFeedback = await feedbackCrud.DeleteFeedback(id);

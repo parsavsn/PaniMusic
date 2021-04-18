@@ -281,7 +281,7 @@ function sendNewsletterWithAjax() {
 
     var xhr = new XMLHttpRequest()
 
-    xhr.open('POST', 'https://localhost:44333/api/newslettermembership/addtonewslettermembership', true)
+    xhr.open('POST', '', true)
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -331,7 +331,7 @@ var jsonData = JSON.stringify(data);
 
 var xhr = new XMLHttpRequest()
 
-xhr.open('POST', 'https://localhost:44333/api/feedbackcrud/createfeedback', true)
+xhr.open('POST', '', true)
 
 xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -375,7 +375,7 @@ function sendAlbumCommentWithAjax(albumId, userId) {
 
     var xhr = new XMLHttpRequest()
 
-    xhr.open('POST', 'https://localhost:44333/api/feedbackcrud/createfeedback', true)
+    xhr.open('POST', '', true)
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -419,7 +419,7 @@ function sendMusicVideoCommentWithAjax(musicVideoId, userId) {
 
     var xhr = new XMLHttpRequest()
 
-    xhr.open('POST', 'https://localhost:44333/api/feedbackcrud/createfeedback', true)
+    xhr.open('POST', '', true)
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -451,7 +451,7 @@ function AddToFavoriteTrackAjax(trackId, userId, spanId) {
 
     var xhr = new XMLHttpRequest()
 
-    xhr.open('POST', 'https://localhost:44333/api/favoritetrackcrud/createfavoritetrack', true)
+    xhr.open('POST', '', true)
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -482,7 +482,7 @@ function AddToFavoriteAlbumAjax(albumId, userId, spanId) {
 
     var xhr = new XMLHttpRequest()
 
-    xhr.open('POST', 'https://localhost:44333/api/favoritealbumcrud/createfavoritealbum', true)
+    xhr.open('POST', '', true)
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -513,7 +513,7 @@ function AddToFavoriteMusicVideosAjax(musicVideoId, userId, spanId) {
 
     var xhr = new XMLHttpRequest()
 
-    xhr.open('POST', 'https://localhost:44333/api/favoritemusicvideocrud/createfavoritemusicvideo', true)
+    xhr.open('POST', '', true)
 
     xhr.setRequestHeader("Content-Type", "application/json");
 

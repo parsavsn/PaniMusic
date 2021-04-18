@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.Crud.TrackCrud;
 using PaniMusic.Services.Map.CrudDtos.AlbumTrack.Add;
@@ -24,6 +25,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "NewItem")]
         public async Task<IActionResult> CreateTrack([FromForm] AddTrackInput addTrackInput)
         {
             if (!ModelState.IsValid)
@@ -35,6 +38,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "NewItem")]
         public async Task<IActionResult> CreateAlbumTrack([FromForm] AddAlbumTrackInput addAlbumTrackInput)
         {
             if (!ModelState.IsValid)
@@ -90,6 +95,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "EditItem")]
         public async Task<IActionResult> UpdateTrack([FromForm] UpdateTrackInput updateTrackInput)
         {
             if (!ModelState.IsValid)
@@ -104,6 +111,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "EditItem")]
         public async Task<IActionResult> UpdateAlbumTrack([FromForm] UpdateAlbumTrackInput updateAlbumTrackInput)
         {
             if (!ModelState.IsValid)
@@ -118,6 +127,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpDelete]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "DeleteItem")]
         public async Task<IActionResult> DeleteTrack([FromQuery] int id)
         {
             var deleteTrack = await trackCrud.DeleteTrack(id);

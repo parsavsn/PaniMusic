@@ -30,10 +30,7 @@ namespace PaniMusic.Ui.Pages.Account
 
             var user = await userManager.FindByNameAsync(userName);
 
-            if (user == null)
-                return RedirectToPage("/Index");
-
-            if (user.EmailConfirmed == true)
+            if (user == null || user.EmailConfirmed == true)
                 return RedirectToPage("/Index");
 
             await userManager.ConfirmEmailAsync(user, token);

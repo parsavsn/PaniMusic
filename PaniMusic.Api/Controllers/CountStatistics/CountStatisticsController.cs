@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.CountStatistics;
 using System;
@@ -20,6 +21,7 @@ namespace PaniMusic.Api.Controllers.CountStatistics
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> CountOfTracks()
         {
             var countOfTracks = await countStatistics.CountOfTracks();
@@ -28,6 +30,7 @@ namespace PaniMusic.Api.Controllers.CountStatistics
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> CountOfAlbums()
         {
             var countOfAlbums = await countStatistics.CountOfAlbums();
@@ -36,6 +39,7 @@ namespace PaniMusic.Api.Controllers.CountStatistics
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> CountOfMusicVideos()
         {
             var countOfMusicVideos = await countStatistics.CountOfMusicVideos();
@@ -44,6 +48,7 @@ namespace PaniMusic.Api.Controllers.CountStatistics
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> CountOfArtists()
         {
             var countOfArtists = await countStatistics.CountOfArtists();
@@ -52,6 +57,7 @@ namespace PaniMusic.Api.Controllers.CountStatistics
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> CountOfUsers()
         {
             var countOfUsers = await countStatistics.CountOfUsers();
@@ -60,6 +66,7 @@ namespace PaniMusic.Api.Controllers.CountStatistics
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> CountOfFeedbacks()
         {
             var countOfFeedbacks = await countStatistics.CountOfFeedbacks();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.Crud.FavoriteAlbumCrud;
 using PaniMusic.Services.Map.CrudDtos.FavoriteAlbum;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace PaniMusic.Api.Controllers.Crud
 {
+    [Authorize(Policy = "UserPanel")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class FavoriteAlbumCrudController : ControllerBase
@@ -21,6 +23,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateFavoriteAlbum([FromBody] AddFavoriteAlbumInput input)
         {
             if (!ModelState.IsValid)

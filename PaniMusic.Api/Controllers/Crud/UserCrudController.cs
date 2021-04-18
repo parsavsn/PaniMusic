@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.Crud.UserCrud;
 using PaniMusic.Services.Map.CrudDtos.User.Add;
@@ -22,6 +23,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "NewItem")]
         public async Task<IActionResult> CreateUser([FromBody] AddUserInput addUserInput)
         {
             if (!ModelState.IsValid)
@@ -38,6 +41,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> GetUserById([FromQuery] string id)
         {
             var getUser = await userCrud.GetUserById(id);
@@ -49,6 +53,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> GetAllUsers()
         {
             var getAllUsers = await userCrud.GetAllUsers();
@@ -57,6 +62,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "EditItem")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserInput updateUserInput)
         {
             if (!ModelState.IsValid)
@@ -73,6 +80,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpDelete]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "DeleteItem")]
         public async Task<IActionResult> DeleteUser([FromQuery] string id)
         {
             var deleteUserResult = await userCrud.DeleteUser(id);

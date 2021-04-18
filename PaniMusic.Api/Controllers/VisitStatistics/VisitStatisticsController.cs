@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.VisitStatistics;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace PaniMusic.Api.Controllers.VisitStatistics
 {
+    [Authorize(Policy = "AdminPanel")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class VisitStatisticsController : ControllerBase

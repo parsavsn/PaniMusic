@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaniMusic.Services.ApplicationServices.Crud.GalleryImageCrud;
 using PaniMusic.Services.Map.CrudDtos.GalleryImage.Add;
@@ -21,6 +22,8 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPanel")]
+        [Authorize(Policy = "NewItem")]
         public async Task<IActionResult> CreateGalleryImage([FromForm] AddGalleryImageInput input)
         {
             if (!ModelState.IsValid)
@@ -46,6 +49,7 @@ namespace PaniMusic.Api.Controllers.Crud
         }
 
         [HttpDelete]
+        [Authorize(Policy = "AdminPanel")]
         public async Task<IActionResult> DeleteGalleryImage([FromQuery] int id)
         {
             var deleteGalleryImage = await galleryImageCrud.DeleteGalleryImage(id);
