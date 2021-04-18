@@ -11,6 +11,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteAlbumCrud
     {
         Task<bool> AddFavoriteAlbum(AddFavoriteAlbumInput input);
 
+        Task<FavoriteAlbum> GetFavoriteAlbum(int albumId, string userId);
+
         Task<IEnumerable<FavoriteAlbum>> GetFavoriteAlbums(string userId);
 
         Task<bool> DeleteFavoriteAlbum(int favoriteAlbumId);

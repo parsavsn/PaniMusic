@@ -1,7 +1,7 @@
 ﻿@page "{link}"
 @inject UserManager<User> userManager
 @inject SignInManager<User> signInManager
-@using PaniMusic.Services.Identity
+@inject IFavoriteMusicVideoCrud favoriteMusicVideoCrud
 @model PaniMusic.Ui.Pages.MusicVideoModel
 @{
     ViewData["Title"] = $"{Model.MusicVideo.TitleTag}";
@@ -18,10 +18,35 @@
 
                 <div class="ps">
                     <div class="pstop">
-                        <h3 class="top-title">
+                        <h3 class="top-title d-flex justify-content-between">
                             <a href="/musicvideo/@Model.MusicVideo.Link">
                                 دانلود موزیک ویدیو @Model.MusicVideo.Name به نام @Model.MusicVideo.Name
                             </a>
+                            @if (signInManager.IsSignedIn(User) && User.HasClaim(PaniClaims.UserPanel, true.ToString()))
+                            {
+                                var currentUser = await userManager.GetUserAsync(User);
+
+                                var hasFavoriteTrack = await favoriteMusicVideoCrud.GetFavoriteMusicVideo(Model.MusicVideo.Id, currentUser.Id);
+
+                                if (hasFavoriteTrack != null)
+                                {
+                                    <span>
+                                        <button class="btn added-btn">موجود در لیست موردعلاقه</button>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span id="@Model.MusicVideo.Id">
+                                        <button class="btn favorite-btn" onclick="AddToFavoriteMusicVideosAjax('@Model.MusicVideo.Id', '@currentUser.Id', '@Model.MusicVideo.Id')">افزودن به لیست موردعلاقه</button>
+                                    </span>
+                                }
+                            }
+                            else
+                            {
+                                <span>
+                                    <button class="btn favorite-btn alert-favorite-btn">افزودن به لیست موردعلاقه</button>
+                                </span>
+                            }
                         </h3>
                         <div class="top-else">
                             <span>

@@ -26,6 +26,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteTrackCrud
 
         public async Task<bool> AddFavoriteTrack(AddFavoriteTrackInput input)
         {
+            var hasTrack = await favoriteTrackRepository.GetQuery()
+                .Where(favorite => favorite.UserId == input.UserId && favorite.TrackId == input.TrackId)
+                .ToListAsync();
+
+            if (hasTrack.Count != 0)
+                return false;
+
             var newFavoriteTrack = mapper.Map<FavoriteTrack>(input);
 
             favoriteTrackRepository.Insert(newFavoriteTrack);
@@ -33,6 +40,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteTrackCrud
             await favoriteTrackRepository.Save();
 
             return true;
+        }
+
+        public async Task<FavoriteTrack> GetFavoriteTrack(int trackId, string userId)
+        {
+            var getFavoriteTrack = await favoriteTrackRepository.GetQuery()
+                .FirstOrDefaultAsync(favorite => favorite.UserId == userId && favorite.TrackId == trackId);
+
+            if (getFavoriteTrack == null)
+                return null;
+
+            return getFavoriteTrack;
         }
 
         public async Task<IEnumerable<FavoriteTrack>> GetFavoriteTracks(string userId)

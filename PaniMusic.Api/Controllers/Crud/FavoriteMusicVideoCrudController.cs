@@ -26,9 +26,23 @@ namespace PaniMusic.Api.Controllers.Crud
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            await favoriteMusicVideoCrud.AddFavoriteMusicVideo(input);
+            var favoriteMusicVideo = await favoriteMusicVideoCrud.AddFavoriteMusicVideo(input);
+
+            if (favoriteMusicVideo == false)
+                return BadRequest();
 
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFavoriteMusicVideo(int musicVideoId, string userId)
+        {
+            var getFavoriteMusicVideo = await favoriteMusicVideoCrud.GetFavoriteMusicVideo(musicVideoId, userId);
+
+            if (getFavoriteMusicVideo == null)
+                return NotFound();
+
+            return Ok(getFavoriteMusicVideo);
         }
 
         [HttpGet]
@@ -36,7 +50,7 @@ namespace PaniMusic.Api.Controllers.Crud
         {
             var getFavoriteMusicVideos = await favoriteMusicVideoCrud.GetFavoriteMusicVideos(userId);
 
-            if (getFavoriteMusicVideos.Count == 0)
+            if (getFavoriteMusicVideos.Count() == 0)
                 return NotFound();
 
             return Ok(getFavoriteMusicVideos);

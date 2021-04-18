@@ -11,6 +11,8 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteMusicVideoCrud
     {
         Task<bool> AddFavoriteMusicVideo(AddFavoriteMusicVideoInput input);
 
+        Task<FavoriteMusicVideo> GetFavoriteMusicVideo(int musicVideoId, string userId);
+
         Task<IEnumerable<FavoriteMusicVideo>> GetFavoriteMusicVideos(string userId);
 
         Task<bool> DeleteFavoriteMusicVideo(int favoriteMusicVideoId);

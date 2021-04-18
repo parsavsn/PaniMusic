@@ -26,6 +26,13 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteAlbumCrud
 
         public async Task<bool> AddFavoriteAlbum(AddFavoriteAlbumInput input)
         {
+            var hasAlbum = await favoriteAlbumRepository.GetQuery()
+                .Where(favorite => favorite.UserId == input.UserId && favorite.AlbumId == input.AlbumId)
+                .ToListAsync();
+
+            if (hasAlbum.Count != 0)
+                return false;
+
             var newFavoriteAlbum = mapper.Map<FavoriteAlbum>(input);
 
             favoriteAlbumRepository.Insert(newFavoriteAlbum);
@@ -33,6 +40,17 @@ namespace PaniMusic.Services.ApplicationServices.Crud.FavoriteAlbumCrud
             await favoriteAlbumRepository.Save();
 
             return true;
+        }
+
+        public async Task<FavoriteAlbum> GetFavoriteAlbum(int albumId, string userId)
+        {
+            var getFavoriteAlbum = await favoriteAlbumRepository.GetQuery()
+                .FirstOrDefaultAsync(favorite => favorite.UserId == userId && favorite.AlbumId == albumId);
+
+            if (getFavoriteAlbum == null)
+                return null;
+
+            return getFavoriteAlbum;
         }
 
         public async Task<IEnumerable<FavoriteAlbum>> GetFavoriteAlbums(string userId)

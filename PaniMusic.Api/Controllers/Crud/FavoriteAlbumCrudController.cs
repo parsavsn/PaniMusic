@@ -26,9 +26,23 @@ namespace PaniMusic.Api.Controllers.Crud
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            await favoriteAlbumCrud.AddFavoriteAlbum(input);
+            var createFavoriteAlbum = await favoriteAlbumCrud.AddFavoriteAlbum(input);
+
+            if (createFavoriteAlbum == false)
+                return BadRequest();
 
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFavoriteAlbum(int albumId, string userId)
+        {
+            var getFavoriteAlbum = await favoriteAlbumCrud.GetFavoriteAlbum(albumId, userId);
+
+            if (getFavoriteAlbum == null)
+                return NotFound();
+
+            return Ok(getFavoriteAlbum);
         }
 
         [HttpGet]
@@ -36,7 +50,7 @@ namespace PaniMusic.Api.Controllers.Crud
         {
             var getFavoriteAlbums = await favoriteAlbumCrud.GetFavoriteAlbums(userId);
 
-            if (getFavoriteAlbums.Count == 0)
+            if (getFavoriteAlbums.Count() == 0)
                 return NotFound();
 
             return Ok(getFavoriteAlbums);

@@ -1,4 +1,7 @@
 ﻿@page
+@inject SignInManager<User> signInManager
+@inject UserManager<User> userManager
+@inject IFavoriteAlbumCrud favoriteAlbumCrud
 @model PaniMusic.Ui.Pages.AllAlbumsModel
 @{
     ViewData["Title"] = "دانلود آلبوم";
@@ -17,10 +20,35 @@
                 {
                     <div class="ps">
                         <div class="pstop">
-                            <h3 class="top-title">
+                            <h3 class="top-title d-flex justify-content-between">
                                 <a href="album/@item.Link">
                                     دانلود آلبوم @item.Artist.Name به نام @item.Name
                                 </a>
+                                @if (signInManager.IsSignedIn(User) && User.HasClaim(PaniClaims.UserPanel, true.ToString()))
+                                {
+                                    var currentUser = await userManager.GetUserAsync(User);
+
+                                    var hasFavoriteTrack = await favoriteAlbumCrud.GetFavoriteAlbum(item.Id, currentUser.Id);
+
+                                    if (hasFavoriteTrack != null)
+                                    {
+                                        <span>
+                                            <button class="btn added-btn">موجود در لیست موردعلاقه</button>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span id="@item.Id">
+                                            <button class="btn favorite-btn" onclick="AddToFavoriteAlbumAjax('@item.Id', '@currentUser.Id', '@item.Id')">افزودن به لیست موردعلاقه</button>
+                                        </span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>
+                                        <button class="btn favorite-btn alert-favorite-btn">افزودن به لیست موردعلاقه</button>
+                                    </span>
+                                }
                             </h3>
                             <div class="top-else">
                                 <span>
@@ -62,7 +90,7 @@
                 }
 
                 <div class="d-flex justify-content-center">
-                    <div dir="ltr" class="paging-nav index-paging" style="margin: 0px auto;">
+                    <div dir="ltr" class="paging-nav index-paging">
                         <nav aria-label="...">
                             <ul class="pagination">
                                 <li class="page-item @(((Model.PageId - 1) == 0) ? "disabled" : "")"><a class="page-link" href="?page=@(Model.PageId - 1)">قبلی</a></li>

@@ -242,6 +242,11 @@ $(window).on("load", function () {
     })
 });
 
+$(document).ready(function () {
+    $('.alert-favorite-btn').click(function () {
+        alert("برای استفاده از این قابلیت ، باید به عنوان کاربر وارد سایت شوید");
+    });
+});
 
 var newsletterForm = document.getElementById('form-newsletter')
 
@@ -253,7 +258,7 @@ function myPreventDefault(e) {
 
 //ajax function for send newsletter form ( in the footer of the website )
 
-function sendWithAjax() {
+function sendNewsletterWithAjax() {
 
     var firstNameForm = document.getElementById('firstName-newsletter');
 
@@ -427,6 +432,100 @@ function sendMusicVideoCommentWithAjax(musicVideoId, userId) {
         }
         else {
             notSuccessCommentDiv.innerHTML = `نظر شما ثبت نشد ! لطفا همه موارد را با دقت تکمیل نمایید`;
+        }
+    }
+}
+
+
+//ajax function for add to favorite tracks list
+function AddToFavoriteTrackAjax(trackId, userId, spanId) {
+
+    var spanOfTrack = document.getElementById(spanId);
+
+    var data = {
+        trackId: trackId,
+        userId: userId
+    };
+
+    var jsonData = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('POST', 'https://localhost:44333/api/favoritetrackcrud/createfavoritetrack', true)
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(jsonData)
+
+    xhr.onreadystatechange = function () {
+
+        if (this.status == 200) {
+            spanOfTrack.innerHTML = `<button class="btn added-btn">موجود در لیست موردعلاقه</button>`;
+        }
+        else {
+            alert("بنظر میرسه مشکلی پیش اومده ...")
+        }
+    }
+}
+
+//ajax function for add to favorite albums list
+function AddToFavoriteAlbumAjax(albumId, userId, spanId) {
+
+    var spanOfAlbum = document.getElementById(spanId);
+
+    var data = {
+        albumId: albumId,
+        userId: userId
+    };
+
+    var jsonData = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('POST', 'https://localhost:44333/api/favoritealbumcrud/createfavoritealbum', true)
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(jsonData)
+
+    xhr.onreadystatechange = function () {
+
+        if (this.status == 200) {
+            spanOfAlbum.innerHTML = `<button class="btn added-btn">موجود در لیست موردعلاقه</button>`;
+        }
+        else {
+            alert("بنظر میرسه مشکلی پیش اومده ...")
+        }
+    }
+}
+
+//ajax function for add to favorite music videos list
+function AddToFavoriteMusicVideosAjax(musicVideoId, userId, spanId) {
+
+    var spanOfMusicVideo = document.getElementById(spanId);
+
+    var data = {
+        musicVideoId: musicVideoId,
+        userId: userId
+    };
+
+    var jsonData = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('POST', 'https://localhost:44333/api/favoritemusicvideocrud/createfavoritemusicvideo', true)
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(jsonData)
+
+    xhr.onreadystatechange = function () {
+
+        if (this.status == 200) {
+            spanOfMusicVideo.innerHTML = `<button class="btn added-btn">موجود در لیست موردعلاقه</button>`;
+        }
+        else {
+            alert("بنظر میرسه مشکلی پیش اومده ...")
         }
     }
 }
