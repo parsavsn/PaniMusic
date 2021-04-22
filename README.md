@@ -2,7 +2,9 @@
 This is a music website project that is currently being published on the panimusic.ir domain.In this project, asp.net core (v3.1) technology has been used. <br>
 This project is implemented with onion architecture and Includes two general sections: ui and api.
 Its ui is implemented with razor page and Its api is implemented as a restful api .<br>
-* Libraries and files uploaded in the project are not pushed to Github.
+* Libraries and files uploaded in the project are not pushed to Github.<br>
+ <a href="http://panimusic.ir">panimusic.ir</a> <br>
+  <a href="http://api.panimusic.ir/swagger">api.panimusic.ir/swagger</a>
 <h2>Front-end items used</h2>
 Languages :
 <ul>
