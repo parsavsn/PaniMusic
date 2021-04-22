@@ -39,6 +39,7 @@ Features :
 <li>Cookie-based authentication (for razor page)</li>
 <li>Token-based authentication (with jwt)</li>
 <li>Claim-based authorization</li>
+<li>email confirmation and forget password systems</li>
 <li>Swagger</li>
 <li>Ef core code-first (use sql server)</li>
 </ul>
