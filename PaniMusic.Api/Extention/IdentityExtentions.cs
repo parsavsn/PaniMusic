@@ -50,6 +50,8 @@ namespace PaniMusic.Api.Extention
 
                       ValidateAudience = true,
 
+                      // Some of the following code has been deleted due to security issues
+
                       ValidAudience = "",
 
                       ValidateIssuer = true,

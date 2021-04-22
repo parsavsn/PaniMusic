@@ -17,6 +17,7 @@ namespace PaniMusic.Services.ApplicationServices.Account
         {
             using (var client = new SmtpClient())
             {
+                // Some of the following code has been deleted due to security issues
 
                 var credentials = new NetworkCredential()
                 {
@@ -32,7 +33,7 @@ namespace PaniMusic.Services.ApplicationServices.Account
                 using var emailMessage = new MailMessage()
                 {
                     To = { new MailAddress(toEmail) },
-                    From = new MailAddress("",""),
+                    From = new MailAddress("", ""),
                     Subject = subject,
                     Body = message,
                 };

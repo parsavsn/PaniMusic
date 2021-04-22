@@ -66,6 +66,8 @@ namespace PaniMusic.Api.Controllers.Account
 
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
+                // Some of the following code has been deleted due to security issues
+
                 Issuer = "",
                 Audience = "",
                 IssuedAt = DateTime.Now,

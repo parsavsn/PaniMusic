@@ -75,8 +75,6 @@ namespace PaniMusic.Api
 
             app.UseSwaggerUI(swaggerUi => swaggerUi.SwaggerEndpoint("/swagger/PaniMusic/swagger.json", "PaniMusic"));
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthentication();

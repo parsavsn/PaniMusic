@@ -67,8 +67,6 @@ namespace PaniMusic.Ui
             else
             {
                 app.UseExceptionHandler("/Error");
-                
-                app.UseHsts();
             }
 
             app.Use(async (context, next) =>
@@ -80,8 +78,6 @@ namespace PaniMusic.Ui
                     await next();
                 }
             });
-
-            app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 

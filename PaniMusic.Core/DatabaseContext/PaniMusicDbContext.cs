@@ -14,11 +14,6 @@ namespace PaniMusic.Core.DatabaseContext
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(local);Database=PaniMusicDB;Trusted_Connection=True");
-        }
-
         public DbSet<Album> Albums { get; set; }
 
         public DbSet<Artist> Artists { get; set; }
