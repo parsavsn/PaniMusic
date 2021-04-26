@@ -3,8 +3,12 @@ This is a music website project that is currently being published on the panimus
 This project is implemented with onion architecture and Includes two general sections: ui and api.
 Its ui is implemented with razor page and Its api is implemented as a restful api .<br>
 * Libraries and files uploaded in the project are not pushed to Github.<br>
- <a href="http://panimusic.ir">panimusic.ir</a> <br>
-  <a href="http://api.panimusic.ir/swagger">api.panimusic.ir/swagger</a>
+<a href="http://panimusic.ir">panimusic.ir</a> <br>
+<a href="http://api.panimusic.ir/swagger">api.panimusic.ir/swagger</a> <br><br>
+To view the features of the admin panel: <br>
+<a href="http://panimusic.ir/PaniAdmin">http://panimusic.ir/PaniAdmin</a> <br>
+user : admin@gmail.com <br>
+password : admin98765
 <h2>Front-end items used</h2>
 Languages :
 <ul>
